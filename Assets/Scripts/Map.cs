@@ -41,6 +41,8 @@ public class Map : Singleton<Map> {
         tileNew.InitCoords(y, x);
 
         dictTiles[y].Add(x, tileNew);
+
+        MapGenerator.Get().PopulateTileInfo(tileNew.GetComponent<TileInfo>(), y, x);
     }
 
     public void SpawnEntity(Tile tile) {
@@ -73,6 +75,7 @@ public class Map : Singleton<Map> {
 
                 SpawnTile(y, x);
 
+
             }
 
         }
@@ -81,20 +84,25 @@ public class Map : Singleton<Map> {
 
     public void ClearMap() {
 
-        foreach(Entity ent in lstEntities) {
-            GameObject.DestroyImmediate(ent.gameObject);
-        }
+        if (lstEntities != null) {
 
-        lstEntities = null;
-
-        foreach(int y in dictTiles.Keys) {
-
-            foreach(int x in dictTiles[y].Keys) {
-                GameObject.DestroyImmediate(dictTiles[y][x].gameObject);
+            foreach (Entity ent in lstEntities) {
+                GameObject.DestroyImmediate(ent.gameObject);
             }
 
+            lstEntities = null;
         }
-        dictTiles = null;
+
+        if (dictTiles != null) {
+            foreach (int y in dictTiles.Keys) {
+
+                foreach (int x in dictTiles[y].Keys) {
+                    GameObject.DestroyImmediate(dictTiles[y][x].gameObject);
+                }
+
+            }
+            dictTiles = null;
+        }
     }
 
     public void SpawnRandomEntity() {

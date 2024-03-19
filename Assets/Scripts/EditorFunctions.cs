@@ -17,6 +17,8 @@ public class EditorFunctions : EditorWindow {
             ClearMap();
         } else if (GUILayout.Button("Spawn Random Entity")) {
             SpawnRandomEntity();
+        } else if (GUILayout.Button("Update Random Seed")) {
+            UpdateRandomSeed();
         }
     }
 
@@ -42,5 +44,13 @@ public class EditorFunctions : EditorWindow {
         Map.Get().SpawnRandomEntity();
 
         Debug.Log("Random Entity Spawned");
+    }
+
+    private void UpdateRandomSeed() {
+        Debug.Log("Updating Random Seed");
+
+        MapGenerator.Get().UpdateSeed();
+
+        Debug.Log("Random Seed Update");
     }
 }

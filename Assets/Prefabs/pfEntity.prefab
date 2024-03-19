@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5513055914088933089}
   - component: {fileID: 8226405228871791079}
+  - component: {fileID: 7189029774775402870}
   m_Layer: 0
   m_Name: pfEntity
   m_TagString: Untagged
@@ -307,6 +308,22 @@ MonoBehaviour:
   tile: {fileID: 0}
   id: 0
   fTimeSinceMove: 0
+--- !u!58 &7189029774775402870
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513560143651835499}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25047505
 --- !u!1 &6286766096349978615
 GameObject:
   m_ObjectHideFlags: 0

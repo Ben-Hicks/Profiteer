@@ -35,7 +35,7 @@ public class Entity : MonoBehaviour {
     }
 
     public void MoveToTile(Tile _tile) {
-        if(_tile == null) {
+        if (_tile == null) {
             Debug.LogError("Cannot move to a null tile");
             return;
         }
@@ -62,6 +62,20 @@ public class Entity : MonoBehaviour {
 
     public void InitOnTile(Tile _tile) {
         SetTile(_tile);
+    }
+
+    public override string ToString() {
+        return string.Format("Entity {0}", id);
+    }
+
+    public void OnMouseEnter() {
+        Debug.LogFormat("Entered Entity {0}", id);
+        InfoPanel.Get().SetInfo(ToString());
+    }
+
+    public void OnMouseExit() {
+        Debug.LogFormat("Left Entity {0}", id);
+        InfoPanel.Get().ClearInfo();
     }
 
     //Temp
