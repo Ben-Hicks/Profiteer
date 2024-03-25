@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Coordinates  {
 
-    public int y, x;
+    public int x, y;
 
-    public Coordinates(int _y, int _x) {
-        if((_y + _x)%2 == 1) {
-            Debug.LogErrorFormat("ERROR!: cannot make coordinate ({0}, {1})", _y, _x);
-            return;
-        }
-        y = _y;
+    public Coordinates(int _x, int _y) {
+
         x = _x;
+        y = _y;
     }
 
     public override string ToString() {
-        return string.Format("({0},{1})", y, x);
+        return string.Format("({0},{1})", x, y);
     }
 }

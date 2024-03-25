@@ -16,13 +16,38 @@ public class Tile : MonoBehaviour {
     public TileInfo tileinfo;
     public Entity ent;
 
-    
-    public void InitCoords(int y, int x) {
-        coords = new Coordinates(y, x);
+    public Tile[] arAdj;
+    public Tile U {
+        get { return arAdj[(int)Dir.U]; }
+        set { arAdj[(int)Dir.U] = value; }
+    }
+    public Tile UR {
+        get { return arAdj[(int)Dir.UR]; }
+        set { arAdj[(int)Dir.UR] = value; }
+    }
+    public Tile DR {
+        get { return arAdj[(int)Dir.DR]; }
+        set { arAdj[(int)Dir.DR] = value; }
+    }
+    public Tile D {
+        get { return arAdj[(int)Dir.D]; }
+        set { arAdj[(int)Dir.D] = value; }
+    }
+    public Tile DL {
+        get { return arAdj[(int)Dir.DL]; }
+        set { arAdj[(int)Dir.DL] = value; }
+    }
+    public Tile UL {
+        get { return arAdj[(int)Dir.UL]; }
+        set { arAdj[(int)Dir.UL] = value; }
+    }
 
-        gameObject.transform.localPosition = new Vector3(x * Map.Get().fTileWidth, y * Map.Get().fTileHeight, 0f);
+    public void InitCoords(int x, int y) {
+        coords = new Coordinates(x, y);
 
-        UpdateTileVisuals();
+        gameObject.transform.localPosition = new Vector3(x * Map.Get().fTileWidth, 
+             y * Map.Get().fTileHeight + (x % 2 == 0 ? 0 : 0.5f), 0f);
+        
     }
 
     public void OnMouseEnter() {
@@ -39,11 +64,12 @@ public class Tile : MonoBehaviour {
     }
 
     public void UpdateTileVisuals() {
-        txtTileTypeLabel.text = tileinfo.arnPropertyValues[(int)TileInfoProperties.Elevation].ToString();
-        txtDebugLabel.text = tileinfo.arnPropertyValues[(int)TileInfoProperties.Temperature].ToString();
+        //txtTileTypeLabel.text = tileinfo.arnPropertyValues[(int)TileInfoProperties.Elevation].ToString();
+        //txtDebugLabel.text = tileinfo.arnPropertyValues[(int)TileInfoProperties.Temperature].ToString();
         txtCoordsLabel.text = coords.ToString();
 
         DisplayBiome();
+        txtDebugLabel.text = string.Format("{0} ({1})", tileinfo.nColumnAccordingToThread, tileinfo.iThreadMadeBy);
     }
 
     public void DisplayBiome() {
@@ -51,7 +77,7 @@ public class Tile : MonoBehaviour {
     }
 
     public void DisplayProperty(TileInfoProperties property) {
-        txtDebugLabel.text = tileinfo.arnPropertyValues[(int)property].ToString();
+        if (tileinfo.arnPropertyValues == null) return;
 
         sprren.color = MapGenerator.Get().GetPropertyColour(property, tileinfo.arnPropertyValues[(int)property]);
     }

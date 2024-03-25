@@ -13,12 +13,16 @@ public class EditorFunctions : EditorWindow {
     private void OnGUI() {
         if (GUILayout.Button("Create Map")) {
             CreateMap();
+        } else if (GUILayout.Button("Populate Map")) {
+            PopulateMap();
         } else if (GUILayout.Button("Clear Map")) {
             ClearMap();
         } else if (GUILayout.Button("Spawn Random Entity")) {
             SpawnRandomEntity();
         } else if (GUILayout.Button("Update Random Seed")) {
             UpdateRandomSeed();
+        } else if (GUILayout.Button("Check lstTile size")) {
+            CheckLstTileSize();
         }
     }
 
@@ -29,6 +33,15 @@ public class EditorFunctions : EditorWindow {
 
         Debug.Log("Map Creation Complete");
     }
+
+    private void PopulateMap() {
+        Debug.Log("Populating Map");
+
+        Map.Get().PopulateMap();
+
+        Debug.Log("Map Population Complete");
+    }
+
 
     private void ClearMap() {
         Debug.Log("Clearing Map");
@@ -52,5 +65,12 @@ public class EditorFunctions : EditorWindow {
         MapGenerator.Get().UpdateSeed();
 
         Debug.Log("Random Seed Update");
+    }
+
+    private void CheckLstTileSize() {
+        Debug.LogFormat("lstTiles = {0}", Map.Get().lstTiles);
+        if (Map.Get().lstTiles != null) {
+            Debug.LogFormat("lstTiles.Count = {0}", Map.Get().lstTiles.Count);
+        }
     }
 }

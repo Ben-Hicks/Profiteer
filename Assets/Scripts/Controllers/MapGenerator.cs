@@ -74,26 +74,31 @@ public class MapGenerator : Singleton<MapGenerator> {
         return lstBiomeGenerators[(int)biometype].colBiome;
     }
 
-    public int GenerateProperty(int y, int x, TilePropertyGenerator generator) {
+    public int GenerateProperty(int x, int y, TilePropertyGenerator generator) {
         float fPerlin = Mathf.PerlinNoise(
-            y / generator.fPerlinRegionSize + generator.fPerlinOffset + fRandomOffset,
-            x / generator.fPerlinRegionSize + generator.fPerlinOffset + fRandomOffset);
-        
+            x / generator.fPerlinRegionSize + generator.fPerlinOffset + fRandomOffset,
+            y / generator.fPerlinRegionSize + generator.fPerlinOffset + fRandomOffset);
+
+
+        //Debug.LogFormat("({0},{1}) generated {2} of type {3}", x, y, fPerlin, generator.sName);
+
         return (int)Mathf.Lerp(generator.nMinValue, generator.nMaxValue, fPerlin);
     }
 
-    public void PopulateTileInfo(TileInfo tileinfo, int y, int x) {
+    public void PopulateTileInfo(TileInfo tileinfo) {
 
         tileinfo.arnPropertyValues = new int[(int)TileInfoProperties.LENGTH];
         tileinfo.arfBiomeScores = new float[(int)BiomeType.LENGTH];
 
         for(int i=0; i<(int)TileInfoProperties.LENGTH; i++) {
-            tileinfo.arnPropertyValues[i] = GenerateProperty(y, x, lstPropertyGenerators[i]);
+            tileinfo.arnPropertyValues[i] = GenerateProperty(tileinfo.tile.coords.x, tileinfo.tile.coords.y, lstPropertyGenerators[i]);
+            if(i == (int)TileInfoProperties.Temperature) {
+                //Debug.LogFormat("Column {0} generates temp {1}", tileinfo.tile.coords.x, tileinfo.arnPropertyValues[i]);
+            }
         }
 
         tileinfo.biometype = GetBestBiome(tileinfo);
-
-        tileinfo.OnUpdate();
+        
     }
 
     public BiomeType GetBestBiome(TileInfo tileinfo) {
@@ -105,9 +110,7 @@ public class MapGenerator : Singleton<MapGenerator> {
             if(fBiomeScore < fBestScore) {
                 fBestScore = fBiomeScore;
                 biometypeBest = lstBiomeGenerators[i].biometype;
-                Debug.LogFormat("New best type of {0}", biometypeBest);
             }
-            Debug.LogFormat("i={0}, arfBiomScore.length={1}", i, tileinfo.arfBiomeScores.Length);
             tileinfo.arfBiomeScores[i] = fBiomeScore;
         }
         

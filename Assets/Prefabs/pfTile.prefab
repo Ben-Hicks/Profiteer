@@ -233,6 +233,13 @@ MonoBehaviour:
   sprren: {fileID: 628363207386009517}
   tileinfo: {fileID: 4315714521939594477}
   ent: {fileID: 0}
+  arAdj:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!60 &9102420653757775321
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -277,9 +284,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 628363207497457857}
-  nElevation: 0
-  nRain: 0
-  nTemperature: 0
+  biometype: 0
+  arnPropertyValues: 
+  arfBiomeScores: []
 --- !u!1 &628363207724486707
 GameObject:
   m_ObjectHideFlags: 0

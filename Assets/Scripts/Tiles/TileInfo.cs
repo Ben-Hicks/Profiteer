@@ -10,6 +10,9 @@ public class TileInfo : MonoBehaviour {
 
     public Tile tile;
 
+    public int nColumnAccordingToThread;
+    public int iThreadMadeBy;
+
     public BiomeType biometype;
 
     public int[] arnPropertyValues;
