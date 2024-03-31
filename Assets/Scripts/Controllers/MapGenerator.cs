@@ -8,6 +8,8 @@ public class MapGenerator : Singleton<MapGenerator> {
 
     public float fRandomOffset;
 
+    public Dictionary<BiomeType, int> dictBiomeCounts = new Dictionary<BiomeType, int>();
+
     public List<TilePropertyGenerator> lstPropertyGenerators;
 
     [System.Serializable]
@@ -50,8 +52,6 @@ public class MapGenerator : Singleton<MapGenerator> {
         public BiomeType biometype;
         public List<BiomeIdealProperty> lstIdealProperties;
 
-        public Color colBiome;
-
         public float GetTotalScore(int[] arnPropertyValues) {
             float fWeightSum = 0f;
             float fScore = 0f;
@@ -68,10 +68,6 @@ public class MapGenerator : Singleton<MapGenerator> {
     public Color GetPropertyColour(TileInfoProperties property, int nValue) {
         return lstPropertyGenerators[(int)property].gradDisplay.Evaluate(
             Mathf.InverseLerp(lstPropertyGenerators[(int)property].nMinValue, lstPropertyGenerators[(int)property].nMaxValue, nValue));
-    }
-    
-    public Color GetBiomeColour(BiomeType biometype) {
-        return lstBiomeGenerators[(int)biometype].colBiome;
     }
 
     public int GenerateProperty(int x, int y, TilePropertyGenerator generator) {
@@ -91,14 +87,19 @@ public class MapGenerator : Singleton<MapGenerator> {
         tileinfo.arfBiomeScores = new float[(int)BiomeType.LENGTH];
 
         for(int i=0; i<(int)TileInfoProperties.LENGTH; i++) {
-            tileinfo.arnPropertyValues[i] = GenerateProperty(tileinfo.tile.coords.x, tileinfo.tile.coords.y, lstPropertyGenerators[i]);
+            tileinfo.arnPropertyValues[i] = GenerateProperty(tileinfo.tile.v3Coords.x, tileinfo.tile.v3Coords.y, lstPropertyGenerators[i]);
             if(i == (int)TileInfoProperties.Temperature) {
                 //Debug.LogFormat("Column {0} generates temp {1}", tileinfo.tile.coords.x, tileinfo.arnPropertyValues[i]);
             }
         }
 
         tileinfo.biometype = GetBestBiome(tileinfo);
-        
+        if (dictBiomeCounts.ContainsKey(tileinfo.biometype)) {
+            dictBiomeCounts[tileinfo.biometype] = 1 + dictBiomeCounts[tileinfo.biometype];
+        } else {
+            dictBiomeCounts.Add(tileinfo.biometype, 1);
+        }
+
     }
 
     public BiomeType GetBestBiome(TileInfo tileinfo) {
@@ -115,6 +116,14 @@ public class MapGenerator : Singleton<MapGenerator> {
         }
         
         return biometypeBest;
+    }
+
+    public void PrintBiomeCounts() {
+        Debug.Log("Printing Biome Counts:");
+        for(BiomeType iBiome = (BiomeType)0; iBiome < BiomeType.LENGTH; iBiome++) {
+            Debug.LogFormat("{0}: {1}", Biome.arsBiomeNames[(int)iBiome], dictBiomeCounts.ContainsKey(iBiome) ? dictBiomeCounts[iBiome] : 0);
+        }
+        Debug.Log("\n");
     }
 
     public void UpdateSeed() {

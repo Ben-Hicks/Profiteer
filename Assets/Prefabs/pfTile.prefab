@@ -189,9 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 628363207497457886}
-  - component: {fileID: 628363207497457857}
   - component: {fileID: 9102420653757775321}
-  - component: {fileID: 4315714521939594477}
   m_Layer: 0
   m_Name: pfTile
   m_TagString: Untagged
@@ -215,31 +213,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &628363207497457857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628363207497457856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b493b07d78bf9409e227b03885981e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txtCoordsLabel: {fileID: 628363207724486705}
-  txtTileTypeLabel: {fileID: 628363207991708469}
-  txtDebugLabel: {fileID: 628363208753854965}
-  sprren: {fileID: 628363207386009517}
-  tileinfo: {fileID: 4315714521939594477}
-  ent: {fileID: 0}
-  arAdj:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!60 &9102420653757775321
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -271,22 +244,6 @@ PolygonCollider2D:
       - {x: -0.2539392, y: -0.43318188}
       - {x: 0.25033453, y: -0.43156344}
       - {x: 0.5002785, y: -0.00044494867}
---- !u!114 &4315714521939594477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628363207497457856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11d678ea1b1c9394d82e9a90e7fd7a4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tile: {fileID: 628363207497457857}
-  biometype: 0
-  arnPropertyValues: 
-  arfBiomeScores: []
 --- !u!1 &628363207724486707
 GameObject:
   m_ObjectHideFlags: 0

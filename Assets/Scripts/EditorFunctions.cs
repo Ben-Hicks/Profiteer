@@ -21,8 +21,8 @@ public class EditorFunctions : EditorWindow {
             SpawnRandomEntity();
         } else if (GUILayout.Button("Update Random Seed")) {
             UpdateRandomSeed();
-        } else if (GUILayout.Button("Check lstTile size")) {
-            CheckLstTileSize();
+        } else if (GUILayout.Button("Print Biome Counts")) {
+            PrintBiomeCounts();
         }
     }
 
@@ -67,10 +67,8 @@ public class EditorFunctions : EditorWindow {
         Debug.Log("Random Seed Update");
     }
 
-    private void CheckLstTileSize() {
-        Debug.LogFormat("lstTiles = {0}", Map.Get().lstTiles);
-        if (Map.Get().lstTiles != null) {
-            Debug.LogFormat("lstTiles.Count = {0}", Map.Get().lstTiles.Count);
-        }
+    private void PrintBiomeCounts() {
+
+        MapGenerator.Get().PrintBiomeCounts();
     }
 }

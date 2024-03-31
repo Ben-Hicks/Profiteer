@@ -8,7 +8,7 @@ public class Entity : MonoBehaviour {
     public TextMeshProUGUI txtEntityType;
     public TextMeshProUGUI txtDebug;
 
-    public Tile tile;
+    public TileTerrain tile;
     public int id;
 
     //temp
@@ -22,19 +22,18 @@ public class Entity : MonoBehaviour {
         txtDebug.text = id.ToString();
     }
 
-    public void SetTile(Tile _tile) {
-        if (tile != null && tile.ent != this) Debug.LogError("Mismatch on tile.ent!");
+    public void SetTile(TileTerrain _tile) {
 
         Debug.LogFormat("Setting Entity {0} from {1} to {2}", id, tile, _tile);
 
         tile = _tile;
         tile.ent = this;
 
-
-        gameObject.transform.position = tile.transform.position + v3PosOffset;
+        Debug.Log("Implement Entity Positions");
+        gameObject.transform.position = tile.v3WorldPosition + v3PosOffset;
     }
 
-    public void MoveToTile(Tile _tile) {
+    public void MoveToTile(TileTerrain _tile) {
         if (_tile == null) {
             Debug.LogError("Cannot move to a null tile");
             return;
@@ -60,7 +59,7 @@ public class Entity : MonoBehaviour {
     }
 
 
-    public void InitOnTile(Tile _tile) {
+    public void InitOnTile(TileTerrain _tile) {
         SetTile(_tile);
     }
 

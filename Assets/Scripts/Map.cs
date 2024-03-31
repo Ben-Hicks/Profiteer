@@ -13,34 +13,36 @@ public class Map : Singleton<Map> {
 
     public List<Entity> lstEntities;
 
-    [System.Serializable]
+
+    //[System.Serializable]
     public class Col {
-        public List<Tile> lstTiles;
+        public List<TileTerrain> lstTiles;
         public int Count {
             get { return lstTiles.Count; }
         }
 
         public Col() {
-            lstTiles = new List<Tile>();
+            lstTiles = new List<TileTerrain>();
         }
 
-        public Tile this[int index] => this.lstTiles[index];
-        public void Add(Tile t) {
+        public TileTerrain this[int index] => this.lstTiles[index];
+        public void Add(TileTerrain t) {
             lstTiles.Add(t);
         }
     }
     public List<Col> lstTiles;
 
     public Tilemap tilemap;
+    public List<TileBase> lsttmtileTerrain;
 
-    public GameObject pfTile;
     public GameObject pfEntity;
-
-    public GameObject goMapContainer;
+    
     public GameObject goEntityContainer;
 
 
-    public Tile GetTile(int x, int y) {
+
+    public TileTerrain GetTile(int x, int y) {
+        //Debug.LogFormat("GetTile with {0},{1}", x, y);
 
         if (y < 0 || x < 0) return null;
         if (y >= nMapHeight || x >= nMapWidth) return null;
@@ -48,7 +50,7 @@ public class Map : Singleton<Map> {
         return lstTiles[x][y];
     }
 
-    public Tile GetTileInDir(Tile tile, Dir dir, int nTileDist = 1) {
+    public TileTerrain GetTileInDir(TileTerrain tile, Dir dir, int nTileDist = 1) {
         for(int i=0; i<nTileDist; i++) {
             tile = tile.arAdj[(int)dir];
         }
@@ -56,11 +58,13 @@ public class Map : Singleton<Map> {
 
     }
 
-    public void SpawnEntity(Tile tile) {
+    public void SpawnEntity(TileTerrain tile) {
         GameObject goEntityNew = GameObject.Instantiate(pfEntity, goEntityContainer.transform);
         Entity entNew = goEntityNew.GetComponent<Entity>();
 
         entNew.InitOnTile(tile);
+
+        if(lstEntities == null) lstEntities = new List<Entity>();
 
         entNew.SetId(lstEntities.Count);
         lstEntities.Add(entNew);
@@ -68,27 +72,25 @@ public class Map : Singleton<Map> {
     
 
     public void SpawnTile(int x, int y) {
-        GameObject goTileNew = GameObject.Instantiate(pfTile, goMapContainer.transform);
-        Tile tileNew = goTileNew.GetComponent<Tile>();
 
-        tileNew.InitCoords(x, y);
+        TileTerrain tileNew = new TileTerrain(this, x, y);
 
         lstTiles[x].Add(tileNew);
 
         //Set up connections to adjacents
-        Tile tileD = GetTile(x, y - 2);
+        TileTerrain tileD = GetTile(x, y - 1);
         if (tileD != null) {
             tileD.U = tileNew;
             tileNew.D = tileD;
         }
 
-        Tile tileUL = GetTile(x - 1, x % 2 == 0 ? y : y + 1);
+        TileTerrain tileUL = GetTile(x - 1, x % 2 == 0 ? y : y + 1);
         if (tileUL != null) {
             tileUL.DR = tileNew;
             tileNew.UL = tileUL;
         }
 
-        Tile tileDL = GetTile(x - 1, x % 2 == 0 ? y - 1 : y);
+        TileTerrain tileDL = GetTile(x - 1, x % 2 == 0 ? y - 1 : y);
         if (tileDL != null) {
             tileDL.UR = tileNew;
             tileNew.DL = tileDL;
@@ -105,6 +107,8 @@ public class Map : Singleton<Map> {
         //If we're at this point, we need to clear away any previous map to ensure we have a blank slate to start from
         ClearMap();
 
+        
+
         lstTiles = new List<Col>();
         
         for (int x=0; x<nMapWidth; x++) {
@@ -120,19 +124,27 @@ public class Map : Singleton<Map> {
 
     public void PopulateMap() {
 
-        
         //Threader.Get().DistributeTask<List<Tile>>(TaskType.TileInfoPopulation, lstTiles,
-        Threader.Get().DistributeTask(TaskType.TileInfoPopulation, lstTiles,
 
-            (List<Tile> lstCol) => {
-                Debug.LogFormat("Working on column {0}", lstCol[0].coords.x);
+        for (int i=0; i<lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in lstTiles[i].lstTiles) {
+                MapGenerator.Get().PopulateTileInfo(t.tileinfo);
+            }
+        }
+        UpdateAllTileVisuals();
+
+        /*Threader.Get().DistributeTask(TaskType.TileInfoPopulation, lstTiles,
+
+            (List<TileTerrain> lstCol) => {
+                Debug.LogFormat("Working on column {0}", lstCol[0].v3Coords.x);
                 //foreach (Tile t in lstCol) {
                 //    MapGenerator.Get().PopulateTileInfo(t.tileinfo);
                 //}
             }
 
             , FinishPopulateMap);
-            
+           */
     }
 
     public void FinishThreadTest() {
@@ -151,8 +163,20 @@ public class Map : Singleton<Map> {
 
         if (lstTiles != null) {
             foreach (Col col in lstTiles) {
-                foreach (Tile t in col.lstTiles) {
+                foreach (TileTerrain t in col.lstTiles) {
                     t.UpdateTileVisuals();
+                }
+            }
+        }
+    }
+
+    public void ShowTileProprties(TileInfoProperties prop) {
+        Debug.LogFormat("Showing property {0}", prop);
+
+        if (lstTiles != null) {
+            foreach (Col col in lstTiles) {
+                foreach (TileTerrain t in col.lstTiles) {
+                    t.DisplayProperty(prop);
                 }
             }
         }
@@ -168,23 +192,21 @@ public class Map : Singleton<Map> {
         }
 
         if (lstTiles != null) {
-            foreach (Col col in lstTiles) {
-                foreach (Tile t in col.lstTiles) {
-                    GameObject.DestroyImmediate(t.gameObject);
-                }
+            for(int i=0; i<lstTiles.Count; i++) {
+                lstTiles[i] = null;
             }
+            tilemap.ClearAllTiles();
             lstTiles = null;
         }
+
+        MapGenerator.Get().dictBiomeCounts.Clear();
         
     }
 
     public void SpawnRandomEntity() {
         int y = Random.Range(0, nMapHeight);
         int x = Random.Range(0, nMapWidth);
-        if ((y + x) % 2 == 1) {
-            if (x > 0) x--;
-            else x++;
-        }
+
         SpawnEntity(GetTile(x, y));
     }
 
@@ -192,7 +214,8 @@ public class Map : Singleton<Map> {
 
         SpawnMap();
 
-        //PopulateMap();
+        PopulateMap();
+
 
         /*
         if (lstEntities != null) {
@@ -203,5 +226,26 @@ public class Map : Singleton<Map> {
             SpawnEntity(dictTiles[4][4]);
         }
         */
+    }
+
+
+    public void Update() {
+
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            UpdateAllTileVisuals();
+        } else if (Input.GetKeyUp(KeyCode.Alpha1)) {
+            ShowTileProprties(TileInfoProperties.Elevation);
+        } else if (Input.GetKeyUp(KeyCode.Alpha2)) {
+            ShowTileProprties(TileInfoProperties.Wetness);
+        } else if (Input.GetKeyUp(KeyCode.Alpha3)) {
+            ShowTileProprties(TileInfoProperties.Temperature);
+        } else if (Input.GetKeyUp(KeyCode.Alpha4)) {
+            ShowTileProprties(TileInfoProperties.Life);
+        } else if (Input.GetKeyUp(KeyCode.Alpha5)) {
+            ShowTileProprties(TileInfoProperties.Goodness);
+        } else if (Input.GetKeyUp(KeyCode.Alpha6)) {
+            ShowTileProprties(TileInfoProperties.Rarity);
+        }
+
     }
 }

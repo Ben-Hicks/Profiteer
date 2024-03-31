@@ -150,6 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtInfo: {fileID: 1064088128}
+  map: {fileID: 0}
+  v3OldMousePos: {x: 0, y: 0, z: 0}
+  v3CurTilePosHovering: {x: 0, y: 0, z: 0}
 --- !u!4 &265088322
 Transform:
   m_ObjectHideFlags: 0
@@ -250,416 +253,16 @@ Tilemap:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393772113}
   m_Enabled: 1
-  m_Tiles:
-  - first: {x: -3, y: -6, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -6, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: -5, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -5, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: -4, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -4, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: -4, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: -3, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: -3, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -3, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: -3, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: -2, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: -2, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -2, z: 0}
-    second:
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: -2, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 0, y: -2, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -5, y: -1, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: -1, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: -1, z: 0}
-    second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: -1, z: 0}
-    second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: -1, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 0, y: -1, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: 0, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: 0, z: 0}
-    second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: 0, z: 0}
-    second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: 0, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 0, y: 0, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: 1, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: 1, z: 0}
-    second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: 1, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: 1, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: 2, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: 2, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: 2, z: 0}
-    second:
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -1, y: 2, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: 3, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -3, y: 3, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: 3, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -4, y: 4, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -2, y: 4, z: 0}
-    second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
+  m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray:
-  - m_RefCount: 11
-    m_Data: {fileID: 11400000, guid: c64ccb35f82cdf7428882671d61fc7b1, type: 2}
-  - m_RefCount: 16
-    m_Data: {fileID: 11400000, guid: 53bffce742dc4c747a7c6b2fdc1c5835, type: 2}
-  - m_RefCount: 7
-    m_Data: {fileID: 11400000, guid: e86128b1a9a10df4e911c91cd4d37153, type: 2}
-  - m_RefCount: 6
-    m_Data: {fileID: 11400000, guid: b3f07b41b450b1447ba905649a645f28, type: 2}
-  m_TileSpriteArray:
-  - m_RefCount: 11
-    m_Data: {fileID: -6103475775112921530, guid: 93bb3ce7acb59bb4486177fb85fb628d,
-      type: 3}
-  - m_RefCount: 16
-    m_Data: {fileID: -2845196417951187869, guid: 93bb3ce7acb59bb4486177fb85fb628d,
-      type: 3}
-  - m_RefCount: 7
-    m_Data: {fileID: -159628231387807089, guid: 93bb3ce7acb59bb4486177fb85fb628d,
-      type: 3}
-  - m_RefCount: 6
-    m_Data: {fileID: 8479866520717563939, guid: 93bb3ce7acb59bb4486177fb85fb628d,
-      type: 3}
-  m_TileMatrixArray:
-  - m_RefCount: 40
-    m_Data:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-  m_TileColorArray:
-  - m_RefCount: 40
-    m_Data: {r: 1, g: 1, b: 1, a: 1}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -5, y: -6, z: 0}
-  m_Size: {x: 6, y: 11, z: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -994,6 +597,7 @@ GameObject:
   - component: {fileID: 1343466731}
   - component: {fileID: 1343466730}
   - component: {fileID: 1343466729}
+  - component: {fileID: 1343466732}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1036,7 +640,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1066,6 +670,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1343466732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343466728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca8b79692b227346a32ec7c6fce8f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fMinDist: 0.01
+  fScrollSpeed: 6
+  fZoomSpeed: 25
+  goFocus: {fileID: 0}
+  v3Target: {x: 0, y: 0, z: 0}
+  fTargetZoom: 6
+  v3DragStart: {x: 0, y: 0, z: 0}
 --- !u!1 &1482714260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,14 +839,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fTileHeight: 0.97
   fTileWidth: 0.84
-  nMapHeight: 30
-  nMapWidth: 40
+  nMapHeight: 40
+  nMapWidth: 60
   lstEntities: []
-  lstTiles: []
-  pfTile: {fileID: 628363207497457856, guid: 646f4fdd8be110445b0d79c13fd32003, type: 3}
+  tilemap: {fileID: 393772116}
+  lsttmtileTerrain:
+  - {fileID: 11400000, guid: c64ccb35f82cdf7428882671d61fc7b1, type: 2}
+  - {fileID: 11400000, guid: 53bffce742dc4c747a7c6b2fdc1c5835, type: 2}
+  - {fileID: 11400000, guid: bde60f9d80ed2c442b4f937158ef1553, type: 2}
+  - {fileID: 11400000, guid: 563417add567c1b41a3a394d060792b7, type: 2}
+  - {fileID: 11400000, guid: b3f07b41b450b1447ba905649a645f28, type: 2}
+  - {fileID: 11400000, guid: 561873419d130424383302c1dc58d27f, type: 2}
+  - {fileID: 11400000, guid: e04f1ae51450a1b4eba04bc6c0c1a977, type: 2}
+  - {fileID: 11400000, guid: e86128b1a9a10df4e911c91cd4d37153, type: 2}
+  - {fileID: 11400000, guid: 616209057c444ac47acfa4bd73729c56, type: 2}
+  - {fileID: 11400000, guid: db3ee77f95cb0a14d9aee6241916dfcd, type: 2}
+  - {fileID: 11400000, guid: bf4fa7654dedb58489bdeea15a90dd9a, type: 2}
+  - {fileID: 11400000, guid: 2762128113f0029438054d82660be651, type: 2}
+  - {fileID: 11400000, guid: 712f634cfd26254478b5928880ec8f3c, type: 2}
+  - {fileID: 11400000, guid: 62d34cc65cbf06f46ab34deb2cb47252, type: 2}
+  - {fileID: 11400000, guid: 61732774e054521459368d5dca6d4618, type: 2}
+  - {fileID: 11400000, guid: 0a77f06d0d5df3a48935e452e369bf98, type: 2}
+  - {fileID: 11400000, guid: ee3f1ea430c4d0f498dac3ab4e1dd6b5, type: 2}
+  - {fileID: 11400000, guid: 7b398d9bedbc9ff4294b3456edbdffd9, type: 2}
+  - {fileID: 11400000, guid: 1c2d2fb2df4211f4e98aa8f151dc8bd1, type: 2}
+  - {fileID: 11400000, guid: 01f5cb5279501d84eb3bb1922e930798, type: 2}
+  - {fileID: 11400000, guid: 4fddf941696986a43a7081941fd4e0f8, type: 2}
+  - {fileID: 11400000, guid: e4431fabcbcea814ea3a638cc943f997, type: 2}
+  - {fileID: 11400000, guid: d464541b250895f40b5b95001beb038b, type: 2}
   pfEntity: {fileID: 5513560143651835499, guid: 31c9b682e2741a440aef0f73a820f8bd,
     type: 3}
-  goMapContainer: {fileID: 1257886375}
   goEntityContainer: {fileID: 1303995106}
 --- !u!4 &1590552344
 Transform:
@@ -1268,8 +913,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6ec32a471640449c2751f4d225942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nSeed: 752
-  fRandomOffset: 1304.4656
+  nSeed: 132
+  fRandomOffset: 6786.4204
   lstPropertyGenerators:
   - sName: Elevation
     fPerlinRegionSize: 15
@@ -1340,7 +985,7 @@ MonoBehaviour:
       m_NumColorKeys: 4
       m_NumAlphaKeys: 2
   - sName: Temperature
-    fPerlinRegionSize: 40
+    fPerlinRegionSize: 60
     fPerlinOffset: 5423.51
     nMinValue: -15
     nMaxValue: 40
@@ -1373,15 +1018,15 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 4
       m_NumAlphaKeys: 2
-  - sName: Hospitibleness
-    fPerlinRegionSize: 10
+  - sName: Life
+    fPerlinRegionSize: 25
     fPerlinOffset: 8634.97
-    nMinValue: -10
-    nMaxValue: 30
+    nMinValue: 0
+    nMaxValue: 15
     gradDisplay:
       serializedVersion: 2
-      key0: {r: 0.41509432, g: 0.32332048, b: 0.14293341, a: 1}
-      key1: {r: 0.8396226, g: 0.759578, b: 0.37624598, a: 1}
+      key0: {r: 0.5566038, g: 0.45975938, b: 0.118147045, a: 1}
+      key1: {r: 0.8207547, g: 0.8082872, b: 0.7471965, a: 1}
       key2: {r: 0, g: 1, b: 0.04313922, a: 0}
       key3: {r: 1, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1407,101 +1052,369 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
+  - sName: Goodness
+    fPerlinRegionSize: 60
+    fPerlinOffset: 6832.42
+    nMinValue: -10
+    nMaxValue: 10
+    gradDisplay:
+      serializedVersion: 2
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0.8396226, g: 0.759578, b: 0.37624598, a: 1}
+      key2: {r: 1, g: 1, b: 1, a: 0}
+      key3: {r: 1, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 32189
+      ctime2: 65535
+      ctime3: 65535
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 2
+  - sName: Rarity
+    fPerlinRegionSize: 10
+    fPerlinOffset: 13861.88
+    nMinValue: 0
+    nMaxValue: 100
+    gradDisplay:
+      serializedVersion: 2
+      key0: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+      key1: {r: 0.9811321, g: 0.9489715, b: 0.7913849, a: 1}
+      key2: {r: 1, g: 0.927191, b: 0, a: 0}
+      key3: {r: 1, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 52428
+      ctime2: 65535
+      ctime3: 65535
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 2
   lstBiomeGenerators:
-  - sName: Plains
+  - sName: Arctic
     biometype: 0
     lstIdealProperties:
+    - tileinfoProperty: 2
+      nIdealValue: -14
+      fWeight: 5
     - tileinfoProperty: 0
       nIdealValue: 5
       fWeight: 1
     - tileinfoProperty: 1
+      nIdealValue: 8
+      fWeight: 1
+  - sName: Tundra
+    biometype: 1
+    lstIdealProperties:
+    - tileinfoProperty: 2
+      nIdealValue: -11
+      fWeight: 5
+    - tileinfoProperty: 0
       nIdealValue: 7
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 4
+      fWeight: 1
+  - sName: Icefields
+    biometype: 2
+    lstIdealProperties:
+    - tileinfoProperty: 2
+      nIdealValue: -15
+      fWeight: 5
+    - tileinfoProperty: 0
+      nIdealValue: -1
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 13
+      fWeight: 1
+  - sName: Savannah
+    biometype: 3
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 7
+      fWeight: 1
+    - tileinfoProperty: 2
+      nIdealValue: 25
+      fWeight: 4
+    - tileinfoProperty: 3
+      nIdealValue: 7
+      fWeight: 2
+  - sName: Plains
+    biometype: 4
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 7
+      fWeight: 1
+    - tileinfoProperty: 2
+      nIdealValue: 21
+      fWeight: 4
+  - sName: Desert
+    biometype: 5
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 7
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 0
+      fWeight: 5
+    - tileinfoProperty: 2
+      nIdealValue: 36
+      fWeight: 5
+    - tileinfoProperty: 3
+      nIdealValue: 1
+      fWeight: 3
+  - sName: Wasteland
+    biometype: 6
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 7
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 3
+      fWeight: 3
+    - tileinfoProperty: 2
+      nIdealValue: 20
+      fWeight: 5
+    - tileinfoProperty: 3
+      nIdealValue: 0
+      fWeight: 3
+  - sName: Mesas
+    biometype: 7
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 19
+      fWeight: 4
+    - tileinfoProperty: 1
+      nIdealValue: 4
       fWeight: 3
     - tileinfoProperty: 2
       nIdealValue: 22
       fWeight: 4
-    colBiome: {r: 0.8490566, g: 0.73713374, b: 0.16420433, a: 1}
-  - sName: Desert
-    biometype: 1
+  - sName: Volcanic
+    biometype: 8
     lstIdealProperties:
     - tileinfoProperty: 0
+      nIdealValue: 21
+      fWeight: 4
+    - tileinfoProperty: 1
       nIdealValue: 3
       fWeight: 1
-    - tileinfoProperty: 1
-      nIdealValue: 1
-      fWeight: 4
     - tileinfoProperty: 2
-      nIdealValue: 30
-      fWeight: 6
+      nIdealValue: 38
+      fWeight: 5
     - tileinfoProperty: 3
-      nIdealValue: 0
-      fWeight: 2
-    colBiome: {r: 1, g: 0.95122164, b: 0.11792451, a: 1}
-  - sName: Arctic
-    biometype: 2
-    lstIdealProperties:
-    - tileinfoProperty: 2
-      nIdealValue: -12
-      fWeight: 6
-    - tileinfoProperty: 3
-      nIdealValue: 0
-      fWeight: 1
-    colBiome: {r: 0.8204432, g: 0.9716981, b: 0.9655227, a: 1}
-  - sName: Mountains
-    biometype: 3
-    lstIdealProperties:
-    - tileinfoProperty: 0
-      nIdealValue: 22
-      fWeight: 4
-    - tileinfoProperty: 3
-      nIdealValue: 5
-      fWeight: 1
-    colBiome: {r: 0.4433962, g: 0.41202384, b: 0.41202384, a: 1}
-  - sName: Wasteland
-    biometype: 4
-    lstIdealProperties:
-    - tileinfoProperty: 0
-      nIdealValue: 3
-      fWeight: 1
-    - tileinfoProperty: 1
       nIdealValue: 2
-      fWeight: 4
+      fWeight: 1
+  - sName: Ashland
+    biometype: 9
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 21
+      fWeight: 2
+    - tileinfoProperty: 1
+      nIdealValue: 3
+      fWeight: 2
+    - tileinfoProperty: 2
+      nIdealValue: 32
+      fWeight: 5
     - tileinfoProperty: 3
-      nIdealValue: -8
-      fWeight: 4
-    colBiome: {r: 0.1792453, g: 0.08877715, b: 0.08877715, a: 1}
-  - sName: Grassland
-    biometype: 5
+      nIdealValue: 2
+      fWeight: 2
+  - sName: Forest
+    biometype: 10
     lstIdealProperties:
     - tileinfoProperty: 0
       nIdealValue: 10
       fWeight: 1
     - tileinfoProperty: 1
-      nIdealValue: 7
+      nIdealValue: 8
       fWeight: 2
     - tileinfoProperty: 2
-      nIdealValue: 15
-      fWeight: 5
-    - tileinfoProperty: 3
-      nIdealValue: 20
+      nIdealValue: 21
       fWeight: 3
-    colBiome: {r: 0.104001164, g: 1, b: 0, a: 1}
-  - sName: Forest
-    biometype: 6
+    - tileinfoProperty: 3
+      nIdealValue: 10
+      fWeight: 4
+  - sName: Cursewoods
+    biometype: 11
     lstIdealProperties:
     - tileinfoProperty: 0
       nIdealValue: 8
       fWeight: 1
     - tileinfoProperty: 1
+      nIdealValue: 8
+      fWeight: 2
+    - tileinfoProperty: 2
       nIdealValue: 10
+      fWeight: 2
+    - tileinfoProperty: 3
+      nIdealValue: 11
+      fWeight: 4
+    - tileinfoProperty: 4
+      nIdealValue: -8
+      fWeight: 4
+  - sName: Jungle
+    biometype: 12
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 9
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 11
+      fWeight: 4
+    - tileinfoProperty: 2
+      nIdealValue: 34
+      fWeight: 4
+    - tileinfoProperty: 3
+      nIdealValue: 14
+      fWeight: 4
+  - sName: Greatwoods
+    biometype: 13
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 14
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 8
       fWeight: 3
     - tileinfoProperty: 2
-      nIdealValue: 22
-      fWeight: 5
-    - tileinfoProperty: 3
       nIdealValue: 20
       fWeight: 3
-    colBiome: {r: 0.09202562, g: 0.41509432, b: 0.106542714, a: 1}
+    - tileinfoProperty: 3
+      nIdealValue: 14
+      fWeight: 4
+    - tileinfoProperty: 4
+      nIdealValue: 7
+      fWeight: 1
+    - tileinfoProperty: 3
+      nIdealValue: 30
+      fWeight: 2
+  - sName: Swamp
+    biometype: 14
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 3
+      fWeight: 3
+    - tileinfoProperty: 1
+      nIdealValue: 11
+      fWeight: 3
+    - tileinfoProperty: 2
+      nIdealValue: 18
+      fWeight: 2
+    - tileinfoProperty: 3
+      nIdealValue: 10
+      fWeight: 3
+    - tileinfoProperty: 4
+      nIdealValue: -4
+      fWeight: 2
+  - sName: Valley
+    biometype: 15
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: -5
+      fWeight: 4
+    - tileinfoProperty: 1
+      nIdealValue: 4
+      fWeight: 2
+  - sName: Highlands
+    biometype: 16
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 18
+      fWeight: 5
+  - sName: Mountains
+    biometype: 17
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 22
+      fWeight: 5
+  - sName: Grasslands
+    biometype: 18
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 8
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 7
+      fWeight: 2
+    - tileinfoProperty: 2
+      nIdealValue: 18
+      fWeight: 3
+  - sName: Meadows
+    biometype: 19
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: 8
+      fWeight: 1
+    - tileinfoProperty: 1
+      nIdealValue: 8
+      fWeight: 2
+    - tileinfoProperty: 2
+      nIdealValue: 20
+      fWeight: 3
+    - tileinfoProperty: 3
+      nIdealValue: 11
+      fWeight: 3
+    - tileinfoProperty: 4
+      nIdealValue: 8
+      fWeight: 2
+  - sName: River
+    biometype: 20
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: -7
+      fWeight: 3
+    - tileinfoProperty: 1
+      nIdealValue: 13
+      fWeight: 5
+  - sName: Lake
+    biometype: 21
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: -7
+      fWeight: 3
+    - tileinfoProperty: 1
+      nIdealValue: 14
+      fWeight: 5
+  - sName: Ocean
+    biometype: 22
+    lstIdealProperties:
+    - tileinfoProperty: 0
+      nIdealValue: -10
+      fWeight: 3
+    - tileinfoProperty: 1
+      nIdealValue: 14
+      fWeight: 5
 --- !u!4 &1710732141
 Transform:
   m_ObjectHideFlags: 0

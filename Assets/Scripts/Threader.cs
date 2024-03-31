@@ -22,7 +22,7 @@ public class Threader : Singleton<Threader> {
 
     public ThreadTask[] arThreadTasks;
 
-    public void DistributeTask(TaskType tasktype, List<Map.Col> lst, System.Action<List<Tile>> func, System.Action _funcFinishedTask) {
+    public void DistributeTask(TaskType tasktype, List<Map.Col> lst, System.Action<List<TileTerrain>> func, System.Action _funcFinishedTask) {
         Debug.LogFormat("Called DistributeTask for type {0}", tasktype);
 
         //Create a clean list of finished threads
@@ -54,7 +54,7 @@ public class Threader : Singleton<Threader> {
                         for (int i = iStart; i < iEnd; i++) {
                             Debug.LogFormat("Thread {0} working on column {1}", _iThread, i);
                             //func(lst[i]);
-                            foreach(Tile t in lst[i].lstTiles) {
+                            foreach(TileTerrain t in lst[i].lstTiles) {
                                 t.tileinfo.iThreadMadeBy = _iThread;
                                 t.tileinfo.nColumnAccordingToThread = i;
                                 mapgenerator.PopulateTileInfo(t.tileinfo);

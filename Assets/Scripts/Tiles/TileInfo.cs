@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TileInfoProperties { Elevation, Wetness, Temperature, Hospitableness, LENGTH };
+public enum TileInfoProperties { Elevation, Wetness, Temperature, Life, Goodness, Rarity, LENGTH };
 
-public class TileInfo : MonoBehaviour {
+public class TileInfo {
 
-    public static readonly string[] arsPropertyNames = { "Elevation", "Wetness", "Temperature", "Hospitableness", "LENGTH" };
+    public static readonly string[] arsPropertyNames = { "Elevation", "Wetness", "Temperature", "Life", "Goodness", "Rarity", "LENGTH" };
 
-    public Tile tile;
+    public TileTerrain tile;
 
     public int nColumnAccordingToThread;
     public int iThreadMadeBy;
@@ -17,6 +17,10 @@ public class TileInfo : MonoBehaviour {
 
     public int[] arnPropertyValues;
     public float[] arfBiomeScores;
+
+    public TileInfo(TileTerrain _tile) {
+        tile = _tile;
+    }
 
     public void OnUpdate() {
         tile.UpdateTileVisuals();
