@@ -23,7 +23,9 @@ public class InfoPanel : Singleton<InfoPanel> {
             return;
         }
 
-        string sInfo = string.Format("Type: {0}", Biome.arsBiomeNames[(int)tile.tileinfo.biometype]);
+        string sInfo = tile.v3Coords.ToString();
+            
+        sInfo += string.Format("\nType: {0}", Biome.arsBiomeNames[(int)tile.tileinfo.biometype]);
 
         for(int i=0; i<(int)TileInfoProperties.LENGTH; i++) {
             sInfo += string.Format("\n{0}: {1}", TileInfo.arsPropertyNames[i], tile.tileinfo.arnPropertyValues[i]);
@@ -50,7 +52,7 @@ public class InfoPanel : Singleton<InfoPanel> {
         if(v3OldMousePos != Input.mousePosition) {
             Vector3 v3MouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Vector3Int v3NewTilePosHovering = map.tilemap.WorldToCell(v3MouseWorldPos);
+            Vector3Int v3NewTilePosHovering = map.tilemapTerrain.WorldToCell(v3MouseWorldPos);
             if(v3CurTilePosHovering != v3NewTilePosHovering) {
                 v3CurTilePosHovering = v3NewTilePosHovering;
                 SetInfo(map.GetTile(v3CurTilePosHovering.y, v3CurTilePosHovering.x));

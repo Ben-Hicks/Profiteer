@@ -15,8 +15,18 @@ public class EditorFunctions : EditorWindow {
             CreateMap();
         } else if (GUILayout.Button("Populate Map")) {
             PopulateMap();
-        } else if (GUILayout.Button("Clear Map")) {
-            ClearMap();
+        } else if (GUILayout.Button("Create Water")) {
+            CreateWater();
+        } else if (GUILayout.Button("Assign Biomes")) {
+            AssignBiomes();
+        } else if (GUILayout.Button("Assign Elevation Multis")) {
+            AssignElevationMultis();
+        } else if (GUILayout.Button("Assign Forest Multis")) {
+            AssignForestMultis();
+        } else if (GUILayout.Button("Assign City Multis")) {
+            AssignCityMultis();
+        } else if (GUILayout.Button("Full Map Generation")) {
+            AssignCityMultis();
         } else if (GUILayout.Button("Spawn Random Entity")) {
             SpawnRandomEntity();
         } else if (GUILayout.Button("Update Random Seed")) {
@@ -37,11 +47,73 @@ public class EditorFunctions : EditorWindow {
     private void PopulateMap() {
         Debug.Log("Populating Map");
 
-        Map.Get().PopulateMap();
+        MapGenerator.Get().PopulateAllTileInfos();
+        Map.Get().UpdateAllTileVisuals();
 
         Debug.Log("Map Population Complete");
     }
 
+    private void CreateWater() {
+        Debug.Log("Creating Water");
+
+        MapGenerator.Get().CreateWater();
+        Map.Get().UpdateAllTileVisuals();
+
+        Debug.Log("Water Creating Complete");
+    }
+
+    private void AssignBiomes() {
+        Debug.Log("Assigning Biomes");
+
+        MapGenerator.Get().AssignAllBiomes();
+        Map.Get().UpdateAllTileVisuals();
+
+        Debug.Log("Biomes Assigning Complete");
+    }
+
+    private void AssignElevationMultis() {
+        Debug.Log("Assigning Elevation Multis");
+
+        MapGenerator.Get().AssignAllElevationMultis();
+        Map.Get().UpdateAllTileVisuals();
+
+        Debug.Log("Elevation Multis Assigning Complete");
+    }
+
+    private void AssignForestMultis() {
+        Debug.Log("Assigning Forest Multis");
+
+        MapGenerator.Get().AssignAllForestMultis();
+        Map.Get().UpdateAllTileVisuals();
+
+        Debug.Log("Forest Multis Assigning Complete");
+    }
+
+    private void AssignCityMultis() {
+        Debug.Log("Assigning City Multis");
+
+        MapGenerator.Get().AssignAllCityMultis();
+        Map.Get().UpdateAllTileVisuals();
+
+        Debug.Log("City Multis Assigning Complete");
+    }
+
+    private void AssignFeatures() {
+        Debug.Log("Assigning Features");
+
+        MapGenerator.Get().AssignAllFeatures();
+        Map.Get().UpdateAllTileVisuals();
+
+        Debug.Log("Feature Assigning Complete");
+    }
+
+    private void FullMapGeneration() {
+        Debug.Log("Generating Full Map");
+
+        Map.Get().FullMapGeneration();
+
+        Debug.Log("Full Map Generation Complete");
+    }
 
     private void ClearMap() {
         Debug.Log("Clearing Map");

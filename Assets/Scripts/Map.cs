@@ -32,8 +32,16 @@ public class Map : Singleton<Map> {
     }
     public List<Col> lstTiles;
 
-    public Tilemap tilemap;
+    public Tilemap tilemapTerrain;
+    public Tilemap tilemapElevation;
+    public Tilemap tilemapForests;
+    public Tilemap tilemapRivers;
+    public Tilemap tilemapCities;
     public List<TileBase> lsttmtileTerrain;
+    public List<TileBase> lsttmtileElevation;
+    public List<TileBase> lsttmtileForests;
+    public List<TileBase> lsttmtileRivers;
+    public List<TileBase> lsttmtileCities;
 
     public GameObject pfEntity;
     
@@ -51,11 +59,74 @@ public class Map : Singleton<Map> {
     }
 
     public TileTerrain GetTileInDir(TileTerrain tile, Dir dir, int nTileDist = 1) {
-        for(int i=0; i<nTileDist; i++) {
+        for (int i=0; i<nTileDist; i++) {
+            if (tile == null) return null;
             tile = tile.arAdj[(int)dir];
         }
         return tile;
 
+    }
+
+    public delegate Y Combiner<Y>(TileTerrain t, Y y);
+
+    public Y FoldHex1<Y>(TileTerrain tileCenter, Y yBase, Combiner<Y> combiner) {
+        yBase = combiner(tileCenter, yBase);
+
+        foreach (TileTerrain tileAdj in tileCenter.arAdj) {
+            if (tileAdj != null) {
+                yBase = combiner(tileAdj, yBase);
+            }
+        }
+
+        return yBase;
+    }
+
+    public Y FoldHex2<Y>(TileTerrain tileCenter, Y yBase, Combiner<Y> combiner) {
+        yBase = combiner(tileCenter, yBase);
+
+        foreach(Dir dir in Direction.arAllDirs) {
+            TileTerrain tileAdj = GetTileInDir(tileCenter, dir);
+            if (tileAdj != null) {
+                combiner(tileAdj, yBase);
+
+                TileTerrain tileAdj2nd = GetTileInDir(tileAdj, dir);
+                if (tileAdj2nd != null) {
+                    combiner(tileAdj2nd, yBase);
+                }
+
+                tileAdj2nd = GetTileInDir(tileAdj, Direction.Next(dir));
+                if (tileAdj2nd != null) {
+                    combiner(tileAdj2nd, yBase);
+                }
+            }
+        }
+        
+        return yBase;
+    }
+
+    //Note: Won't perfectly inspect all tiles if they're very close to the edge of the map
+    public Y FoldHex4<Y>(TileTerrain tileCenter, Y yBase, Combiner<Y> combiner) {
+        yBase = FoldHex2<Y>(tileCenter, yBase, combiner);
+
+        foreach (Dir dir in Direction.arAllDirs) {
+            TileTerrain tileRecursiveCenter = GetTileInDir(tileCenter, dir, 3);
+            if (tileRecursiveCenter != null) {
+
+                yBase = FoldHex2(tileRecursiveCenter, yBase, combiner);
+
+                TileTerrain tileGap = GetTileInDir(GetTileInDir(tileCenter, dir), Direction.Next(dir));
+                if (tileGap != null) {
+                    combiner(tileGap, yBase);
+                }
+
+                tileGap = GetTileInDir(GetTileInDir(tileGap, dir), Direction.Next(dir));
+                if (tileGap != null) {
+                    combiner(tileGap, yBase);
+                }
+            }
+        }
+
+        return yBase;
     }
 
     public void SpawnEntity(TileTerrain tile) {
@@ -122,17 +193,7 @@ public class Map : Singleton<Map> {
         }
     }
 
-    public void PopulateMap() {
-
-        //Threader.Get().DistributeTask<List<Tile>>(TaskType.TileInfoPopulation, lstTiles,
-
-        for (int i=0; i<lstTiles.Count; i++) {
-            //Debug.LogFormat("Working on column {0}", i);
-            foreach (TileTerrain t in lstTiles[i].lstTiles) {
-                MapGenerator.Get().PopulateTileInfo(t.tileinfo);
-            }
-        }
-        UpdateAllTileVisuals();
+    public void Unused() {
 
         /*Threader.Get().DistributeTask(TaskType.TileInfoPopulation, lstTiles,
 
@@ -158,6 +219,15 @@ public class Map : Singleton<Map> {
         //SetBiomes();
     }
 
+
+    public void FullMapGeneration() {
+        SpawnMap();
+
+        MapGenerator.Get().PopulateAllTileInfos();
+        MapGenerator.Get().AssignAllBiomes();
+
+        UpdateAllTileVisuals();
+    }
 
     public void UpdateAllTileVisuals() {
 
@@ -195,7 +265,8 @@ public class Map : Singleton<Map> {
             for(int i=0; i<lstTiles.Count; i++) {
                 lstTiles[i] = null;
             }
-            tilemap.ClearAllTiles();
+            tilemapTerrain.ClearAllTiles();
+            tilemapElevation.ClearAllTiles();
             lstTiles = null;
         }
 
@@ -212,9 +283,7 @@ public class Map : Singleton<Map> {
 
     public override void Init() {
 
-        SpawnMap();
-
-        PopulateMap();
+        FullMapGeneration();
 
 
         /*

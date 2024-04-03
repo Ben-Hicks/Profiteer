@@ -47,7 +47,7 @@ public class TileTerrain {
         v3Coords = new Vector3Int(y, x, 0);
         arAdj = new TileTerrain[6];
         tileinfo = new TileInfo(this);
-        v3WorldPosition = map.tilemap.CellToWorld(v3Coords);
+        v3WorldPosition = map.tilemapTerrain.CellToWorld(v3Coords);
     }
     
     public override string ToString() {
@@ -56,12 +56,19 @@ public class TileTerrain {
 
     public void UpdateTileVisuals() {
         DisplayBiome();
+        DisplayElevation();
     }
 
     public void DisplayBiome() {
-        map.tilemap.SetTile(v3Coords, map.lsttmtileTerrain[(int)tileinfo.biometype]);
-        map.tilemap.SetTileFlags(v3Coords, TileFlags.None);
-        map.tilemap.SetColor(v3Coords, Color.white);
+        map.tilemapTerrain.SetTile(v3Coords, map.lsttmtileTerrain[(int)tileinfo.biometype]);
+        map.tilemapTerrain.SetTileFlags(v3Coords, TileFlags.None);
+        map.tilemapTerrain.SetColor(v3Coords, Color.white);
+    }
+
+    public void DisplayElevation() {
+        map.tilemapElevation.SetTile(v3Coords, map.lsttmtileElevation[(int)tileinfo.elevationtype]);
+        map.tilemapElevation.SetTileFlags(v3Coords, TileFlags.None);
+        map.tilemapElevation.SetColor(v3Coords, Color.white);
     }
 
     public void DisplayProperty(TileInfoProperties property) {
@@ -69,9 +76,9 @@ public class TileTerrain {
 
         //Debug.LogFormat("Setting colour {0}", MapGenerator.Get().GetPropertyColour(property, tileinfo.arnPropertyValues[(int)property]));
 
-        map.tilemap.SetTile(v3Coords, map.lsttmtileTerrain[0]);
-        map.tilemap.SetTileFlags(v3Coords, TileFlags.None);
-        map.tilemap.SetColor(v3Coords, MapGenerator.Get().GetPropertyColour(property, tileinfo.arnPropertyValues[(int)property]));
+        map.tilemapTerrain.SetTile(v3Coords, map.lsttmtileTerrain[0]);
+        map.tilemapTerrain.SetTileFlags(v3Coords, TileFlags.None);
+        map.tilemapTerrain.SetColor(v3Coords, MapGenerator.Get().GetPropertyColour(property, tileinfo.arnPropertyValues[(int)property]));
     }
 
     

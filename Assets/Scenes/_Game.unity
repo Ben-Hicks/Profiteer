@@ -255,14 +255,50 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: NaN
+      e01: NaN
+      e02: 1
+      e03: 1
+      e10: NaN
+      e11: NaN
+      e12: 0
+      e13: 2.56e-43
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: 6.0681878e+26, g: 6.0681878e+26, b: 6.0681878e+26, a: 6.0681878e+26}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Size: {x: 200, y: 278, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -497,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -730,9 +766,160 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 393772114}
+  - {fileID: 1541783040}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1541783039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541783040}
+  - component: {fileID: 1541783042}
+  - component: {fileID: 1541783041}
+  m_Layer: 0
+  m_Name: TilemapElevation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1541783040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541783039}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1482714262}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!483693784 &1541783041
+TilemapRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541783039}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_ChunkSize: {x: 32, y: 32, z: 32}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_MaxChunkCount: 16
+  m_MaxFrameAge: 16
+  m_SortOrder: 0
+  m_Mode: 0
+  m_DetectChunkCullingBounds: 0
+  m_MaskInteraction: 0
+--- !u!1839735485 &1541783042
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541783039}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: NaN
+      e01: NaN
+      e02: 1
+      e03: 1
+      e10: NaN
+      e11: NaN
+      e12: 0
+      e13: 2.56e-43
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: -1.310822e-32, g: -1.310822e-32, b: -1.310822e-32, a: -1.310822e-32}
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 201, y: 278, z: 1}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &1579398096
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -839,10 +1026,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fTileHeight: 0.97
   fTileWidth: 0.84
-  nMapHeight: 40
-  nMapWidth: 60
+  nMapHeight: 200
+  nMapWidth: 400
   lstEntities: []
-  tilemap: {fileID: 393772116}
+  tilemapTerrain: {fileID: 393772116}
+  tilemapElevation: {fileID: 1541783042}
+  tilemapForests: {fileID: 0}
+  tilemapRivers: {fileID: 0}
+  tilemapCities: {fileID: 0}
   lsttmtileTerrain:
   - {fileID: 11400000, guid: c64ccb35f82cdf7428882671d61fc7b1, type: 2}
   - {fileID: 11400000, guid: 53bffce742dc4c747a7c6b2fdc1c5835, type: 2}
@@ -867,6 +1058,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fddf941696986a43a7081941fd4e0f8, type: 2}
   - {fileID: 11400000, guid: e4431fabcbcea814ea3a638cc943f997, type: 2}
   - {fileID: 11400000, guid: d464541b250895f40b5b95001beb038b, type: 2}
+  lsttmtileElevation:
+  - {fileID: 11400000, guid: 7f1752b30c6307e40bcd0de0d94c19e6, type: 2}
+  - {fileID: 11400000, guid: 6eab2b3a8b82aa2458e395812aeed309, type: 2}
+  - {fileID: 11400000, guid: 935767e3b3ff63a429117ba800d6e99f, type: 2}
+  - {fileID: 11400000, guid: 9efc21a81cc8db74aaab21f7676a90f2, type: 2}
+  lsttmtileForests: []
+  lsttmtileRivers: []
+  lsttmtileCities: []
   pfEntity: {fileID: 5513560143651835499, guid: 31c9b682e2741a440aef0f73a820f8bd,
     type: 3}
   goEntityContainer: {fileID: 1303995106}
@@ -915,6 +1114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nSeed: 132
   fRandomOffset: 6786.4204
+  nValleyMaxHeight: 2
+  nHillMinHeight: 18
+  nMountainMinHeight: 22
   lstPropertyGenerators:
   - sName: Elevation
     fPerlinRegionSize: 15
@@ -1086,6 +1288,40 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
+  - sName: Population
+    fPerlinRegionSize: 10
+    fPerlinOffset: 11091.88
+    nMinValue: 0
+    nMaxValue: 100
+    gradDisplay:
+      serializedVersion: 2
+      key0: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
+      key1: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 1}
+      key2: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 0}
+      key3: {r: 1, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 65535
+      ctime3: 65535
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
   - sName: Rarity
     fPerlinRegionSize: 10
     fPerlinOffset: 13861.88
@@ -1133,6 +1369,9 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 8
       fWeight: 1
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Tundra
     biometype: 1
     lstIdealProperties:
@@ -1145,6 +1384,9 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 4
       fWeight: 1
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Icefields
     biometype: 2
     lstIdealProperties:
@@ -1157,6 +1399,9 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 13
       fWeight: 1
+    bSupportsValleys: 0
+    bSupportsHills: 0
+    bSupportsMountains: 0
   - sName: Savannah
     biometype: 3
     lstIdealProperties:
@@ -1169,6 +1414,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 7
       fWeight: 2
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Plains
     biometype: 4
     lstIdealProperties:
@@ -1178,6 +1426,9 @@ MonoBehaviour:
     - tileinfoProperty: 2
       nIdealValue: 21
       fWeight: 4
+    bSupportsValleys: 0
+    bSupportsHills: 0
+    bSupportsMountains: 0
   - sName: Desert
     biometype: 5
     lstIdealProperties:
@@ -1193,6 +1444,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 1
       fWeight: 3
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 0
   - sName: Wasteland
     biometype: 6
     lstIdealProperties:
@@ -1208,6 +1462,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 0
       fWeight: 3
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Mesas
     biometype: 7
     lstIdealProperties:
@@ -1220,6 +1477,9 @@ MonoBehaviour:
     - tileinfoProperty: 2
       nIdealValue: 22
       fWeight: 4
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Volcanic
     biometype: 8
     lstIdealProperties:
@@ -1235,6 +1495,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 2
       fWeight: 1
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Ashland
     biometype: 9
     lstIdealProperties:
@@ -1250,6 +1513,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 2
       fWeight: 2
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Forest
     biometype: 10
     lstIdealProperties:
@@ -1265,6 +1531,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 10
       fWeight: 4
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 0
   - sName: Cursewoods
     biometype: 11
     lstIdealProperties:
@@ -1283,6 +1552,9 @@ MonoBehaviour:
     - tileinfoProperty: 4
       nIdealValue: -8
       fWeight: 4
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 0
   - sName: Jungle
     biometype: 12
     lstIdealProperties:
@@ -1298,6 +1570,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 14
       fWeight: 4
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 0
   - sName: Greatwoods
     biometype: 13
     lstIdealProperties:
@@ -1319,6 +1594,9 @@ MonoBehaviour:
     - tileinfoProperty: 3
       nIdealValue: 30
       fWeight: 2
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 0
   - sName: Swamp
     biometype: 14
     lstIdealProperties:
@@ -1337,6 +1615,9 @@ MonoBehaviour:
     - tileinfoProperty: 4
       nIdealValue: -4
       fWeight: 2
+    bSupportsValleys: 0
+    bSupportsHills: 0
+    bSupportsMountains: 0
   - sName: Valley
     biometype: 15
     lstIdealProperties:
@@ -1346,18 +1627,27 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 4
       fWeight: 2
+    bSupportsValleys: 1
+    bSupportsHills: 0
+    bSupportsMountains: 0
   - sName: Highlands
     biometype: 16
     lstIdealProperties:
     - tileinfoProperty: 0
       nIdealValue: 18
       fWeight: 5
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Mountains
     biometype: 17
     lstIdealProperties:
     - tileinfoProperty: 0
       nIdealValue: 22
       fWeight: 5
+    bSupportsValleys: 0
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Grasslands
     biometype: 18
     lstIdealProperties:
@@ -1370,6 +1660,9 @@ MonoBehaviour:
     - tileinfoProperty: 2
       nIdealValue: 18
       fWeight: 3
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Meadows
     biometype: 19
     lstIdealProperties:
@@ -1388,6 +1681,9 @@ MonoBehaviour:
     - tileinfoProperty: 4
       nIdealValue: 8
       fWeight: 2
+    bSupportsValleys: 1
+    bSupportsHills: 0
+    bSupportsMountains: 0
   - sName: River
     biometype: 20
     lstIdealProperties:
@@ -1397,6 +1693,9 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 13
       fWeight: 5
+    bSupportsValleys: 1
+    bSupportsHills: 1
+    bSupportsMountains: 1
   - sName: Lake
     biometype: 21
     lstIdealProperties:
@@ -1406,6 +1705,9 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 14
       fWeight: 5
+    bSupportsValleys: 0
+    bSupportsHills: 0
+    bSupportsMountains: 0
   - sName: Ocean
     biometype: 22
     lstIdealProperties:
@@ -1415,6 +1717,9 @@ MonoBehaviour:
     - tileinfoProperty: 1
       nIdealValue: 14
       fWeight: 5
+    bSupportsValleys: 0
+    bSupportsHills: 0
+    bSupportsMountains: 0
 --- !u!4 &1710732141
 Transform:
   m_ObjectHideFlags: 0

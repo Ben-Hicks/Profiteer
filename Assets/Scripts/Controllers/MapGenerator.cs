@@ -8,6 +8,10 @@ public class MapGenerator : Singleton<MapGenerator> {
 
     public float fRandomOffset;
 
+    public int nValleyMaxHeight;
+    public int nHillMinHeight;
+    public int nMountainMinHeight;
+
     public Dictionary<BiomeType, int> dictBiomeCounts = new Dictionary<BiomeType, int>();
 
     public List<TilePropertyGenerator> lstPropertyGenerators;
@@ -52,6 +56,10 @@ public class MapGenerator : Singleton<MapGenerator> {
         public BiomeType biometype;
         public List<BiomeIdealProperty> lstIdealProperties;
 
+        public bool bSupportsValleys;
+        public bool bSupportsHills;
+        public bool bSupportsMountains;
+
         public float GetTotalScore(int[] arnPropertyValues) {
             float fWeightSum = 0f;
             float fScore = 0f;
@@ -93,7 +101,8 @@ public class MapGenerator : Singleton<MapGenerator> {
             }
         }
 
-        tileinfo.biometype = GetBestBiome(tileinfo);
+        
+        AssignBiome(tileinfo);
         if (dictBiomeCounts.ContainsKey(tileinfo.biometype)) {
             dictBiomeCounts[tileinfo.biometype] = 1 + dictBiomeCounts[tileinfo.biometype];
         } else {
@@ -102,7 +111,21 @@ public class MapGenerator : Singleton<MapGenerator> {
 
     }
 
-    public BiomeType GetBestBiome(TileInfo tileinfo) {
+    public void PopulateAllTileInfos() {
+
+        for (int i = 0; i < Map.Get().lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in Map.Get().lstTiles[i].lstTiles) {
+                PopulateTileInfo(t.tileinfo);
+            }
+        }
+    }
+
+    public void CreateWater() {
+
+    }
+
+    public void AssignBiome(TileInfo tileinfo) {
         float fBestScore = 1000f;
         BiomeType biometypeBest = BiomeType.LENGTH;
 
@@ -115,7 +138,16 @@ public class MapGenerator : Singleton<MapGenerator> {
             tileinfo.arfBiomeScores[i] = fBiomeScore;
         }
         
-        return biometypeBest;
+        tileinfo.biometype = biometypeBest;
+    }
+
+    public void AssignAllBiomes() {
+        for (int i = 0; i < Map.Get().lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in Map.Get().lstTiles[i].lstTiles) {
+                AssignBiome(t.tileinfo);
+            }
+        }
     }
 
     public void PrintBiomeCounts() {
@@ -124,6 +156,39 @@ public class MapGenerator : Singleton<MapGenerator> {
             Debug.LogFormat("{0}: {1}", Biome.arsBiomeNames[(int)iBiome], dictBiomeCounts.ContainsKey(iBiome) ? dictBiomeCounts[iBiome] : 0);
         }
         Debug.Log("\n");
+    }
+
+    public void AssignElevationMulti(TileInfo tileInfo) {
+        if(tileInfo.nElevation <= nValleyMaxHeight && lstBiomeGenerators[(int)tileInfo.biometype].bSupportsValleys) {
+            tileInfo.elevationtype = ElevationType.Valley;
+        } else if (tileInfo.nElevation >= nMountainMinHeight && lstBiomeGenerators[(int)tileInfo.biometype].bSupportsMountains) {
+            tileInfo.elevationtype = ElevationType.Mountains;
+        } else if (tileInfo.nElevation >= nHillMinHeight && lstBiomeGenerators[(int)tileInfo.biometype].bSupportsHills) {
+            tileInfo.elevationtype = ElevationType.Hills;
+        } else {
+            tileInfo.elevationtype = ElevationType.None;
+        }
+    }
+
+    public void AssignAllElevationMultis() {
+        for (int i = 0; i < Map.Get().lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in Map.Get().lstTiles[i].lstTiles) {
+                AssignElevationMulti(t.tileinfo);
+            }
+        }
+    }
+
+    public void AssignAllForestMultis() {
+
+    }
+
+    public void AssignAllCityMultis() {
+
+    }
+
+    public void AssignAllFeatures() {
+
     }
 
     public void UpdateSeed() {
