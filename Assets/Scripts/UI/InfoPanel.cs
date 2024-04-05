@@ -24,6 +24,8 @@ public class InfoPanel : Singleton<InfoPanel> {
         }
 
         string sInfo = tile.v3Coords.ToString();
+
+        sInfo += string.Format("\nRegion: {0}", tile.region.sName);
             
         sInfo += string.Format("\nType: {0}", Biome.arsBiomeNames[(int)tile.tileinfo.biometype]);
 

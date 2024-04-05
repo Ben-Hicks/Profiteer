@@ -15,6 +15,7 @@ public class TileTerrain {
     public Tile tmtile;
     public TileInfo tileinfo;
     public Entity ent;
+    public Region region;
 
     public TileTerrain[] arAdj;
     public TileTerrain U {
@@ -57,6 +58,7 @@ public class TileTerrain {
     public void UpdateTileVisuals() {
         DisplayBiome();
         DisplayElevation();
+        DisplayForest();
     }
 
     public void DisplayBiome() {
@@ -69,6 +71,12 @@ public class TileTerrain {
         map.tilemapElevation.SetTile(v3Coords, map.lsttmtileElevation[(int)tileinfo.elevationtype]);
         map.tilemapElevation.SetTileFlags(v3Coords, TileFlags.None);
         map.tilemapElevation.SetColor(v3Coords, Color.white);
+    }
+
+    public void DisplayForest() {
+        map.tilemapForest.SetTile(v3Coords, map.lsttmtileForest[(int)tileinfo.foresttype]);
+        map.tilemapForest.SetTileFlags(v3Coords, TileFlags.None);
+        map.tilemapForest.SetColor(v3Coords, Color.white);
     }
 
     public void DisplayProperty(TileInfoProperties property) {

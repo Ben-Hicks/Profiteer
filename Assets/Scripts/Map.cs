@@ -12,6 +12,8 @@ public class Map : Singleton<Map> {
     public int nMapWidth;
 
     public List<Entity> lstEntities;
+    public List<Region> lstAllRegions;
+    public Dictionary<BiomeType, List<Region>> dictRegionsByBiome;
 
 
     //[System.Serializable]
@@ -34,12 +36,12 @@ public class Map : Singleton<Map> {
 
     public Tilemap tilemapTerrain;
     public Tilemap tilemapElevation;
-    public Tilemap tilemapForests;
+    public Tilemap tilemapForest;
     public Tilemap tilemapRivers;
     public Tilemap tilemapCities;
     public List<TileBase> lsttmtileTerrain;
     public List<TileBase> lsttmtileElevation;
-    public List<TileBase> lsttmtileForests;
+    public List<TileBase> lsttmtileForest;
     public List<TileBase> lsttmtileRivers;
     public List<TileBase> lsttmtileCities;
 
@@ -191,6 +193,9 @@ public class Map : Singleton<Map> {
 
             }
         }
+
+        lstAllRegions = new List<Region>();
+        dictRegionsByBiome = new Dictionary<BiomeType, List<Region>>();
     }
 
     public void Unused() {
@@ -272,6 +277,17 @@ public class Map : Singleton<Map> {
 
         MapGenerator.Get().dictBiomeCounts.Clear();
         
+    }
+
+    public void RegisterRegion(Region region) {
+        lstAllRegions.Add(region);
+
+        if (dictRegionsByBiome.ContainsKey(region.biometype) == false) {
+            dictRegionsByBiome.Add(region.biometype, new List<Region>());
+        }
+
+        region.sName = string.Format("{0}-{1}", region.biometype, dictRegionsByBiome[region.biometype].Count);
+        dictRegionsByBiome[region.biometype].Add(region);
     }
 
     public void SpawnRandomEntity() {

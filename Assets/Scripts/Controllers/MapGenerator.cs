@@ -12,7 +12,18 @@ public class MapGenerator : Singleton<MapGenerator> {
     public int nHillMinHeight;
     public int nMountainMinHeight;
 
+    public int nForestMinLife;
+    public int nSwampMinWetness;
+    public int nSwampMaxElevation;
+    public int nGreatwoodMinLife;
+    public int nGreatwoodMinGoodness;
+    public int nCursewoordMaxGoodness;
+    public int nJungleMinTemperature;
+    public int nJungleMinWetness;
+
     public Dictionary<BiomeType, int> dictBiomeCounts = new Dictionary<BiomeType, int>();
+    public Dictionary<ElevationType, int> dictElevationCounts = new Dictionary<ElevationType, int>();
+    public Dictionary<ForestType, int> dictForestCounts = new Dictionary<ForestType, int>();
 
     public List<TilePropertyGenerator> lstPropertyGenerators;
 
@@ -73,6 +84,7 @@ public class MapGenerator : Singleton<MapGenerator> {
         }
     }
     
+    
     public Color GetPropertyColour(TileInfoProperties property, int nValue) {
         return lstPropertyGenerators[(int)property].gradDisplay.Evaluate(
             Mathf.InverseLerp(lstPropertyGenerators[(int)property].nMinValue, lstPropertyGenerators[(int)property].nMaxValue, nValue));
@@ -87,6 +99,41 @@ public class MapGenerator : Singleton<MapGenerator> {
         //Debug.LogFormat("({0},{1}) generated {2} of type {3}", x, y, fPerlin, generator.sName);
 
         return (int)Mathf.Lerp(generator.nMinValue, generator.nMaxValue, fPerlin);
+    }
+
+    public void IncrementTypeCount<T>(T type, ref Dictionary<T, int> dictCount) {
+        
+        if (dictCount.ContainsKey(type)) {
+            dictCount[type] = 1 + dictCount[type];
+        } else {
+            dictCount.Add(type, 1);
+        }
+    }
+
+    public void PrintBiomeCounts() {
+        Debug.LogFormat("Biome Counts: ");
+        for (BiomeType iBiome = (BiomeType)0; iBiome < BiomeType.LENGTH; iBiome++) {
+            Debug.LogFormat("\n{0}: {1}", Biome.arsBiomeNames[(int)iBiome], dictBiomeCounts.ContainsKey(iBiome) ? dictBiomeCounts[iBiome] : 0);
+        }
+        Debug.Log("\n");
+    }
+
+    public void PrintElevationCounts() {
+        Debug.LogFormat("Elevation Counts: ");
+        for (ElevationType iElevation = (ElevationType)0; iElevation < ElevationType.LENGTH; iElevation++) {
+            Debug.LogFormat("\n{0}: {1}", Biome.arsElevationTypeNames[(int)iElevation],
+                dictElevationCounts.ContainsKey(iElevation) ? dictElevationCounts[iElevation] : 0);
+        }
+        Debug.Log("\n");
+    }
+
+    public void PrintForestCounts() {
+        Debug.LogFormat("Forest Counts: ");
+        for (ForestType iForest = (ForestType)0; iForest < ForestType.LENGTH; iForest++) {
+            Debug.LogFormat("\n{0}: {1}", Biome.arsForestTypeNames[(int)iForest],
+                dictForestCounts.ContainsKey(iForest) ? dictForestCounts[iForest] : 0);
+        }
+        Debug.Log("\n");
     }
 
     public void PopulateTileInfo(TileInfo tileinfo) {
@@ -139,6 +186,8 @@ public class MapGenerator : Singleton<MapGenerator> {
         }
         
         tileinfo.biometype = biometypeBest;
+
+        IncrementTypeCount(tileinfo.biometype, ref dictBiomeCounts);
     }
 
     public void AssignAllBiomes() {
@@ -148,26 +197,39 @@ public class MapGenerator : Singleton<MapGenerator> {
                 AssignBiome(t.tileinfo);
             }
         }
+
+        FormAllRegions();
     }
 
-    public void PrintBiomeCounts() {
-        Debug.Log("Printing Biome Counts:");
-        for(BiomeType iBiome = (BiomeType)0; iBiome < BiomeType.LENGTH; iBiome++) {
-            Debug.LogFormat("{0}: {1}", Biome.arsBiomeNames[(int)iBiome], dictBiomeCounts.ContainsKey(iBiome) ? dictBiomeCounts[iBiome] : 0);
+    public void FormAllRegions() {
+
+        for (int i = 0; i < Map.Get().lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in Map.Get().lstTiles[i].lstTiles) {
+                if(t.region == null){
+                    Region regionNew = new Region(t);
+
+                    Map.Get().RegisterRegion(regionNew);
+                }
+            }
         }
-        Debug.Log("\n");
+
     }
 
-    public void AssignElevationMulti(TileInfo tileInfo) {
-        if(tileInfo.nElevation <= nValleyMaxHeight && lstBiomeGenerators[(int)tileInfo.biometype].bSupportsValleys) {
-            tileInfo.elevationtype = ElevationType.Valley;
-        } else if (tileInfo.nElevation >= nMountainMinHeight && lstBiomeGenerators[(int)tileInfo.biometype].bSupportsMountains) {
-            tileInfo.elevationtype = ElevationType.Mountains;
-        } else if (tileInfo.nElevation >= nHillMinHeight && lstBiomeGenerators[(int)tileInfo.biometype].bSupportsHills) {
-            tileInfo.elevationtype = ElevationType.Hills;
+    
+
+    public void AssignElevationMulti(TileInfo tileinfo) {
+        if(tileinfo.nElevation <= nValleyMaxHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsValleys) {
+            tileinfo.elevationtype = ElevationType.Valley;
+        } else if (tileinfo.nElevation >= nMountainMinHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsMountains) {
+            tileinfo.elevationtype = ElevationType.Mountains;
+        } else if (tileinfo.nElevation >= nHillMinHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsHills) {
+            tileinfo.elevationtype = ElevationType.Hills;
         } else {
-            tileInfo.elevationtype = ElevationType.None;
+            tileinfo.elevationtype = ElevationType.None;
         }
+
+        IncrementTypeCount(tileinfo.elevationtype, ref dictElevationCounts);
     }
 
     public void AssignAllElevationMultis() {
@@ -179,8 +241,31 @@ public class MapGenerator : Singleton<MapGenerator> {
         }
     }
 
-    public void AssignAllForestMultis() {
+    public void AssignForestMulti(TileInfo tileinfo) {
+        if(tileinfo.nLife < nForestMinLife) {
+            tileinfo.foresttype = ForestType.None;
+        } else if(tileinfo.nLife > nGreatwoodMinLife && tileinfo.nLife > nGreatwoodMinGoodness) {
+            tileinfo.foresttype = ForestType.Greatwoods;
+        } else if(tileinfo.nGoodness < nCursewoordMaxGoodness) {
+            tileinfo.foresttype = ForestType.Cursewoods;
+        } else if(tileinfo.nWetness > nJungleMinWetness && tileinfo.nTemperature > nJungleMinTemperature) {
+            tileinfo.foresttype = ForestType.Jungle;
+        } else if (tileinfo.nWetness > nSwampMinWetness && tileinfo.nElevation < nSwampMaxElevation) {
+            tileinfo.foresttype = ForestType.Swamp;
+        } else {
+            tileinfo.foresttype = ForestType.Forest;
+        }
 
+        IncrementTypeCount(tileinfo.foresttype, ref dictForestCounts);
+    }
+
+    public void AssignAllForestMultis() {
+        for (int i = 0; i < Map.Get().lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in Map.Get().lstTiles[i].lstTiles) {
+                AssignForestMulti(t.tileinfo);
+            }
+        }
     }
 
     public void AssignAllCityMultis() {

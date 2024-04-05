@@ -16,10 +16,14 @@ public enum BiomeType {
 
 public enum ElevationType {
     None, Valley, Hills, Mountains
+
+    , LENGTH
 }
 
 public enum ForestType {
-    None, Forest, Cursewoods, Greatwoods, Swamp
+    None, Forest, Cursewoods, Greatwoods, Swamp, Jungle
+
+    , LENGTH
 }
 
 public enum RiverType {
@@ -50,7 +54,7 @@ public class Biome : MonoBehaviour {
 
     public static readonly string[] arsElevationTypeNames = { "", "Valley", "Hills", "Mountains" };
 
-    public static readonly string[] arsForestTypeNames = { "", "Forest", "Cursewoods", "Greatwoods", "Swamp" };
+    public static readonly string[] arsForestTypeNames = { "", "Forest", "Cursewoods", "Greatwoods", "Swamp", "Jungle" };
 
     public static readonly string[] arsCityTypeNames = { "", "Village", "Town", "City", "Capital" };
 

@@ -33,6 +33,10 @@ public class EditorFunctions : EditorWindow {
             UpdateRandomSeed();
         } else if (GUILayout.Button("Print Biome Counts")) {
             PrintBiomeCounts();
+        } else if (GUILayout.Button("Print Elevation Counts")) {
+            PrintElevationCounts();
+        } else if (GUILayout.Button("Print Forest Counts")) {
+            PrintForestCounts();
         }
     }
 
@@ -142,5 +146,15 @@ public class EditorFunctions : EditorWindow {
     private void PrintBiomeCounts() {
 
         MapGenerator.Get().PrintBiomeCounts();
+    }
+
+    private void PrintElevationCounts() {
+
+        MapGenerator.Get().PrintElevationCounts();
+    }
+
+    private void PrintForestCounts() {
+
+        MapGenerator.Get().PrintForestCounts();
     }
 }
