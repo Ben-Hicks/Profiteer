@@ -26,14 +26,16 @@ public enum ForestType {
     , LENGTH
 }
 
-public enum RiverType {
+public enum WaterType {
     None,
     UU, UUR, UDR, UD, UDL, UUL,
     URU, URUR, URDR, URD, URDL, URUL,
     DRU, DRUR, DRDR, DRD, DRDL, DRUL,
     DU, DUR, DDR, DD, DDL, DUL,
     DLU, DLUR, DLDR, DLD, DLDL, DLUL,
-    ULU, ULUR, ULDR, ULD, ULDL, ULUL
+    ULU, ULUR, ULDR, ULD, ULDL, ULUL,
+
+    Lake, Ocean
 }
 
 public enum CityType {
@@ -55,6 +57,19 @@ public class Biome : MonoBehaviour {
     public static readonly string[] arsElevationTypeNames = { "", "Valley", "Hills", "Mountains" };
 
     public static readonly string[] arsForestTypeNames = { "", "Forest", "Cursewoods", "Greatwoods", "Swamp", "Jungle" };
+
+    public static readonly string[] arsWaterTypeNames = {
+        "",
+    "UU", "UUR", "UDR", "UD", "UDL", "UUL",
+    "URU", "URUR", "URDR", "URD", "URDL", "URUL",
+    "DRU", "DRUR", "DRDR", "DRD", "DRDL", "DRUL",
+    "DU", "DUR", "DDR", "DD", "DDL", "DUL",
+    "DLU", "DLUR", "DLDR", "DLD", "DLDL", "DLUL",
+    "ULU", "ULUR", "ULDR", "ULD", "ULDL", "ULUL",
+
+    "Lake", "Ocean"
+
+    };
 
     public static readonly string[] arsCityTypeNames = { "", "Village", "Town", "City", "Capital" };
 

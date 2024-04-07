@@ -6,6 +6,8 @@ public class MapGenerator : Singleton<MapGenerator> {
 
     public int nSeed;
 
+    public int nRivers;
+
     public float fRandomOffset;
 
     public int nValleyMaxHeight;
@@ -53,9 +55,9 @@ public class MapGenerator : Singleton<MapGenerator> {
             }
         }
 
-        public float GetWeightedScore(int nValue) {
+        public float GetWeightedScore(float fValue) {
             //Could optimize this with a storing of domainsize
-            return fWeight * (Mathf.Abs(nValue - nIdealValue) / (0f + nDomainSize));
+            return fWeight * (Mathf.Abs(fValue - nIdealValue) / (0f + nDomainSize));
         }
 
     }
@@ -71,12 +73,12 @@ public class MapGenerator : Singleton<MapGenerator> {
         public bool bSupportsHills;
         public bool bSupportsMountains;
 
-        public float GetTotalScore(int[] arnPropertyValues) {
+        public float GetTotalScore(float[] arfPropertyValues) {
             float fWeightSum = 0f;
             float fScore = 0f;
             for(int i=0; i<lstIdealProperties.Count; i++) {
                 fWeightSum += lstIdealProperties[i].fWeight;
-                float fWeightedScore = lstIdealProperties[i].GetWeightedScore(arnPropertyValues[(int)lstIdealProperties[i].tileinfoProperty]);
+                float fWeightedScore = lstIdealProperties[i].GetWeightedScore(arfPropertyValues[(int)lstIdealProperties[i].tileinfoProperty]);
                 fScore += fWeightedScore;
             }
 
@@ -85,20 +87,18 @@ public class MapGenerator : Singleton<MapGenerator> {
     }
     
     
-    public Color GetPropertyColour(TileInfoProperties property, int nValue) {
+    public Color GetPropertyColour(TileInfoProperties property, float fValue) {
         return lstPropertyGenerators[(int)property].gradDisplay.Evaluate(
-            Mathf.InverseLerp(lstPropertyGenerators[(int)property].nMinValue, lstPropertyGenerators[(int)property].nMaxValue, nValue));
+            Mathf.InverseLerp(lstPropertyGenerators[(int)property].nMinValue, lstPropertyGenerators[(int)property].nMaxValue, fValue));
     }
 
-    public int GenerateProperty(int x, int y, TilePropertyGenerator generator) {
+    public float GenerateProperty(int x, int y, TilePropertyGenerator generator) {
         float fPerlin = Mathf.PerlinNoise(
             x / generator.fPerlinRegionSize + generator.fPerlinOffset + fRandomOffset,
             y / generator.fPerlinRegionSize + generator.fPerlinOffset + fRandomOffset);
-
-
         //Debug.LogFormat("({0},{1}) generated {2} of type {3}", x, y, fPerlin, generator.sName);
 
-        return (int)Mathf.Lerp(generator.nMinValue, generator.nMaxValue, fPerlin);
+        return Mathf.Lerp(generator.nMinValue, generator.nMaxValue, fPerlin);
     }
 
     public void IncrementTypeCount<T>(T type, ref Dictionary<T, int> dictCount) {
@@ -138,11 +138,11 @@ public class MapGenerator : Singleton<MapGenerator> {
 
     public void PopulateTileInfo(TileInfo tileinfo) {
 
-        tileinfo.arnPropertyValues = new int[(int)TileInfoProperties.LENGTH];
+        tileinfo.arfPropertyValues = new float[(int)TileInfoProperties.LENGTH];
         tileinfo.arfBiomeScores = new float[(int)BiomeType.LENGTH];
 
         for(int i=0; i<(int)TileInfoProperties.LENGTH; i++) {
-            tileinfo.arnPropertyValues[i] = GenerateProperty(tileinfo.tile.v3Coords.x, tileinfo.tile.v3Coords.y, lstPropertyGenerators[i]);
+            tileinfo.arfPropertyValues[i] = GenerateProperty(tileinfo.tile.x, tileinfo.tile.y, lstPropertyGenerators[i]);
             if(i == (int)TileInfoProperties.Temperature) {
                 //Debug.LogFormat("Column {0} generates temp {1}", tileinfo.tile.coords.x, tileinfo.arnPropertyValues[i]);
             }
@@ -168,16 +168,142 @@ public class MapGenerator : Singleton<MapGenerator> {
         }
     }
 
-    public void CreateWater() {
+    public void FillOcean(TileTerrain tileSource) {
+        Queue<TileTerrain> queueTilesOnShore = new Queue<TileTerrain>();
+        queueTilesOnShore.Enqueue(tileSource);
+
+        while(queueTilesOnShore.Count > 0) {
+            TileTerrain tileShore = queueTilesOnShore.Dequeue();
+
+            if (tileShore.tileinfo.biometype == BiomeType.Ocean) continue; 
+            
+            tileShore.tileinfo.watertype = WaterType.Ocean;
+            tileShore.tileinfo.biometype = BiomeType.Ocean;
+
+            //Enqueue each tile adjacent to this one that isn't already an Ocean
+            Map.Get().FoldHex1(tileShore, 0, (TileTerrain t, int y) => {
+                if (t == null) return 0;
+                if (t.tileinfo.biometype != BiomeType.Ocean && t.tileinfo.fElevation <= 0) {
+                    queueTilesOnShore.Enqueue(t);
+                }
+
+                return 0;
+            });
+            
+        }
+    }
+
+    public void FillLake(TileTerrain tileBottom) {
+        
+        float fWaterlevel = tileBottom.tileinfo.fElevation;
+
+        Debug.LogFormat("Creating a lake at {0} with water level {1}", tileBottom, fWaterlevel);
+
+        List<TileTerrain> lstTilesOnShore = new List<TileTerrain>();
+        lstTilesOnShore.Add(tileBottom);
+
+        TileTerrain tileLowestShore;
+        while (lstTilesOnShore.Count > 0) {
+            tileLowestShore = lstTilesOnShore[0];
+            for(int i=1; i<lstTilesOnShore.Count; i++) {
+                if(lstTilesOnShore[i].tileinfo.fElevation < tileLowestShore.tileinfo.fElevation) {
+                    tileLowestShore = lstTilesOnShore[i];
+                }
+            }
+            lstTilesOnShore.Remove(tileLowestShore);
+
+            if(tileLowestShore.tileinfo.fElevation < fWaterlevel) {
+                //If this tile is lower than our current water level, then we'll form a new
+                // river moving in that direction
+                Debug.LogFormat("Found a new source leaving the {1}-depth lake at {0} with felevation={2}", 
+                    tileLowestShore, fWaterlevel, tileLowestShore.tileinfo.fElevation);
+                CreateRiver(tileLowestShore, 20);
+                return;
+            } else {
+                //The next lowest tile height around is still higher than our lake, so we'll raise the level of the 
+                // lake to this new tile and make it a lake tile
+                fWaterlevel = tileLowestShore.tileinfo.fElevation;
+                tileLowestShore.tileinfo.biometype = BiomeType.Lake;
+
+                Debug.LogFormat("Spreading the lake to the next-lowest shore tile {0} with elevation {1}", 
+                    tileLowestShore, tileLowestShore.tileinfo.fElevation); 
+
+                //Then add all adjacent tiles to be explored later
+                Map.Get().FoldHex1(tileLowestShore, 0, (TileTerrain t, int y) => {
+                    if (t == null) return 0;
+                    if (t.tileinfo.biometype != BiomeType.Lake) {
+                        lstTilesOnShore.Add(t);
+                    }
+
+                    return 0;
+                });
+            }
+
+        }
 
     }
+
+    public void CreateRiver(TileTerrain tileSource, int nMaxDist) {
+
+        if (tileSource.tileinfo.biometype == BiomeType.Ocean ||
+            tileSource.tileinfo.biometype == BiomeType.River ||
+            tileSource.tileinfo.biometype == BiomeType.Lake) return;
+
+        while (nMaxDist >= 0) {
+
+            if(tileSource.tileinfo.fElevation <= 0) {
+                FillOcean(tileSource);
+                return;
+            }
+
+            //Debug.Log("TODO: add in river directions");
+            tileSource.tileinfo.biometype = BiomeType.River;
+            tileSource.tileinfo.watertype = WaterType.UD;
+
+            //Grab the lowest elevation tile adjacent to tileSource
+            TileTerrain tileNextLowest = Map.Get().FoldHex1<TileTerrain>(tileSource, null, (TileTerrain t, TileTerrain tLowest) => {
+                if (t == null) return tLowest;
+                if (t == tileSource) return tLowest;
+                if (tLowest == null) {
+                    if (t.tileinfo.fElevation <= tileSource.tileinfo.fElevation) return t;
+                } else {
+                    if (t.tileinfo.fElevation < tLowest.tileinfo.fElevation) return t;
+                }
+                return tLowest;
+            });
+
+            if (tileNextLowest == null) {
+                //If we don't have a clear direction to continue our river, we can make a lake out of this tile
+                FillLake(tileSource);
+                return;
+
+            } else {
+                //Then we have a lower tile to progress our river to
+                nMaxDist--;
+                tileSource = tileNextLowest;
+            }
+        }
+
+    }
+
+
+    public void CreateWater() {
+        //Create a few starting sources for rivers
+        for(int i=0; i<nRivers; i++) {
+            
+            TileTerrain tileRandom = Map.Get().GetRandomTile();
+            Debug.LogFormat("Spawning River at {0}", tileRandom);
+            CreateRiver(tileRandom, 20);
+        }
+    }
+    
 
     public void AssignBiome(TileInfo tileinfo) {
         float fBestScore = 1000f;
         BiomeType biometypeBest = BiomeType.LENGTH;
 
         for(int i=0; i<lstBiomeGenerators.Count; i++) {
-            float fBiomeScore = lstBiomeGenerators[i].GetTotalScore(tileinfo.arnPropertyValues);
+            float fBiomeScore = lstBiomeGenerators[i].GetTotalScore(tileinfo.arfPropertyValues);
             if(fBiomeScore < fBestScore) {
                 fBestScore = fBiomeScore;
                 biometypeBest = lstBiomeGenerators[i].biometype;
@@ -219,11 +345,11 @@ public class MapGenerator : Singleton<MapGenerator> {
     
 
     public void AssignElevationMulti(TileInfo tileinfo) {
-        if(tileinfo.nElevation <= nValleyMaxHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsValleys) {
+        if(tileinfo.fElevation <= nValleyMaxHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsValleys) {
             tileinfo.elevationtype = ElevationType.Valley;
-        } else if (tileinfo.nElevation >= nMountainMinHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsMountains) {
+        } else if (tileinfo.fElevation >= nMountainMinHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsMountains) {
             tileinfo.elevationtype = ElevationType.Mountains;
-        } else if (tileinfo.nElevation >= nHillMinHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsHills) {
+        } else if (tileinfo.fElevation >= nHillMinHeight && lstBiomeGenerators[(int)tileinfo.biometype].bSupportsHills) {
             tileinfo.elevationtype = ElevationType.Hills;
         } else {
             tileinfo.elevationtype = ElevationType.None;
@@ -242,15 +368,15 @@ public class MapGenerator : Singleton<MapGenerator> {
     }
 
     public void AssignForestMulti(TileInfo tileinfo) {
-        if(tileinfo.nLife < nForestMinLife) {
+        if(tileinfo.fLife < nForestMinLife) {
             tileinfo.foresttype = ForestType.None;
-        } else if(tileinfo.nLife > nGreatwoodMinLife && tileinfo.nLife > nGreatwoodMinGoodness) {
+        } else if(tileinfo.fLife > nGreatwoodMinLife && tileinfo.fLife > nGreatwoodMinGoodness) {
             tileinfo.foresttype = ForestType.Greatwoods;
-        } else if(tileinfo.nGoodness < nCursewoordMaxGoodness) {
+        } else if(tileinfo.fGoodness < nCursewoordMaxGoodness) {
             tileinfo.foresttype = ForestType.Cursewoods;
-        } else if(tileinfo.nWetness > nJungleMinWetness && tileinfo.nTemperature > nJungleMinTemperature) {
+        } else if(tileinfo.fWetness > nJungleMinWetness && tileinfo.fTemperature > nJungleMinTemperature) {
             tileinfo.foresttype = ForestType.Jungle;
-        } else if (tileinfo.nWetness > nSwampMinWetness && tileinfo.nElevation < nSwampMaxElevation) {
+        } else if (tileinfo.fWetness > nSwampMinWetness && tileinfo.fElevation < nSwampMaxElevation) {
             tileinfo.foresttype = ForestType.Swamp;
         } else {
             tileinfo.foresttype = ForestType.Forest;

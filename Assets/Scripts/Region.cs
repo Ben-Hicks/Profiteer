@@ -36,6 +36,7 @@ public class Region {
                     lstTiles.Add(tileToExplore);
 
                     Map.Get().FoldHex1<int>(tileToExplore, 0, (TileTerrain tileAdj, int nBase) => {
+                        if (tileAdj == null) return 0;
                         queueTilesToExplore.Enqueue(tileAdj);
                         return 0;
                     });

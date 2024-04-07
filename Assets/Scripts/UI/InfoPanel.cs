@@ -23,14 +23,14 @@ public class InfoPanel : Singleton<InfoPanel> {
             return;
         }
 
-        string sInfo = tile.v3Coords.ToString();
+        string sInfo = string.Format("({0}, {1})", tile.x, tile.y);
 
         sInfo += string.Format("\nRegion: {0}", tile.region.sName);
             
         sInfo += string.Format("\nType: {0}", Biome.arsBiomeNames[(int)tile.tileinfo.biometype]);
 
         for(int i=0; i<(int)TileInfoProperties.LENGTH; i++) {
-            sInfo += string.Format("\n{0}: {1}", TileInfo.arsPropertyNames[i], tile.tileinfo.arnPropertyValues[i]);
+            sInfo += string.Format("\n{0}: {1}", TileInfo.arsPropertyNames[i], tile.tileinfo.arfPropertyValues[i]);
         }
 
         sInfo += "\nBiomes:";

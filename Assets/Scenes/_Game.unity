@@ -1177,13 +1177,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fTileHeight: 0.97
   fTileWidth: 0.84
-  nMapHeight: 200
-  nMapWidth: 400
+  nMapHeight: 100
+  nMapWidth: 200
   lstEntities: []
   tilemapTerrain: {fileID: 393772116}
   tilemapElevation: {fileID: 1541783042}
   tilemapForest: {fileID: 690165015}
-  tilemapRivers: {fileID: 0}
+  tilemapWater: {fileID: 0}
   tilemapCities: {fileID: 0}
   lsttmtileTerrain:
   - {fileID: 11400000, guid: c64ccb35f82cdf7428882671d61fc7b1, type: 2}
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e5caa9ebe8774e4a8296a36aabc211c, type: 2}
   - {fileID: 11400000, guid: 97cea076741ddd7448f0d6610c6712b5, type: 2}
   - {fileID: 11400000, guid: 9d8ac3314c8969741b9a89ee4a382597, type: 2}
-  lsttmtileRivers: []
+  lsttmtileWater: []
   lsttmtileCities: []
   pfEntity: {fileID: 5513560143651835499, guid: 31c9b682e2741a440aef0f73a820f8bd,
     type: 3}
@@ -1269,7 +1269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6ec32a471640449c2751f4d225942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nSeed: 132
+  nSeed: 13498
+  nRivers: 1
   fRandomOffset: 6786.4204
   nValleyMaxHeight: 2
   nHillMinHeight: 18
@@ -1286,7 +1287,7 @@ MonoBehaviour:
   - sName: Elevation
     fPerlinRegionSize: 15
     fPerlinOffset: 1304.44
-    nMinValue: -10
+    nMinValue: -15
     nMaxValue: 25
     gradDisplay:
       serializedVersion: 2
@@ -1847,42 +1848,6 @@ MonoBehaviour:
       nIdealValue: 8
       fWeight: 2
     bSupportsValleys: 1
-    bSupportsHills: 0
-    bSupportsMountains: 0
-  - sName: River
-    biometype: 20
-    lstIdealProperties:
-    - tileinfoProperty: 0
-      nIdealValue: -7
-      fWeight: 3
-    - tileinfoProperty: 1
-      nIdealValue: 13
-      fWeight: 5
-    bSupportsValleys: 1
-    bSupportsHills: 1
-    bSupportsMountains: 1
-  - sName: Lake
-    biometype: 21
-    lstIdealProperties:
-    - tileinfoProperty: 0
-      nIdealValue: -7
-      fWeight: 3
-    - tileinfoProperty: 1
-      nIdealValue: 14
-      fWeight: 5
-    bSupportsValleys: 0
-    bSupportsHills: 0
-    bSupportsMountains: 0
-  - sName: Ocean
-    biometype: 22
-    lstIdealProperties:
-    - tileinfoProperty: 0
-      nIdealValue: -10
-      fWeight: 3
-    - tileinfoProperty: 1
-      nIdealValue: 14
-      fWeight: 5
-    bSupportsValleys: 0
     bSupportsHills: 0
     bSupportsMountains: 0
 --- !u!4 &1710732141

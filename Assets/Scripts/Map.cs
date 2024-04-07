@@ -37,12 +37,12 @@ public class Map : Singleton<Map> {
     public Tilemap tilemapTerrain;
     public Tilemap tilemapElevation;
     public Tilemap tilemapForest;
-    public Tilemap tilemapRivers;
+    public Tilemap tilemapWater;
     public Tilemap tilemapCities;
     public List<TileBase> lsttmtileTerrain;
     public List<TileBase> lsttmtileElevation;
     public List<TileBase> lsttmtileForest;
-    public List<TileBase> lsttmtileRivers;
+    public List<TileBase> lsttmtileWater;
     public List<TileBase> lsttmtileCities;
 
     public GameObject pfEntity;
@@ -67,6 +67,10 @@ public class Map : Singleton<Map> {
         }
         return tile;
 
+    }
+
+    public TileTerrain GetRandomTile() {
+        return GetTile(Random.Range(0, nMapWidth), Random.Range(0, nMapHeight));
     }
 
     public delegate Y Combiner<Y>(TileTerrain t, Y y);

@@ -17,44 +17,44 @@ public class TileInfo {
     public ElevationType elevationtype;
     public ForestType foresttype;
     public CityType citytype;
-    public RiverType rivertype;
-
-    public int[] arnPropertyValues;
+    public WaterType watertype;
+    
+    public float[] arfPropertyValues;
     public float[] arfBiomeScores;
 
-    public int nElevation {
-        get { return arnPropertyValues[(int)TileInfoProperties.Elevation]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Elevation] = value; }
+    public float fElevation {
+        get { return arfPropertyValues[(int)TileInfoProperties.Elevation]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Elevation] = value; }
     }
 
-    public int nWetness {
-        get { return arnPropertyValues[(int)TileInfoProperties.Wetness]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Wetness] = value; }
+    public float fWetness {
+        get { return arfPropertyValues[(int)TileInfoProperties.Wetness]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Wetness] = value; }
     }
 
-    public int nTemperature {
-        get { return arnPropertyValues[(int)TileInfoProperties.Temperature]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Temperature] = value; }
+    public float fTemperature {
+        get { return arfPropertyValues[(int)TileInfoProperties.Temperature]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Temperature] = value; }
     }
 
-    public int nLife {
-        get { return arnPropertyValues[(int)TileInfoProperties.Life]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Life] = value; }
+    public float fLife {
+        get { return arfPropertyValues[(int)TileInfoProperties.Life]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Life] = value; }
     }
 
-    public int nGoodness {
-        get { return arnPropertyValues[(int)TileInfoProperties.Goodness]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Goodness] = value; }
+    public float fGoodness {
+        get { return arfPropertyValues[(int)TileInfoProperties.Goodness]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Goodness] = value; }
     }
 
-    public int nPopulation {
-        get { return arnPropertyValues[(int)TileInfoProperties.Population]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Population] = value; }
+    public float fPopulation {
+        get { return arfPropertyValues[(int)TileInfoProperties.Population]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Population] = value; }
     }
 
-    public int nRarity {
-        get { return arnPropertyValues[(int)TileInfoProperties.Rarity]; }
-        set { arnPropertyValues[(int)TileInfoProperties.Rarity] = value; }
+    public float fRarity {
+        get { return arfPropertyValues[(int)TileInfoProperties.Rarity]; }
+        set { arfPropertyValues[(int)TileInfoProperties.Rarity] = value; }
     }
 
     public TileInfo(TileTerrain _tile) {
