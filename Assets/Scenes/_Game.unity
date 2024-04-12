@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fMinDist: 0.01
-  fScrollSpeed: 6
+  fScrollSpeed: 56
   fZoomSpeed: 25
   goFocus: {fileID: 0}
   v3Target: {x: 0, y: 0, z: 0}
@@ -1269,9 +1269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6ec32a471640449c2751f4d225942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nSeed: 13498
-  nRivers: 1
-  fRandomOffset: 6786.4204
+  nSeed: 87
+  nTilesPerRiverSource: 250
+  fRiverWetnessBomb: 0.4
+  fLakeWetnessBomb: 0.4
+  fOceanWetnessBomb: 0.4
+  fRandomOffset: 2851.612
   nValleyMaxHeight: 2
   nHillMinHeight: 18
   nMountainMinHeight: 22
@@ -1287,6 +1290,8 @@ MonoBehaviour:
   - sName: Elevation
     fPerlinRegionSize: 15
     fPerlinOffset: 1304.44
+    fPerlinRegionSizeSecondary: 75
+    fPerlinOffsetSecondary: 547.98
     nMinValue: -15
     nMaxValue: 25
     gradDisplay:
@@ -1321,6 +1326,8 @@ MonoBehaviour:
   - sName: Wetness
     fPerlinRegionSize: 22
     fPerlinOffset: 3214.67
+    fPerlinRegionSizeSecondary: 0
+    fPerlinOffsetSecondary: 0
     nMinValue: 0
     nMaxValue: 15
     gradDisplay:
@@ -1355,6 +1362,8 @@ MonoBehaviour:
   - sName: Temperature
     fPerlinRegionSize: 60
     fPerlinOffset: 5423.51
+    fPerlinRegionSizeSecondary: 0
+    fPerlinOffsetSecondary: 0
     nMinValue: -15
     nMaxValue: 40
     gradDisplay:
@@ -1389,6 +1398,8 @@ MonoBehaviour:
   - sName: Life
     fPerlinRegionSize: 25
     fPerlinOffset: 8634.97
+    fPerlinRegionSizeSecondary: 0
+    fPerlinOffsetSecondary: 0
     nMinValue: 0
     nMaxValue: 15
     gradDisplay:
@@ -1423,6 +1434,8 @@ MonoBehaviour:
   - sName: Goodness
     fPerlinRegionSize: 60
     fPerlinOffset: 6832.42
+    fPerlinRegionSizeSecondary: 0
+    fPerlinOffsetSecondary: 0
     nMinValue: -10
     nMaxValue: 10
     gradDisplay:
@@ -1457,6 +1470,8 @@ MonoBehaviour:
   - sName: Population
     fPerlinRegionSize: 10
     fPerlinOffset: 11091.88
+    fPerlinRegionSizeSecondary: 0
+    fPerlinOffsetSecondary: 0
     nMinValue: 0
     nMaxValue: 100
     gradDisplay:
@@ -1491,6 +1506,8 @@ MonoBehaviour:
   - sName: Rarity
     fPerlinRegionSize: 10
     fPerlinOffset: 13861.88
+    fPerlinRegionSizeSecondary: 0
+    fPerlinOffsetSecondary: 0
     nMinValue: 0
     nMaxValue: 100
     gradDisplay:
@@ -1527,7 +1544,7 @@ MonoBehaviour:
     biometype: 0
     lstIdealProperties:
     - tileinfoProperty: 2
-      nIdealValue: -14
+      nIdealValue: -10
       fWeight: 5
     - tileinfoProperty: 0
       nIdealValue: 5
@@ -1542,7 +1559,7 @@ MonoBehaviour:
     biometype: 1
     lstIdealProperties:
     - tileinfoProperty: 2
-      nIdealValue: -11
+      nIdealValue: -6
       fWeight: 5
     - tileinfoProperty: 0
       nIdealValue: 7
@@ -1557,7 +1574,7 @@ MonoBehaviour:
     biometype: 2
     lstIdealProperties:
     - tileinfoProperty: 2
-      nIdealValue: -15
+      nIdealValue: -10
       fWeight: 5
     - tileinfoProperty: 0
       nIdealValue: -1
@@ -1575,7 +1592,7 @@ MonoBehaviour:
       nIdealValue: 7
       fWeight: 1
     - tileinfoProperty: 2
-      nIdealValue: 25
+      nIdealValue: 22
       fWeight: 4
     - tileinfoProperty: 3
       nIdealValue: 7
@@ -1590,7 +1607,7 @@ MonoBehaviour:
       nIdealValue: 7
       fWeight: 1
     - tileinfoProperty: 2
-      nIdealValue: 21
+      nIdealValue: 19
       fWeight: 4
     bSupportsValleys: 0
     bSupportsHills: 0
@@ -1605,7 +1622,7 @@ MonoBehaviour:
       nIdealValue: 0
       fWeight: 5
     - tileinfoProperty: 2
-      nIdealValue: 36
+      nIdealValue: 30
       fWeight: 5
     - tileinfoProperty: 3
       nIdealValue: 1
@@ -1656,7 +1673,7 @@ MonoBehaviour:
       nIdealValue: 3
       fWeight: 1
     - tileinfoProperty: 2
-      nIdealValue: 38
+      nIdealValue: 35
       fWeight: 5
     - tileinfoProperty: 3
       nIdealValue: 2
@@ -1674,7 +1691,7 @@ MonoBehaviour:
       nIdealValue: 3
       fWeight: 2
     - tileinfoProperty: 2
-      nIdealValue: 32
+      nIdealValue: 30
       fWeight: 5
     - tileinfoProperty: 3
       nIdealValue: 2
@@ -1731,7 +1748,7 @@ MonoBehaviour:
       nIdealValue: 11
       fWeight: 4
     - tileinfoProperty: 2
-      nIdealValue: 34
+      nIdealValue: 27
       fWeight: 4
     - tileinfoProperty: 3
       nIdealValue: 14

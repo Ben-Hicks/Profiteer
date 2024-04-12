@@ -18,7 +18,7 @@ public class TileInfo {
     public ForestType foresttype;
     public CityType citytype;
     public WaterType watertype;
-    
+
     public float[] arfPropertyValues;
     public float[] arfBiomeScores;
 
@@ -63,5 +63,12 @@ public class TileInfo {
 
     public void OnUpdate() {
         tile.UpdateTileVisuals();
+    }
+
+    public void WetnessBomb(float fWetnessAmount) {
+        Map.Get().FoldHex2(tile, 0, (TileTerrain t, int y) => {
+            t.tileinfo.fWetness += fWetnessAmount;
+            return y;
+        });
     }
 }
