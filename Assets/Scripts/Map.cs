@@ -14,6 +14,7 @@ public class Map : Singleton<Map> {
     public List<Entity> lstEntities;
     public List<Region> lstAllRegions;
     public Dictionary<BiomeType, List<Region>> dictRegionsByBiome;
+    public List<City> lstCities;
 
 
     //[System.Serializable]
@@ -38,12 +39,12 @@ public class Map : Singleton<Map> {
     public Tilemap tilemapElevation;
     public Tilemap tilemapForest;
     public Tilemap tilemapWater;
-    public Tilemap tilemapCities;
+    public Tilemap tilemapCity;
     public List<TileBase> lsttmtileTerrain;
     public List<TileBase> lsttmtileElevation;
-    public List<TileBase> lsttmtileForest;
     public List<TileBase> lsttmtileWater;
-    public List<TileBase> lsttmtileCities;
+    public List<TileBase> lsttmtileForest;
+    public List<TileBase> lsttmtileCity;
 
     public GameObject pfEntity;
     
@@ -200,6 +201,7 @@ public class Map : Singleton<Map> {
 
         lstAllRegions = new List<Region>();
         dictRegionsByBiome = new Dictionary<BiomeType, List<Region>>();
+        lstCities = new List<City>();
     }
 
     public void Unused() {
@@ -233,7 +235,11 @@ public class Map : Singleton<Map> {
         SpawnMap();
 
         MapGenerator.Get().PopulateAllTileInfos();
+        MapGenerator.Get().CreateWater();
         MapGenerator.Get().AssignAllBiomes();
+        MapGenerator.Get().AssignAllElevationMultis();
+        MapGenerator.Get().AssignAllForestMultis();
+        MapGenerator.Get().AssignAllCityMultis();
 
         UpdateAllTileVisuals();
     }
@@ -294,6 +300,10 @@ public class Map : Singleton<Map> {
         dictRegionsByBiome[region.biometype].Add(region);
     }
 
+    public void RegisterCity(City city) {
+        lstCities.Add(city);
+    }
+
     public void SpawnRandomEntity() {
         int y = Random.Range(0, nMapHeight);
         int x = Random.Range(0, nMapWidth);
@@ -302,6 +312,8 @@ public class Map : Singleton<Map> {
     }
 
     public override void Init() {
+
+        MapGenerator.Get().UpdateSeed();
 
         FullMapGeneration();
 
@@ -333,6 +345,8 @@ public class Map : Singleton<Map> {
         } else if (Input.GetKeyUp(KeyCode.Alpha5)) {
             ShowTileProprties(TileInfoProperties.Goodness);
         } else if (Input.GetKeyUp(KeyCode.Alpha6)) {
+            ShowTileProprties(TileInfoProperties.Population);
+        } else if (Input.GetKeyUp(KeyCode.Alpha7)) {
             ShowTileProprties(TileInfoProperties.Rarity);
         }
 

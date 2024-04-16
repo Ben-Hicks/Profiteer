@@ -64,28 +64,18 @@ public class TileTerrain {
     }
 
     public void UpdateTileVisuals() {
-        DisplayBiome();
-        DisplayElevation();
-        DisplayForest();
+        DisplayTileLayer(map.tilemapTerrain, map.lsttmtileTerrain, (int)tileinfo.biometype);
+        DisplayTileLayer(map.tilemapElevation, map.lsttmtileElevation, (int)tileinfo.elevationtype);
+        DisplayTileLayer(map.tilemapForest, map.lsttmtileForest, (int)tileinfo.foresttype);
+        DisplayTileLayer(map.tilemapCity, map.lsttmtileCity, (int)tileinfo.citytype);
     }
 
-    public void DisplayBiome() {
-        map.tilemapTerrain.SetTile(v3Coords, map.lsttmtileTerrain[(int)tileinfo.biometype]);
-        map.tilemapTerrain.SetTileFlags(v3Coords, TileFlags.None);
-        map.tilemapTerrain.SetColor(v3Coords, Color.white);
+    public void DisplayTileLayer(Tilemap tilemap, List<TileBase> lstTileBase, int iFacet) {
+        tilemap.SetTile(v3Coords, lstTileBase[iFacet]);
+        tilemap.SetTileFlags(v3Coords, TileFlags.None);
+        tilemap.SetColor(v3Coords, Color.white);
     }
 
-    public void DisplayElevation() {
-        map.tilemapElevation.SetTile(v3Coords, map.lsttmtileElevation[(int)tileinfo.elevationtype]);
-        map.tilemapElevation.SetTileFlags(v3Coords, TileFlags.None);
-        map.tilemapElevation.SetColor(v3Coords, Color.white);
-    }
-
-    public void DisplayForest() {
-        map.tilemapForest.SetTile(v3Coords, map.lsttmtileForest[(int)tileinfo.foresttype]);
-        map.tilemapForest.SetTileFlags(v3Coords, TileFlags.None);
-        map.tilemapForest.SetColor(v3Coords, Color.white);
-    }
 
     public void DisplayProperty(TileInfoProperties property) {
         if (tileinfo.arfPropertyValues == null) return;

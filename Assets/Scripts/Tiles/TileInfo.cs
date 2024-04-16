@@ -57,6 +57,12 @@ public class TileInfo {
         set { arfPropertyValues[(int)TileInfoProperties.Rarity] = value; }
     }
 
+    public bool IsWater() {
+        return biometype == BiomeType.Ocean
+            || biometype == BiomeType.Lake
+            || biometype == BiomeType.River;
+    }
+
     public TileInfo(TileTerrain _tile) {
         tile = _tile;
     }
