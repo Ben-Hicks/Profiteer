@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour {
     public void MoveTowardTarget() {
 
         if (Vector3.SqrMagnitude(v3Target - this.transform.position) > fMinDist) {
-            this.transform.position = Vector3.Lerp(this.transform.position, v3Target, 0.9f);
+            this.transform.position = Vector3.Lerp(this.transform.position, v3Target, 0.1f);
         }
         if (Mathf.Abs(fTargetZoom - Camera.main.orthographicSize) > fMinDist) {
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, fTargetZoom, 0.9f);
@@ -72,7 +72,7 @@ public class CameraController : MonoBehaviour {
 
         float x = v3Target.x;
         float y = v3Target.y;
-        float z = v3Target.z;
+        float z = this.transform.position.z;
 
         if (Input.GetKey(KeyCode.UpArrow)) {
             y += fScrollSpeed * Time.fixedDeltaTime;

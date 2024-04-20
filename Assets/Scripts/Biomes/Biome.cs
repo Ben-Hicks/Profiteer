@@ -14,6 +14,7 @@ public enum BiomeType {
     , LENGTH
 };
 
+
 public enum ElevationType {
     None, Valley, Hills, Mountains
 
@@ -54,12 +55,12 @@ public class Biome : MonoBehaviour {
             "River", "Lake", "Ocean"
             , "LENGTH" };
 
-    public static readonly string[] arsElevationTypeNames = { "", "Valley", "Hills", "Mountains" };
+    public static readonly string[] arsElevationTypeNames = { "None", "Valley", "Hills", "Mountains" };
 
-    public static readonly string[] arsForestTypeNames = { "", "Forest", "Cursewoods", "Greatwoods", "Swamp", "Jungle" };
+    public static readonly string[] arsForestTypeNames = { "None", "Forest", "Cursewoods", "Greatwoods", "Swamp", "Jungle" };
 
     public static readonly string[] arsWaterTypeNames = {
-        "",
+        "None",
     "UU", "UUR", "UDR", "UD", "UDL", "UUL",
     "URU", "URUR", "URDR", "URD", "URDL", "URUL",
     "DRU", "DRUR", "DRDR", "DRD", "DRDL", "DRUL",
@@ -71,6 +72,6 @@ public class Biome : MonoBehaviour {
 
     };
 
-    public static readonly string[] arsCityTypeNames = { "", "Village", "Town", "City", "Capital" };
+    public static readonly string[] arsCityTypeNames = { "None", "Village", "Town", "City", "Capital" };
 
 }

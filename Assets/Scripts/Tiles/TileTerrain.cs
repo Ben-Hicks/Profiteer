@@ -64,14 +64,14 @@ public class TileTerrain {
     }
 
     public void UpdateTileVisuals() {
-        DisplayTileLayer(map.tilemapTerrain, map.lsttmtileTerrain, (int)tileinfo.biometype);
-        DisplayTileLayer(map.tilemapElevation, map.lsttmtileElevation, (int)tileinfo.elevationtype);
-        DisplayTileLayer(map.tilemapForest, map.lsttmtileForest, (int)tileinfo.foresttype);
-        DisplayTileLayer(map.tilemapCity, map.lsttmtileCity, (int)tileinfo.citytype);
+        DisplayTileLayer(map.tilemapTerrain, LibAssets.LoadAssetTileBase(tileinfo.biometype));
+        DisplayTileLayer(map.tilemapElevation, LibAssets.LoadAssetTileBase(tileinfo.elevationtype));
+        DisplayTileLayer(map.tilemapForest, LibAssets.LoadAssetTileBase(tileinfo.foresttype));
+        DisplayTileLayer(map.tilemapCity, LibAssets.LoadAssetTileBase(tileinfo.citytype));
     }
 
-    public void DisplayTileLayer(Tilemap tilemap, List<TileBase> lstTileBase, int iFacet) {
-        tilemap.SetTile(v3Coords, lstTileBase[iFacet]);
+    public void DisplayTileLayer(Tilemap tilemap, TileBase tilebase) {
+        tilemap.SetTile(v3Coords, tilebase);
         tilemap.SetTileFlags(v3Coords, TileFlags.None);
         tilemap.SetColor(v3Coords, Color.white);
     }
