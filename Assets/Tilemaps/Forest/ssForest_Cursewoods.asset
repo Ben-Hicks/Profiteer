@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ssForest_2
+  m_Name: ssForest_Cursewoods
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 480834522921061316, guid: eba5403859faeb941b2019caa70835a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

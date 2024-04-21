@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ssForest_4
+  m_Name: ssForest_Swamp
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 2065263599642972527, guid: eba5403859faeb941b2019caa70835a7,
     type: 3}

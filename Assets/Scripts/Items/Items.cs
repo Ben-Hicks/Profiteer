@@ -20,8 +20,6 @@ public static class Items {
 
     public static Item[] arItems = new Item[(int)ItemType.LENGTH - 1];
 
-    public delegate Item ItemConstructor();
-
     public static System.Func<Item>[] arItemConstructors = {
         ItemWheat.Create,
 

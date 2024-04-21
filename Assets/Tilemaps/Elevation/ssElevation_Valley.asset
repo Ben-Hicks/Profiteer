@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ssElevation_0
+  m_Name: ssElevation_Valley
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -2781708695314584810, guid: ae57201806022824493442776eaf9e2d,
     type: 3}

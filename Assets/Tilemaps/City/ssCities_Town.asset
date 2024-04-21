@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ssCities_2
+  m_Name: ssCities_Town
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -8301060988986018526, guid: cc0d6d456e137e44b945d7a26f68745c,
     type: 3}
