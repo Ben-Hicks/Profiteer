@@ -1480,8 +1480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fTileHeight: 0.97
   fTileWidth: 0.84
-  nMapHeight: 100
-  nMapWidth: 20
+  nMapHeight: 40
+  nMapWidth: 60
   lstEntities: []
   tilemapTerrain: {fileID: 393772116}
   tilemapElevation: {fileID: 1541783042}
@@ -1685,7 +1685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec6ec32a471640449c2751f4d225942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nSeed: 659
+  nSeed: 7564
   nTilesPerRiverSource: 250
   fRiverWetnessBomb: 0.4
   fLakeWetnessBomb: 0.4

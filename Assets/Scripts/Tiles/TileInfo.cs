@@ -6,6 +6,8 @@ public enum TileInfoProperties { Elevation, Wetness, Temperature, Life, Goodness
 
 public class TileInfo {
 
+    public static readonly int NMINMOVEMENTCOST = 5;
+
     public static readonly string[] arsPropertyNames = { "Elevation", "Wetness", "Temperature", "Life", "Goodness", "Population", "Rarity", "LENGTH" };
 
     public TileTerrain tile;
@@ -70,6 +72,23 @@ public class TileInfo {
 
     public void OnUpdate() {
         tile.UpdateTileVisuals();
+    }
+
+    public bool IsPassable() {
+        if (biometype == BiomeType.Ocean || biometype == BiomeType.Lake) return false;
+        return true;
+    }
+
+    public int GetMovementCost() {
+        //Todo
+        int nCost = 10;
+
+        if (biometype == BiomeType.River) nCost = 20;
+
+        if(nCost < NMINMOVEMENTCOST) {
+            Debug.LogErrorFormat("Can't have a movement cost of {0} since it's less than our minimum {1}", nCost, NMINMOVEMENTCOST);
+        }
+        return nCost;
     }
 
     public void WetnessBomb(float fWetnessAmount) {

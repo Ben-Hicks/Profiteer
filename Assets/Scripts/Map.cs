@@ -360,6 +360,7 @@ public class Map : Singleton<Map> {
                 Debug.LogFormat("Clicked on Tile {0}", tileClicked);
                 foreach(Entity ent in lstEntities) {
                     Debug.LogFormat("Dist from {0} to {1} is {2}", tileClicked, ent.tile, TileTerrain.Dist(tileClicked, ent.tile));
+                    Pathing.FindPath(ent.tile, tileClicked);
                 }
             } else {
                 Debug.Log("Clicked on no tile");
