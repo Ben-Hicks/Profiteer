@@ -15,10 +15,31 @@ public enum FeatureType {
     
     Graveyard,
 
+    PolarBearDen,
+
     LENGTH
 }
 
+
+
 public static class Features {
+
+    public static string[] arsFeatureTypeNames = {
+        "Wheat Farm", 
+
+        "Copper Mine", "Iron Mine", "Gold Mine", 
+
+        "Blacksmith", "Potion Shop",
+
+        "Witch's Hut",
+
+        "Cave",
+
+        "Graveyard",
+
+        "Polar Bear Den",
+        
+    };
 
     private static System.Func<TileTerrain, Feature>[] arFeatureConstructors = {
         FeatureFarmWheat.Create,
@@ -36,10 +57,11 @@ public static class Features {
 
         FeatureGraveyard.Create,
             
+        FeaturePolarBearDen.Create,
     };
 
-    public static Feature CreateFeature( TileTerrain tileterrain, FeatureType featuretype) {
+    public static void CreateAndSetFeature(TileInfo tileinfo, FeatureType featuretype) {
 
-        return arFeatureConstructors[(int)featuretype](tileterrain);
+        tileinfo.feature = arFeatureConstructors[(int)featuretype](tileinfo.tile);
     }
 }

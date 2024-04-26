@@ -27,17 +27,21 @@ public class InfoPanel : Singleton<InfoPanel> {
 
         sInfo += string.Format("\nRegion: {0}", tile.region.sName);
             
-        sInfo += string.Format("\nType: {0}", Biome.arsBiomeNames[(int)tile.tileinfo.biometype]);
+        sInfo += string.Format("\nType: {0}", Biomes.arsBiomeNames[(int)tile.tileinfo.biometype]);
+
+        sInfo += string.Format("\nFeature: {0}", tile.tileinfo.feature != null ? tile.tileinfo.feature.sName : "None");
 
         for(int i=0; i<(int)TileInfoProperties.LENGTH; i++) {
             sInfo += string.Format("\n{0}: {1}", TileInfo.arsPropertyNames[i], tile.tileinfo.arfPropertyValues[i]);
         }
 
+        /*
         sInfo += "\nBiomes:";
         for(int i=0; i<(int)BiomeType.LENGTH; i++) {
-            sInfo += string.Format("\n{0}: {1}{2}", Biome.arsBiomeNames[i], tile.tileinfo.arfBiomeScores[i],
+            sInfo += string.Format("\n{0}: {1}{2}", Biomes.arsBiomeNames[i], tile.tileinfo.arfBiomeScores[i],
                 i == (int)tile.tileinfo.biometype ? "***" : "");
         }
+        */
 
         txtInfo.text = sInfo;
     }

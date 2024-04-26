@@ -8,7 +8,6 @@ public class FeatureBlacksmith : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeatureBlacksmith(tileterrain) {
-            sName = "Blacksmith",
             featuretype = FeatureType.Blacksmith,
         };
     }
@@ -20,7 +19,6 @@ public class FeaturePotionShop : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeaturePotionShop(tileterrain) {
-            sName = "Potion Shop",
             featuretype = FeatureType.PotionShop,
         };
     }

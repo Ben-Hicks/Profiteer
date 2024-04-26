@@ -7,14 +7,15 @@ using UnityEditor;
 public static class LibAssets {
 
     public static TileBase[] arAssetTileBaseBiomes = new TileBase[(int)BiomeType.LENGTH];
-    public static TileBase[] arAssetTileBaseElevations = new TileBase[(int)BiomeType.LENGTH];
-    public static TileBase[] arAssetTileBaseForests = new TileBase[(int)BiomeType.LENGTH];
-    public static TileBase[] arAssetTileBaseCities = new TileBase[(int)BiomeType.LENGTH];
+    public static TileBase[] arAssetTileBaseElevations = new TileBase[(int)ElevationType.LENGTH];
+    public static TileBase[] arAssetTileBaseForests = new TileBase[(int)ForestType.LENGTH];
+    public static TileBase[] arAssetTileBaseCities = new TileBase[(int)CityType.LENGTH];
+    public static TileBase[] arAssetTileBaseFeatures = new TileBase[(int)FeatureType.LENGTH];
 
     public static TileBase LoadAssetTileBase(BiomeType biometype) {
         if (arAssetTileBaseBiomes[(int)biometype] == null) {
 
-            string sPathToLoad = string.Format("Assets/Tilemaps/Terrain/ssTerrain_{0}.asset", Biome.arsBiomeNames[(int)biometype]);
+            string sPathToLoad = string.Format("Assets/Tilemaps/Terrain/ssTerrain_{0}.asset", Biomes.arsBiomeNames[(int)biometype]);
             TileBase tilebaseLoaded = (TileBase)AssetDatabase.LoadAssetAtPath(sPathToLoad, typeof(TileBase));
             if (tilebaseLoaded == null) {
                 Debug.LogErrorFormat("Could not load Asset \"{0}\"", sPathToLoad);
@@ -28,7 +29,7 @@ public static class LibAssets {
     public static TileBase LoadAssetTileBase(ElevationType elevationtype) {
         if (arAssetTileBaseElevations[(int)elevationtype] == null) {
 
-            string sPathToLoad = string.Format("Assets/Tilemaps/Elevation/ssElevation_{0}.asset", Biome.arsElevationTypeNames[(int)elevationtype]);
+            string sPathToLoad = string.Format("Assets/Tilemaps/Elevation/ssElevation_{0}.asset", Biomes.arsElevationTypeNames[(int)elevationtype]);
             TileBase tilebaseLoaded = (TileBase)AssetDatabase.LoadAssetAtPath(sPathToLoad, typeof(TileBase));
             if (tilebaseLoaded == null) {
                 Debug.LogErrorFormat("Could not load Asset \"{0}\"", sPathToLoad);
@@ -42,7 +43,7 @@ public static class LibAssets {
     public static TileBase LoadAssetTileBase(ForestType foresttype) {
         if (arAssetTileBaseForests[(int)foresttype] == null) {
 
-            string sPathToLoad = string.Format("Assets/Tilemaps/Forest/ssForest_{0}.asset", Biome.arsForestTypeNames[(int)foresttype]);
+            string sPathToLoad = string.Format("Assets/Tilemaps/Forest/ssForest_{0}.asset", Biomes.arsForestTypeNames[(int)foresttype]);
             TileBase tilebaseLoaded = (TileBase)AssetDatabase.LoadAssetAtPath(sPathToLoad, typeof(TileBase));
             if (tilebaseLoaded == null) {
                 Debug.LogErrorFormat("Could not load Asset \"{0}\"", sPathToLoad);
@@ -56,7 +57,7 @@ public static class LibAssets {
     public static TileBase LoadAssetTileBase(CityType citytype) {
         if (arAssetTileBaseCities[(int)citytype] == null) {
 
-            string sPathToLoad = string.Format("Assets/Tilemaps/City/ssCities_{0}.asset", Biome.arsCityTypeNames[(int)citytype]);
+            string sPathToLoad = string.Format("Assets/Tilemaps/City/ssCities_{0}.asset", Biomes.arsCityTypeNames[(int)citytype]);
             TileBase tilebaseLoaded = (TileBase)AssetDatabase.LoadAssetAtPath(sPathToLoad, typeof(TileBase));
             if (tilebaseLoaded == null) {
                 Debug.LogErrorFormat("Could not load Asset \"{0}\"", sPathToLoad);
@@ -65,6 +66,20 @@ public static class LibAssets {
         }
 
         return arAssetTileBaseCities[(int)citytype];
+    }
+
+    public static TileBase LoadAssetTileBase(FeatureType featuretype) {
+        if (arAssetTileBaseFeatures[(int)featuretype] == null) {
+
+            string sPathToLoad = string.Format("Assets/Tilemaps/Features/ssFeatures_{0}.asset", Features.arsFeatureTypeNames[(int)featuretype]);
+            TileBase tilebaseLoaded = (TileBase)AssetDatabase.LoadAssetAtPath(sPathToLoad, typeof(TileBase));
+            if (tilebaseLoaded == null) {
+                Debug.LogErrorFormat("Could not load Asset \"{0}\"", sPathToLoad);
+            }
+            arAssetTileBaseFeatures[(int)featuretype] = tilebaseLoaded;
+        }
+
+        return arAssetTileBaseFeatures[(int)featuretype];
     }
 
 }

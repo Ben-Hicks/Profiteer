@@ -18,6 +18,7 @@ public class TileInfo {
     public ForestType foresttype;
     public CityType citytype;
     public WaterType watertype;
+    public Feature feature;
 
     public float[] arfPropertyValues;
     public float[] arfBiomeScores;

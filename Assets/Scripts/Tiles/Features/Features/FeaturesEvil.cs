@@ -8,8 +8,7 @@ public class FeatureGraveyard : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeatureGraveyard(tileterrain) {
-            sName = "Graveyard",
             featuretype = FeatureType.Graveyard,
-        };
+    };
     }
 }

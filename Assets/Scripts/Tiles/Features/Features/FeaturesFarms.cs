@@ -8,7 +8,6 @@ public class FeatureFarmWheat : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeatureFarmWheat(tileterrain) {
-            sName = "Wheat Farm",
             featuretype = FeatureType.WheatFarm,
         };
     }

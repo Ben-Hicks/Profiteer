@@ -40,11 +40,7 @@ public class Map : Singleton<Map> {
     public Tilemap tilemapForest;
     public Tilemap tilemapWater;
     public Tilemap tilemapCity;
-    public List<TileBase> lsttmtileTerrain;
-    public List<TileBase> lsttmtileElevation;
-    public List<TileBase> lsttmtileWater;
-    public List<TileBase> lsttmtileForest;
-    public List<TileBase> lsttmtileCity;
+    public Tilemap tilemapFeatures;
 
     public GameObject pfEntity;
     
@@ -240,6 +236,7 @@ public class Map : Singleton<Map> {
         MapGenerator.Get().AssignAllElevationMultis();
         MapGenerator.Get().AssignAllForestMultis();
         MapGenerator.Get().AssignAllCityMultis();
+        MapGenerator.Get().AssignAllFeatures();
 
         UpdateAllTileVisuals();
     }
@@ -316,8 +313,7 @@ public class Map : Singleton<Map> {
         MapGenerator.Get().UpdateSeed();
 
         FullMapGeneration();
-
-
+        
         /*
         if (lstEntities != null) {
             Debug.Log("We already have entities - no need to spawn more");
@@ -329,9 +325,7 @@ public class Map : Singleton<Map> {
         */
     }
 
-
-    public void Update() {
-
+    public void HandleKeyboardInputs() {
         if (Input.GetKeyUp(KeyCode.Space)) {
             UpdateAllTileVisuals();
         } else if (Input.GetKeyUp(KeyCode.Alpha1)) {
@@ -349,6 +343,34 @@ public class Map : Singleton<Map> {
         } else if (Input.GetKeyUp(KeyCode.Alpha7)) {
             ShowTileProprties(TileInfoProperties.Rarity);
         }
+    }
+
+    public void HandleMouseInputs() {
+
+        if (Input.GetMouseButtonUp(0)) {
+            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3Int v3ClickedTile = tilemapTerrain.WorldToCell(worldPoint);
+
+            // Try to get a tile from cell position
+            TileBase tilebaseClicked = tilemapTerrain.GetTile(v3ClickedTile);
+
+            if (tilebaseClicked != null) {
+                TileTerrain tileClicked = GetTile(v3ClickedTile.y, v3ClickedTile.x);
+                Debug.LogFormat("Clicked on Tile {0}", tileClicked);
+                foreach(Entity ent in lstEntities) {
+                    Debug.LogFormat("Dist from {0} to {1} is {2}", tileClicked, ent.tile, TileTerrain.Dist(tileClicked, ent.tile));
+                }
+            } else {
+                Debug.Log("Clicked on no tile");
+            }
+        }
+    }
+
+    public void Update() {
+
+        HandleKeyboardInputs();
+        HandleMouseInputs();
 
     }
 }

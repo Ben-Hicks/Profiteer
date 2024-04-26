@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Feature {
-
-    public string sName;
+    
+    public string sName {
+        get { return Features.arsFeatureTypeNames[(int)featuretype]; }
+    }
     public FeatureType featuretype;
     public TileTerrain tileterrain;
 
@@ -14,6 +16,7 @@ public abstract class Feature {
     public Feature(TileTerrain _tileterrain) {
         tileterrain = _tileterrain;
     }
+
 
     //Cast the return value to whatever type we need
     public object GetContextValue(string s) {

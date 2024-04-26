@@ -30,6 +30,9 @@ public class MapGenerator : Singleton<MapGenerator> {
     public int nMinCityPopulation;
     public int nMinTownPopulation;
 
+    [Range(0, 100)]
+    public int nFeatureDensity; //As a (0, 100) percentage
+
     public Dictionary<BiomeType, int> dictBiomeCounts = new Dictionary<BiomeType, int>();
     public Dictionary<ElevationType, int> dictElevationCounts = new Dictionary<ElevationType, int>();
     public Dictionary<ForestType, int> dictForestCounts = new Dictionary<ForestType, int>();
@@ -136,7 +139,7 @@ public class MapGenerator : Singleton<MapGenerator> {
     public void PrintBiomeCounts() {
         Debug.LogFormat("Biome Counts: ");
         for (BiomeType iBiome = (BiomeType)0; iBiome < BiomeType.LENGTH; iBiome++) {
-            Debug.LogFormat("\n{0}: {1}", Biome.arsBiomeNames[(int)iBiome], dictBiomeCounts.ContainsKey(iBiome) ? dictBiomeCounts[iBiome] : 0);
+            Debug.LogFormat("\n{0}: {1}", Biomes.arsBiomeNames[(int)iBiome], dictBiomeCounts.ContainsKey(iBiome) ? dictBiomeCounts[iBiome] : 0);
         }
         Debug.Log("\n");
     }
@@ -144,7 +147,7 @@ public class MapGenerator : Singleton<MapGenerator> {
     public void PrintElevationCounts() {
         Debug.LogFormat("Elevation Counts: ");
         for (ElevationType iElevation = (ElevationType)0; iElevation < ElevationType.LENGTH; iElevation++) {
-            Debug.LogFormat("\n{0}: {1}", Biome.arsElevationTypeNames[(int)iElevation],
+            Debug.LogFormat("\n{0}: {1}", Biomes.arsElevationTypeNames[(int)iElevation],
                 dictElevationCounts.ContainsKey(iElevation) ? dictElevationCounts[iElevation] : 0);
         }
         Debug.Log("\n");
@@ -153,7 +156,7 @@ public class MapGenerator : Singleton<MapGenerator> {
     public void PrintForestCounts() {
         Debug.LogFormat("Forest Counts: ");
         for (ForestType iForest = (ForestType)0; iForest < ForestType.LENGTH; iForest++) {
-            Debug.LogFormat("\n{0}: {1}", Biome.arsForestTypeNames[(int)iForest],
+            Debug.LogFormat("\n{0}: {1}", Biomes.arsForestTypeNames[(int)iForest],
                 dictForestCounts.ContainsKey(iForest) ? dictForestCounts[iForest] : 0);
         }
         Debug.Log("\n");
@@ -533,8 +536,29 @@ public class MapGenerator : Singleton<MapGenerator> {
 
     }
 
-    public void AssignAllFeatures() {
+    public void AssignFeature(TileInfo tileinfo) {
 
+        FeatureType featuretypeToSet;
+
+        if (Random.Range(0, 100) < nFeatureDensity) {
+
+            if (tileinfo.citytype != CityType.None) {
+                featuretypeToSet = Biomes.randcolCityFeatures.GetRandom();
+            } else {
+                featuretypeToSet = Biomes.GetBiome(tileinfo.biometype).supportedFeatureTypes.GetRandom();
+            }
+
+            Features.CreateAndSetFeature(tileinfo, featuretypeToSet);
+        }
+    }
+
+    public void AssignAllFeatures() {
+        for (int i = 0; i < Map.Get().lstTiles.Count; i++) {
+            //Debug.LogFormat("Working on column {0}", i);
+            foreach (TileTerrain t in Map.Get().lstTiles[i].lstTiles) {
+                AssignFeature(t.tileinfo);
+            }
+        }
     }
 
     public void UpdateSeed() {

@@ -8,7 +8,6 @@ public class FeatureCopperMine : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeatureCopperMine(tileterrain) {
-            sName = "Copper Mine",
             featuretype = FeatureType.CopperMine,
         };
     }
@@ -21,7 +20,6 @@ public class FeatureIronMine : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeatureIronMine(tileterrain) {
-            sName = "Iron Mine",
             featuretype = FeatureType.IronMine,
         };
     }
@@ -34,8 +32,7 @@ public class FeatureGoldMine : Feature {
 
     public static Feature Create(TileTerrain tileterrain) {
         return new FeatureGoldMine(tileterrain) {
-            sName = "Gold Mine",
             featuretype = FeatureType.GoldMine,
-        };
+    };
     }
 }
