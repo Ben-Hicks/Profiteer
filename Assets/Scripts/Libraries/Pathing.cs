@@ -113,4 +113,27 @@ public static class Pathing {
     }
 
 
+    public static HashSet<TileTerrain> GetTilesInMovementRange(TileTerrain tileStart, int nMovementBudget) {
+        HashSet<TileTerrain> setTilesReachable = new HashSet<TileTerrain>();
+
+        Queue<(int, TileTerrain)> queueToExplore = new Queue<(int, TileTerrain)>();
+        queueToExplore.Enqueue((nMovementBudget, tileStart));
+
+        while(queueToExplore.Count > 0) {
+            (int, TileTerrain) tileToExplore = queueToExplore.Dequeue();
+            Debug.LogFormat("Dequeueing tile {0}", tileToExplore);
+            if (setTilesReachable.Contains(tileToExplore.Item2) || tileToExplore.Item1 < 0) continue;
+            
+            setTilesReachable.Add(tileToExplore.Item2);
+            Map.Get().FoldHex1(tileToExplore.Item2, 0, (TileTerrain t, int rec) => {
+                if(setTilesReachable.Contains(t) == false && t.tileinfo.IsPassable()) {
+                    queueToExplore.Enqueue((tileToExplore.Item1 - t.tileinfo.GetMovementCost(), t));
+                }
+                return rec;
+            });
+        }
+
+        return setTilesReachable;
+    }
+
 }

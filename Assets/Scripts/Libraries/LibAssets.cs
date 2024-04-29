@@ -11,6 +11,7 @@ public static class LibAssets {
     public static TileBase[] arAssetTileBaseForests = new TileBase[(int)ForestType.LENGTH];
     public static TileBase[] arAssetTileBaseCities = new TileBase[(int)CityType.LENGTH];
     public static TileBase[] arAssetTileBaseFeatures = new TileBase[(int)FeatureType.LENGTH];
+    public static TileBase[] arAssetTileBaseHighlights = new TileBase[1];
 
     public static TileBase LoadAssetTileBase(BiomeType biometype) {
         if (arAssetTileBaseBiomes[(int)biometype] == null) {
@@ -80,6 +81,21 @@ public static class LibAssets {
         }
 
         return arAssetTileBaseFeatures[(int)featuretype];
+    }
+
+    public static TileBase LoadAssetHighlight() {
+        //Currently only supporting 1 image of highlighting
+        if (arAssetTileBaseHighlights[0] == null) {
+
+            string sPathToLoad = string.Format("Assets/Tilemaps/Highlights/ssHighlights_{0}.asset", "Highlight");
+            TileBase tilebaseLoaded = (TileBase)AssetDatabase.LoadAssetAtPath(sPathToLoad, typeof(TileBase));
+            if (tilebaseLoaded == null) {
+                Debug.LogErrorFormat("Could not load Asset \"{0}\"", sPathToLoad);
+            }
+            arAssetTileBaseHighlights[0] = tilebaseLoaded;
+        }
+
+        return arAssetTileBaseHighlights[0];
     }
 
 }

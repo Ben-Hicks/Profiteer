@@ -42,6 +42,8 @@ public class Map : Singleton<Map> {
     public Tilemap tilemapCity;
     public Tilemap tilemapFeatures;
 
+    public Tilemap tilemapHighlighting;
+
     public GameObject pfEntity;
     
     public GameObject goEntityContainer;
@@ -359,8 +361,11 @@ public class Map : Singleton<Map> {
                 TileTerrain tileClicked = GetTile(v3ClickedTile.y, v3ClickedTile.x);
                 Debug.LogFormat("Clicked on Tile {0}", tileClicked);
                 foreach(Entity ent in lstEntities) {
-                    Debug.LogFormat("Dist from {0} to {1} is {2}", tileClicked, ent.tile, TileTerrain.Dist(tileClicked, ent.tile));
-                    Pathing.FindPath(ent.tile, tileClicked);
+                    //Debug.LogFormat("Dist from {0} to {1} is {2}", tileClicked, ent.tile, TileTerrain.Dist(tileClicked, ent.tile));
+                    //List<TileTerrain> lstPath = Pathing.FindPath(ent.tile, tileClicked);
+                    //MapHighlighting.Get().SetAllHighlighting(lstPath);
+
+                    MapHighlighting.Get().SetAllHighlighting(Pathing.GetTilesInMovementRange(tileClicked, 100));
                 }
             } else {
                 Debug.Log("Clicked on no tile");

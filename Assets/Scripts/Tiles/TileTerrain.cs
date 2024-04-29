@@ -88,6 +88,17 @@ public class TileTerrain {
         map.tilemapTerrain.SetColor(v3Coords, MapGenerator.Get().GetPropertyColour(property, tileinfo.arfPropertyValues[(int)property]));
     }
 
+    public void Highlight() {
+        map.tilemapHighlighting.SetTile(v3Coords, LibAssets.LoadAssetHighlight());
+        map.tilemapHighlighting.SetTileFlags(v3Coords, TileFlags.None);
+        Color colHighlight = new Color(1, 1, 1, 0.4f);
+        map.tilemapHighlighting.SetColor(v3Coords, colHighlight);
+    }
+
+    public void Unhighlight() {
+        map.tilemapHighlighting.SetTile(v3Coords, null);
+    }
+
     public static int Dist(TileTerrain t1, TileTerrain t2) {
         int nDx = Mathf.Abs(t1.x - t2.x);
         int nDy = Mathf.Abs(t1.y - t2.y);
