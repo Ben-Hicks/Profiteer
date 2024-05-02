@@ -17,7 +17,6 @@ public class MapHighlighting : Singleton<MapHighlighting> {
         ClearAllHighlighting();
 
         foreach(TileTerrain tile in setToHighlight) {
-            Debug.LogFormat("Want to highlight {0}", tile);
             tile.Highlight();
             setTilesHighlighted.Add(tile);
         }

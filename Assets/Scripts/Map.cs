@@ -364,8 +364,9 @@ public class Map : Singleton<Map> {
                     //Debug.LogFormat("Dist from {0} to {1} is {2}", tileClicked, ent.tile, TileTerrain.Dist(tileClicked, ent.tile));
                     //List<TileTerrain> lstPath = Pathing.FindPath(ent.tile, tileClicked);
                     //MapHighlighting.Get().SetAllHighlighting(lstPath);
+                    ent.MoveToTile(tileClicked);
 
-                    MapHighlighting.Get().SetAllHighlighting(Pathing.GetTilesInMovementRange(tileClicked, 100));
+                    //MapHighlighting.Get().SetAllHighlighting(Pathing.GetTilesInMovementRange(tileClicked, 100));
                 }
             } else {
                 Debug.Log("Clicked on no tile");

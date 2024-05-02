@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class Pathing {
 
+    public enum PathResultType {
+        Success, 
+        Unreachable,
+        Closest
+    }
+
     private class PathDetails {
         public float f, g, h;
         public TileTerrain tile;
@@ -15,7 +21,13 @@ public static class Pathing {
         }
     }
 
-    public static List<TileTerrain> FindPath(TileTerrain tileStart, TileTerrain tileEnd) {
+    //Will return an exact path if one exists with cost <= fMaxCost, otherwise we'll return a path to the closest tile we found
+    // to the destination within that fMaxCost
+    public static (PathResultType, List<TileTerrain>) FindPath(TileTerrain tileStart, TileTerrain tileEnd, float fMaxCost) {
+
+        if (tileEnd.tileinfo.IsPassable() == false || tileEnd.ent != null) {
+            return (PathResultType.Unreachable, null);
+        }
 
         HashSet<TileTerrain> setVisited = new HashSet<TileTerrain>();
 
@@ -33,25 +45,27 @@ public static class Pathing {
         heapToVisit.Add((0f, detailsStart));
         dictBestTileScores.Add(tileStart, 0f);
 
-        PathDetails detailsEnd = null;
+        PathDetails detailsBestFound = detailsStart;
 
         while(heapToVisit.IsEmpty() == false) {
 
             (float, PathDetails) detailsToExplore = heapToVisit.PopMin();
+            
+            TileTerrain tileExploring = detailsToExplore.Item2.tile;
+
+            if (tileExploring == tileEnd || detailsToExplore.Item2.g > fMaxCost) {
+                detailsBestFound = detailsToExplore.Item2;
+                break;
+            }
+
+            if (detailsToExplore.Item2.g < detailsBestFound.g) detailsBestFound = detailsToExplore.Item2;
 
             Debug.LogFormat("Exploring {0}", detailsToExplore);
-
-            TileTerrain tileExploring = detailsToExplore.Item2.tile;
 
             if(detailsToExplore.Item2.f > dictBestTileScores[tileExploring]) {
                 //Don't need to explore this since we've already explored it through faster paths
                 Debug.LogFormat("Skipping {0}", detailsToExplore);
                 continue;
-            }
-
-            if(tileExploring == tileEnd) {
-                detailsEnd = detailsToExplore.Item2;
-                break;
             }
 
 
@@ -85,31 +99,34 @@ public static class Pathing {
             });
         }
 
-        if(detailsEnd != null) {
-            //Then we found a path, so let's back track through our PathDetails to find it
+        string sPath;
+        PathResultType resulttype = PathResultType.Success;
 
-            Stack<TileTerrain> stackPath = new Stack<TileTerrain>();
-            while(detailsEnd.parent != null) {
-                stackPath.Push(detailsEnd.tile);
-                detailsEnd = detailsEnd.parent;
-            }
-
-            string sPath = "Path: ";
-            List<TileTerrain> lstPath = new List<TileTerrain>();
-            while(stackPath.Count > 0) {
-                TileTerrain tileNext = stackPath.Pop();
-                lstPath.Add(tileNext);
-                sPath += string.Format(" {0} ", tileNext);
-            }
-
-            Debug.LogFormat("Found path of {0}", sPath);
-            return lstPath;
-
+        if(detailsBestFound.tile != tileEnd) {
+            Debug.LogFormat("Couldn't find a path to {0}, so returning a closest path to {1} instead", tileEnd, detailsBestFound.tile);
+            sPath = "Closest Path: ";
+            resulttype = PathResultType.Closest;
         } else {
-            //No path found
-            Debug.LogFormat("No path from {0} to {1}", tileStart, tileEnd);
-            return null;
+            sPath = "Path: ";
         }
+
+        Stack<TileTerrain> stackPath = new Stack<TileTerrain>();
+        while (detailsBestFound.parent != null) {
+            stackPath.Push(detailsBestFound.tile);
+            detailsBestFound = detailsBestFound.parent;
+        }
+        
+        List<TileTerrain> lstPath = new List<TileTerrain>();
+        lstPath.Add(tileStart);
+        while (stackPath.Count > 0) {
+            TileTerrain tileNext = stackPath.Pop();
+            lstPath.Add(tileNext);
+            sPath += string.Format(" {0} ", tileNext);
+        }
+
+        Debug.LogFormat("Found {0}", sPath);
+        return (resulttype, lstPath);
+
     }
 
 
@@ -121,7 +138,6 @@ public static class Pathing {
 
         while(queueToExplore.Count > 0) {
             (int, TileTerrain) tileToExplore = queueToExplore.Dequeue();
-            Debug.LogFormat("Dequeueing tile {0}", tileToExplore);
             if (setTilesReachable.Contains(tileToExplore.Item2) || tileToExplore.Item1 < 0) continue;
             
             setTilesReachable.Add(tileToExplore.Item2);

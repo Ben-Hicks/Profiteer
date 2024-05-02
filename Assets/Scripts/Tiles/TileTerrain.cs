@@ -56,7 +56,7 @@ public class TileTerrain {
         v3Coords = new Vector3Int(y, x, 0);
         arAdj = new TileTerrain[6];
         tileinfo = new TileInfo(this);
-        v3WorldPosition = map.tilemapTerrain.CellToWorld(v3Coords);
+        v3WorldPosition = map.tilemapTerrain.GetCellCenterWorld(v3Coords);
     }
     
     public override string ToString() {

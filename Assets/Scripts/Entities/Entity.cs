@@ -5,6 +5,8 @@ using TMPro;
 
 public class Entity : MonoBehaviour {
 
+    public static readonly Vector3 fEntityOffsetZ = new Vector3(0, 0, -0.1f);
+
     public TextMeshProUGUI txtEntityType;
     public TextMeshProUGUI txtDebug;
 
@@ -26,11 +28,13 @@ public class Entity : MonoBehaviour {
 
         Debug.LogFormat("Setting Entity {0} from {1} to {2}", id, tile, _tile);
 
+        if(tile != null) {
+            tile.ent = null;
+        }
+
         tile = _tile;
         tile.ent = this;
-
-        Debug.Log("Implement Entity Positions");
-        gameObject.transform.position = tile.v3WorldPosition + v3PosOffset;
+        
     }
 
     public void MoveToTile(TileTerrain _tile) {
@@ -39,21 +43,7 @@ public class Entity : MonoBehaviour {
             return;
         }
 
-        Debug.LogFormat("Moving entity {0} from {1} to {2}", id, tile, _tile);
-
-        if (_tile.ent != null) {
-            //If an entity exists where we're trying to move, then cancel the movement
-
-            /* could swap if we wanted
-            Debug.LogFormat("_tile {0} has entity {1} that we need to swap with", _tile, _tile.ent.id);
-            _tile.ent.SetTile(tile);
-            */
-            return;
-        } else {
-            //If nothing's moving onto our tile, then clear out it's entity
-            tile.ent = null;
-        }
-        SetTile(_tile);
+        MovementController.Get().MoveEntToTile(this, _tile);
 
         fTimeSinceMove = 0f;
     }
@@ -61,19 +51,20 @@ public class Entity : MonoBehaviour {
 
     public void InitOnTile(TileTerrain _tile) {
         SetTile(_tile);
+        this.transform.position = _tile.v3WorldPosition + Entity.fEntityOffsetZ;
     }
 
     public override string ToString() {
-        return string.Format("Entity {0}", id);
+        return string.Format("Entity-{0}", id);
     }
 
     public void OnMouseEnter() {
-        Debug.LogFormat("Entered Entity {0}", id);
+        Debug.LogFormat("Entered Entity {0}", ToString());
         InfoPanel.Get().SetInfo(ToString());
     }
 
     public void OnMouseExit() {
-        Debug.LogFormat("Left Entity {0}", id);
+        Debug.LogFormat("Left Entity {0}", ToString());
         InfoPanel.Get().ClearInfo();
     }
 
