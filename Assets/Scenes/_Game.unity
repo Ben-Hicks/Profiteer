@@ -694,6 +694,7 @@ GameObject:
   m_Component:
   - component: {fileID: 830640068}
   - component: {fileID: 830640067}
+  - component: {fileID: 830640069}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -728,6 +729,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &830640069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830640066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e06e7d17d370d419c0949d3675fa4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nRound: 0
 --- !u!1 &990970509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1699,9 @@ MonoBehaviour:
   tilemapCity: {fileID: 1592641777}
   tilemapFeatures: {fileID: 1079893503}
   tilemapHighlighting: {fileID: 1455965290}
-  pfEntity: {fileID: 5513560143651835499, guid: 31c9b682e2741a440aef0f73a820f8bd,
+  pfEntityHerbivore: {fileID: 7529995177320159587, guid: ca19498fcb6e29c499a363245bdf9f8b,
+    type: 3}
+  pfEntityPredator: {fileID: 6658344917807151893, guid: 86f4219dd72a66c4fa5009d52095bdf5,
     type: 3}
   goEntityContainer: {fileID: 1303995106}
 --- !u!4 &1590552344

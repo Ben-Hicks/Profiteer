@@ -44,7 +44,8 @@ public class Map : Singleton<Map> {
 
     public Tilemap tilemapHighlighting;
 
-    public GameObject pfEntity;
+    public GameObject pfEntityHerbivore;
+    public GameObject pfEntityPredator;
     
     public GameObject goEntityContainer;
 
@@ -134,7 +135,7 @@ public class Map : Singleton<Map> {
         return yBase;
     }
 
-    public void SpawnEntity(TileTerrain tile) {
+    public void SpawnEntity(TileTerrain tile, GameObject pfEntity) {
         GameObject goEntityNew = GameObject.Instantiate(pfEntity, goEntityContainer.transform);
         Entity entNew = goEntityNew.GetComponent<Entity>();
 
@@ -143,7 +144,12 @@ public class Map : Singleton<Map> {
         if(lstEntities == null) lstEntities = new List<Entity>();
 
         entNew.SetId(lstEntities.Count);
+        entNew.entinfo.Init();
+        entNew.entinput.InitEntityInput();
+
         lstEntities.Add(entNew);
+
+        
     }
     
 
@@ -303,12 +309,13 @@ public class Map : Singleton<Map> {
         lstCities.Add(city);
     }
 
-    public void SpawnRandomEntity() {
+    public void SpawnRandomEntity(GameObject pfEntity) {
         int y = Random.Range(0, nMapHeight);
         int x = Random.Range(0, nMapWidth);
 
-        SpawnEntity(GetTile(x, y));
+        SpawnEntity(GetTile(x, y), pfEntity);
     }
+
 
     public override void Init() {
 

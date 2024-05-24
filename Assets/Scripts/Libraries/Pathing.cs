@@ -23,48 +23,89 @@ public static class Pathing {
 
     //Will return an exact path if one exists with cost <= fMaxCost, otherwise we'll return a path to the closest tile we found
     // to the destination within that fMaxCost
-    public static (PathResultType, List<TileTerrain>) FindPath(TileTerrain tileStart, TileTerrain tileEnd, float fMaxCost) {
+    // We'll return a path to the first tile we can find that is within nMaxDistFromEnd from tileEnd
+    public static (PathResultType, List<TileTerrain>, int) FindPath(TileTerrain tileStart, TileTerrain tileEnd, float fMaxCost, int nMaxDistFromEnd = 0) {
 
-        if (tileEnd.tileinfo.IsPassable() == false || tileEnd.ent != null) {
-            return (PathResultType.Unreachable, null);
+        //Do some quick checks to see if we can reach the tileEnd at all
+        bool bUnreachable = false;
+        if(nMaxDistFromEnd == 0) {
+            bUnreachable = (tileEnd.tileinfo.IsPassable() == false || tileEnd.ent != null);
+            
+        }else if(nMaxDistFromEnd == 1) {
+            bUnreachable = Map.Get().FoldHex1(tileEnd, true, (TileTerrain t, bool rec) => {
+            return rec && (t.tileinfo.IsPassable() == false || t.ent != null);
+            });
+        } else if (nMaxDistFromEnd == 2) {
+            bUnreachable = Map.Get().FoldHex2(tileEnd, true, (TileTerrain t, bool rec) => {
+                return rec && (t.tileinfo.IsPassable() == false || t.ent != null);
+            });
+        } else {
+            Debug.LogErrorFormat("Currently no implementation for Unreachability of nMaxDistFromEnd = {0}", nMaxDistFromEnd);
         }
+
+        if (bUnreachable) {
+            return (PathResultType.Unreachable, null, 0);
+        }
+        
 
         HashSet<TileTerrain> setVisited = new HashSet<TileTerrain>();
 
         Dictionary<TileTerrain, float> dictBestTileScores = new Dictionary<TileTerrain, float>();
         Heap<PathDetails> heapToVisit = new Heap<PathDetails>();
 
+        float fInitialh = TileTerrain.Dist(tileStart, tileEnd) * TileInfo.NMINMOVEMENTCOST;
+
         PathDetails detailsStart = new PathDetails {
-            f = 0f,
+            f = fInitialh,
             g = 0f,
-            h = 0f,
+            h = fInitialh,
             tile = tileStart,
             parent = null
         };
 
         heapToVisit.Add((0f, detailsStart));
-        dictBestTileScores.Add(tileStart, 0f);
+        dictBestTileScores.Add(tileStart, fInitialh);
 
         PathDetails detailsBestFound = detailsStart;
+        PathResultType resulttype = PathResultType.Closest;
+        string sPath = "";
 
-        while(heapToVisit.IsEmpty() == false) {
+        while (heapToVisit.IsEmpty() == false) {
 
             (float, PathDetails) detailsToExplore = heapToVisit.PopMin();
+
+            Debug.LogFormat("Inspecting {0}", detailsToExplore.Item2);
             
             TileTerrain tileExploring = detailsToExplore.Item2.tile;
 
-            if (tileExploring == tileEnd || detailsToExplore.Item2.g > fMaxCost) {
-                detailsBestFound = detailsToExplore.Item2;
+            if (detailsToExplore.Item2.g > fMaxCost) {
+                //If the closest we could get to the goal costs g and that's more than our maximum cost, 
+                //  then we should just return the best path we previously found.
+                sPath = "Closest Path: ";
+                Debug.LogFormat("This path we just popped has .g={0}, but our max cost is {1}.  Falling back to our best path with cost {2}",
+                    detailsToExplore.Item2.g, fMaxCost, detailsBestFound.g);
                 break;
+            }else if (TileTerrain.Dist(tileExploring, tileEnd) <= nMaxDistFromEnd) {
+                //Then we've reached close enough to our target
+                resulttype = PathResultType.Success;
+                detailsBestFound = detailsToExplore.Item2;
+                sPath = "Path: ";
+                break;
+
             }
 
-            if (detailsToExplore.Item2.g < detailsBestFound.g) detailsBestFound = detailsToExplore.Item2;
+            Debug.LogFormat("Comparing ToExplore.Item2.h of {0} vs detailsBestFound.h of {1}", detailsToExplore.Item2.h, detailsBestFound.h);
 
-            Debug.LogFormat("Exploring {0}", detailsToExplore);
+            if (detailsToExplore.Item2.h < detailsBestFound.h) {
+                Debug.LogFormat("Updating best found to have g={0}, h={1}, f={2}", detailsToExplore.Item2.g, detailsToExplore.Item2.h, detailsToExplore.Item2.f);
+                detailsBestFound = detailsToExplore.Item2;
+            }
+
+            //Debug.LogFormat("Exploring {0}", detailsToExplore);
 
             if(detailsToExplore.Item2.f > dictBestTileScores[tileExploring]) {
                 //Don't need to explore this since we've already explored it through faster paths
-                Debug.LogFormat("Skipping {0}", detailsToExplore);
+                //Debug.LogFormat("Skipping {0}", detailsToExplore);
                 continue;
             }
 
@@ -99,16 +140,6 @@ public static class Pathing {
             });
         }
 
-        string sPath;
-        PathResultType resulttype = PathResultType.Success;
-
-        if(detailsBestFound.tile != tileEnd) {
-            Debug.LogFormat("Couldn't find a path to {0}, so returning a closest path to {1} instead", tileEnd, detailsBestFound.tile);
-            sPath = "Closest Path: ";
-            resulttype = PathResultType.Closest;
-        } else {
-            sPath = "Path: ";
-        }
 
         Stack<TileTerrain> stackPath = new Stack<TileTerrain>();
         while (detailsBestFound.parent != null) {
@@ -117,15 +148,17 @@ public static class Pathing {
         }
         
         List<TileTerrain> lstPath = new List<TileTerrain>();
+        int nEnergyCost = 0;
         lstPath.Add(tileStart);
         while (stackPath.Count > 0) {
             TileTerrain tileNext = stackPath.Pop();
             lstPath.Add(tileNext);
+            nEnergyCost += tileNext.tileinfo.GetMovementCost();
             sPath += string.Format(" {0} ", tileNext);
         }
 
         Debug.LogFormat("Found {0}", sPath);
-        return (resulttype, lstPath);
+        return (resulttype, lstPath, nEnergyCost);
 
     }
 
@@ -151,5 +184,6 @@ public static class Pathing {
 
         return setTilesReachable;
     }
+
 
 }

@@ -11,6 +11,8 @@ public class Entity : MonoBehaviour {
     public TextMeshProUGUI txtDebug;
 
     public TileTerrain tile;
+    public EntityInfo entinfo;
+    public EntityInput entinput;
     public int id;
 
     //temp
@@ -20,8 +22,7 @@ public class Entity : MonoBehaviour {
 
     public void SetId(int _id) {
         id = _id;
-
-        txtDebug.text = id.ToString();
+        
     }
 
     public void SetTile(TileTerrain _tile) {
@@ -43,7 +44,7 @@ public class Entity : MonoBehaviour {
             return;
         }
 
-        MovementController.Get().MoveEntToTile(this, _tile);
+        StartCoroutine(MovementController.Get().MoveEntToTile(this, _tile, 1));
 
         fTimeSinceMove = 0f;
     }
@@ -89,4 +90,5 @@ public class Entity : MonoBehaviour {
         }
 
     }
+    
 }

@@ -121,8 +121,44 @@ public class TileTerrain {
         }
 
         if (nDiag >= nDy) return nDx;
-
+        
         return nDx + nDy - nDiag;
     }
 
+    public static TileTerrain ClosestToTile(TileTerrain tileTarget, params Entity[] arsEntityCandidates) {
+        return ClosestToTile(tileTarget, new List<Entity>(arsEntityCandidates));
+    }
+
+    public static TileTerrain ClosestToTile(TileTerrain tileTarget, List<Entity> lstCandidates) {
+        List<TileTerrain> lstTileCandidates = new List<TileTerrain>();
+        foreach(Entity e in lstCandidates) {
+            lstTileCandidates.Add(e.tile);
+        }
+
+        return ClosestToTile(tileTarget, lstTileCandidates);
+    }
+
+    public static TileTerrain ClosestToTile(TileTerrain tileTarget, params TileTerrain[] argsTileCandidates) {
+        return ClosestToTile(tileTarget, new List<TileTerrain>(argsTileCandidates));
+    }
+
+    public static TileTerrain ClosestToTile(TileTerrain tileTarget, List<TileTerrain> lstCandidates) {
+        if(lstCandidates.Count == 0) {
+            Debug.LogError("Cannot find a closest Tile since none were provided");
+            return null;
+        }
+
+        TileTerrain tileClosestSoFar = lstCandidates[0];
+        int nClosestDist = Dist(tileTarget, tileClosestSoFar);
+
+        for(int i=1; i<lstCandidates.Count; i++) {
+            int nCurDist = Dist(tileTarget, lstCandidates[i]);
+            if (nCurDist < nClosestDist) {
+                tileClosestSoFar = lstCandidates[i];
+                nClosestDist = nCurDist;
+            }
+        }
+
+        return tileClosestSoFar;
+    }
 }

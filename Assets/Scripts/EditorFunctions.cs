@@ -27,8 +27,10 @@ public class EditorFunctions : EditorWindow {
             AssignCityMultis();
         } else if (GUILayout.Button("Full Map Generation")) {
             AssignCityMultis();
-        } else if (GUILayout.Button("Spawn Random Entity")) {
-            SpawnRandomEntity();
+        } else if (GUILayout.Button("Spawn Random Herbavore")) {
+            SpawnRandomHerbavore();
+        } else if (GUILayout.Button("Spawn Random Predator")) {
+            SpawnRandomPredator();
         } else if (GUILayout.Button("Update Random Seed")) {
             UpdateRandomSeed();
         } else if (GUILayout.Button("Print Biome Counts")) {
@@ -127,12 +129,20 @@ public class EditorFunctions : EditorWindow {
         Debug.Log("Map Clear Complete");
     }
 
-    private void SpawnRandomEntity() {
-        Debug.Log("Spawning Random Entity");
+    private void SpawnRandomHerbavore() {
+        Debug.Log("Spawning Random Herbavore");
 
-        Map.Get().SpawnRandomEntity();
+        Map.Get().SpawnRandomEntity(Map.Get().pfEntityHerbivore);
 
-        Debug.Log("Random Entity Spawned");
+        Debug.Log("Random Herbavore Spawned");
+    }
+
+    private void SpawnRandomPredator() {
+        Debug.Log("Spawning Random Predator");
+
+        Map.Get().SpawnRandomEntity(Map.Get().pfEntityPredator);
+
+        Debug.Log("Random Predator Spawned");
     }
 
     private void UpdateRandomSeed() {
