@@ -9,15 +9,16 @@ public static class LibAI {
    
 
     //Find the closest entity within sight that has all the required tags
-    public static TileTerrain FindClosestTaggedEntity(Entity ent, List<EntityTag> lstTagsRequired) {
+    public static TileTerrain FindClosestTaggedEntity(Entity ent, List<string> lstTagsRequired) {
 
         List<TileTerrain> lstCandidates = new List<TileTerrain>();
 
         //For now, we're just looping over all Entities - this could be further refined if we eventually have too many entities to make this practical
         foreach(Entity e in Map.Get().lstEntities) {
             bool bHasAllTags = true;
-            foreach(EntityTag t in lstTagsRequired) {
-                if (e.entinfo.setTags.Contains(t) == false) {
+            foreach(string sTag in lstTagsRequired) {
+                bool bDummy = false;
+                if (e.entinfo.dictTags.FetchFeatureValue(sTag, out bDummy) == false) {
                     bHasAllTags = false;
                     break;
                 }
@@ -29,10 +30,13 @@ public static class LibAI {
         }
 
         if(lstCandidates.Count == 0) {
+            Debug.Log("No candidates found");
             return null;
         }
 
         TileTerrain tileClosest = TileTerrain.ClosestToTile(ent.tile, lstCandidates);
+
+        Debug.LogFormat("Closest tile we found is {0} at a dist of {1} and our sight range is {2}", tileClosest, TileTerrain.Dist(ent.tile, tileClosest), ent.entinfo.nSightRange);
 
         if(tileClosest != null && TileTerrain.Dist(ent.tile, tileClosest) <= ent.entinfo.nSightRange) {
             return tileClosest;

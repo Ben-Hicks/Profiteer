@@ -326,9 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4705217206640060064}
   - component: {fileID: 2729044517828894906}
-  - component: {fileID: 456150763925030911}
   - component: {fileID: 3376610361436191402}
-  - component: {fileID: 8119263738408809231}
   m_Layer: 0
   m_Name: pfAIEntityPredator
   m_TagString: Untagged
@@ -366,30 +364,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txtEntityType: {fileID: 173008270838778688}
   txtDebug: {fileID: 3628005808823781244}
-  entinfo: {fileID: 456150763925030911}
-  entinput: {fileID: 8119263738408809231}
+  entType: 1
+  entinfo: {fileID: 0}
+  entinput: {fileID: 0}
   id: 0
   fTimeSinceMove: 0
---- !u!114 &456150763925030911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6658344917807151893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf2c186cf5de9744ade3aaa587952e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ent: {fileID: 2729044517828894906}
-  sName: Predator
-  nMaxEnergy: 80
-  nCurEnergy: 0
-  nCurTurnBeforeResting: 0
-  nMaxTurnsBeforeResting: 5
-  nSightRange: 7
-  bAlive: 1
 --- !u!58 &3376610361436191402
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -406,20 +385,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25047505
---- !u!114 &8119263738408809231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6658344917807151893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7789718181c8a145afc4d81633b613f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ent: {fileID: 2729044517828894906}
-  entinfo: {fileID: 456150763925030911}
 --- !u!1 &8258079681777691488
 GameObject:
   m_ObjectHideFlags: 0

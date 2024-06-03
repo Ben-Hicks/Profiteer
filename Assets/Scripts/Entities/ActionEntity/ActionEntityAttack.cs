@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionEntityAttack : ActionEntity {
 
-    public ActionEntityAttack(Entity _ent, TileTerrain _tileTarget) : base(_ent, _tileTarget, 30, 0) {
+    public ActionEntityAttack(Entity _ent, TileTerrain _tileTarget) : base(_ent, _tileTarget, 30, 1) {
 
     }
 

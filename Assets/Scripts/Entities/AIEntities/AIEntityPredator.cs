@@ -17,14 +17,14 @@ public class AIEntityPredator : AIEntity {
 
     public override void UpdateDesires() {
         //We'll first check if we have any herbivores in our range that we can hunt
-        TileTerrain tileNearestHerbivore = LibAI.FindClosestTaggedEntity(ent, new List<EntityTag>() { EntityTag.Herbavore });
+        TileTerrain tileNearestHerbivore = LibAI.FindClosestTaggedEntity(ent, new List<string>() { "Herbavore" });
 
         if(tileNearestHerbivore != null) {
             tilePreyChasing = tileNearestHerbivore;
             Debug.LogFormat("Found a herbivore on {0}", tilePreyChasing);
         } else {
             tileInterested = LibAI.GetRandomWanderTile(ent);
-            Debug.LogFormat("We've decided to roam to a random nearby tile = {0}", tileInterested);
+            Debug.LogFormat("No Herbivore in range - We've decided to roam to a random nearby tile = {0}", tileInterested);
         }
 
         

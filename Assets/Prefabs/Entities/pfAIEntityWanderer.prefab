@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 586450871125047082}
   - component: {fileID: 3930302347536949292}
-  - component: {fileID: 586923069895729062}
   - component: {fileID: 2838854001971335357}
-  - component: {fileID: 3663858548411740717}
   m_Layer: 0
   m_Name: pfAIEntityWanderer
   m_TagString: Untagged
@@ -50,28 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txtEntityType: {fileID: 1812951529990709382}
   txtDebug: {fileID: 371440613074799906}
-  entinfo: {fileID: 586923069895729062}
-  entInput: {fileID: 3663858548411740717}
+  entType: 0
+  entinfo: {fileID: 0}
+  entinput: {fileID: 0}
   id: 0
   fTimeSinceMove: 0
---- !u!114 &586923069895729062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586923069895729056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf2c186cf5de9744ade3aaa587952e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ent: {fileID: 3930302347536949292}
-  sName: Wanderer
-  nMaxEnergy: 100
-  nCurEnergy: 0
-  nSightRange: 0
-  bAlive: 0
 --- !u!58 &2838854001971335357
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -88,20 +69,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25047505
---- !u!114 &3663858548411740717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586923069895729056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f129d4da39cd83e4fac37ce16c7412df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ent: {fileID: 3930302347536949292}
-  entinfo: {fileID: 586923069895729062}
 --- !u!1 &1413609825424346684
 GameObject:
   m_ObjectHideFlags: 0

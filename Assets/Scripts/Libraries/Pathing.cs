@@ -74,7 +74,7 @@ public static class Pathing {
 
             (float, PathDetails) detailsToExplore = heapToVisit.PopMin();
 
-            Debug.LogFormat("Inspecting {0}", detailsToExplore.Item2);
+            //Debug.LogFormat("Inspecting {0}", detailsToExplore.Item2);
             
             TileTerrain tileExploring = detailsToExplore.Item2.tile;
 
@@ -82,8 +82,8 @@ public static class Pathing {
                 //If the closest we could get to the goal costs g and that's more than our maximum cost, 
                 //  then we should just return the best path we previously found.
                 sPath = "Closest Path: ";
-                Debug.LogFormat("This path we just popped has .g={0}, but our max cost is {1}.  Falling back to our best path with cost {2}",
-                    detailsToExplore.Item2.g, fMaxCost, detailsBestFound.g);
+                //Debug.LogFormat("This path we just popped has .g={0}, but our max cost is {1}.  Falling back to our best path with cost {2}",
+                //    detailsToExplore.Item2.g, fMaxCost, detailsBestFound.g);
                 break;
             }else if (TileTerrain.Dist(tileExploring, tileEnd) <= nMaxDistFromEnd) {
                 //Then we've reached close enough to our target
@@ -94,10 +94,10 @@ public static class Pathing {
 
             }
 
-            Debug.LogFormat("Comparing ToExplore.Item2.h of {0} vs detailsBestFound.h of {1}", detailsToExplore.Item2.h, detailsBestFound.h);
+            //Debug.LogFormat("Comparing ToExplore.Item2.h of {0} vs detailsBestFound.h of {1}", detailsToExplore.Item2.h, detailsBestFound.h);
 
             if (detailsToExplore.Item2.h < detailsBestFound.h) {
-                Debug.LogFormat("Updating best found to have g={0}, h={1}, f={2}", detailsToExplore.Item2.g, detailsToExplore.Item2.h, detailsToExplore.Item2.f);
+                //Debug.LogFormat("Updating best found to have g={0}, h={1}, f={2}", detailsToExplore.Item2.g, detailsToExplore.Item2.h, detailsToExplore.Item2.f);
                 detailsBestFound = detailsToExplore.Item2;
             }
 

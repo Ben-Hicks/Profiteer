@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EntityTag { Herbavore, Predator};
-
 public class EntityInfo : MonoBehaviour {
 
     public Entity ent;
     public string sName;
 
-    public HashSet<EntityTag> setTags;
-
     public int nMaxEnergy;
     public int nCurEnergy;
 
-    public int nCurTurnBeforeResting;
     public int nMaxTurnsBeforeResting;
+    public int nCurTurnBeforeResting;
 
     public int nSightRange;
 
     public bool bAlive;
+
+    public DictTags dictTags;
 
     public bool CanPayEnergy(int nEnergyCost) {
         return nCurEnergy >= nEnergyCost;
@@ -37,7 +35,8 @@ public class EntityInfo : MonoBehaviour {
         nCurEnergy = nMaxEnergy;
     }
 
-    public void Init() {
+    public void InitEntityInfo() {
+
         ReplenishEnergy();
         bAlive = true;
     }

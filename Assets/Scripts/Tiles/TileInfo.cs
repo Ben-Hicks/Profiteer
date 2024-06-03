@@ -25,6 +25,8 @@ public class TileInfo {
     public float[] arfPropertyValues;
     public float[] arfBiomeScores;
 
+    private DictTags dictFeatureValues;
+
     public float fElevation {
         get { return arfPropertyValues[(int)TileInfoProperties.Elevation]; }
         set { arfPropertyValues[(int)TileInfoProperties.Elevation] = value; }
@@ -68,6 +70,8 @@ public class TileInfo {
 
     public TileInfo(TileTerrain _tile) {
         tile = _tile;
+
+        dictFeatureValues = new DictTags();
     }
 
     public void OnUpdate() {
@@ -76,6 +80,7 @@ public class TileInfo {
 
     public bool IsPassable() {
         if (biometype == BiomeType.Ocean || biometype == BiomeType.Lake) return false;
+        if (tile.ent != null) return false;
         return true;
     }
 
@@ -97,4 +102,7 @@ public class TileInfo {
             return y;
         });
     }
+
+    
+
 }

@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour {
     public TextMeshProUGUI txtDebug;
 
     public TileTerrain tile;
+    public EntityFactory.EntType entType;
     public EntityInfo entinfo;
     public EntityInput entinput;
     public int id;

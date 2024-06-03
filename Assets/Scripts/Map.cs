@@ -144,8 +144,8 @@ public class Map : Singleton<Map> {
         if(lstEntities == null) lstEntities = new List<Entity>();
 
         entNew.SetId(lstEntities.Count);
-        entNew.entinfo.Init();
-        entNew.entinput.InitEntityInput();
+
+        EntityFactory.InitEntity(entNew, entNew.entType);
 
         lstEntities.Add(entNew);
 

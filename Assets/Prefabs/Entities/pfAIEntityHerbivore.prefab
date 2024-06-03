@@ -346,9 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7528255158697800169}
   - component: {fileID: 6256059476657153775}
-  - component: {fileID: 7529995177320159589}
   - component: {fileID: 5133931465121060478}
-  - component: {fileID: 1138798098001074846}
   m_Layer: 0
   m_Name: pfAIEntityHerbivore
   m_TagString: Untagged
@@ -386,30 +384,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txtEntityType: {fileID: 8751096695847626309}
   txtDebug: {fileID: 7313105406886497249}
-  entinfo: {fileID: 7529995177320159589}
-  entinput: {fileID: 1138798098001074846}
+  entType: 2
+  entinfo: {fileID: 0}
+  entinput: {fileID: 0}
   id: 0
   fTimeSinceMove: 0
---- !u!114 &7529995177320159589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7529995177320159587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf2c186cf5de9744ade3aaa587952e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ent: {fileID: 6256059476657153775}
-  sName: Herbivore
-  nMaxEnergy: 100
-  nCurEnergy: 0
-  nCurTurnBeforeResting: 0
-  nMaxTurnsBeforeResting: 2
-  nSightRange: 5
-  bAlive: 1
 --- !u!58 &5133931465121060478
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -426,20 +405,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25047505
---- !u!114 &1138798098001074846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7529995177320159587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e06ff01a70c18499b6d44521cab4a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ent: {fileID: 6256059476657153775}
-  entinfo: {fileID: 7529995177320159589}
 --- !u!1 &8342046940235876607
 GameObject:
   m_ObjectHideFlags: 0
