@@ -14,6 +14,7 @@ public class EntityInfo : MonoBehaviour {
     public int nCurTurnBeforeResting;
 
     public int nSightRange;
+    public int nInvestigation;
 
     public bool bAlive;
 

@@ -14,8 +14,10 @@ public class TileTerrain {
 
     public Tile tmtile;
     public TileInfo tileinfo;
+    public TileSearchables tileSearchables;
     public Entity ent;
     public Region region;
+
 
     public TileTerrain[] arAdj;
     public TileTerrain U {
