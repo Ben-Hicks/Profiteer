@@ -49,6 +49,7 @@ public class Map : Singleton<Map> {
     
     public GameObject goEntityContainer;
 
+    public Subject subTileClicked = new Subject();
 
 
     public TileTerrain GetTile(int x, int y) {
@@ -354,37 +355,9 @@ public class Map : Singleton<Map> {
         }
     }
 
-    public void HandleMouseInputs() {
-
-        if (Input.GetMouseButtonUp(0)) {
-            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector3Int v3ClickedTile = tilemapTerrain.WorldToCell(worldPoint);
-
-            // Try to get a tile from cell position
-            TileBase tilebaseClicked = tilemapTerrain.GetTile(v3ClickedTile);
-
-            if (tilebaseClicked != null) {
-                TileTerrain tileClicked = GetTile(v3ClickedTile.y, v3ClickedTile.x);
-                Debug.LogFormat("Clicked on Tile {0}", tileClicked);
-                foreach(Entity ent in lstEntities) {
-                    //Debug.LogFormat("Dist from {0} to {1} is {2}", tileClicked, ent.tile, TileTerrain.Dist(tileClicked, ent.tile));
-                    //List<TileTerrain> lstPath = Pathing.FindPath(ent.tile, tileClicked);
-                    //MapHighlighting.Get().SetAllHighlighting(lstPath);
-                    ent.MoveToTile(tileClicked);
-
-                    //MapHighlighting.Get().SetAllHighlighting(Pathing.GetTilesInMovementRange(tileClicked, 100));
-                }
-            } else {
-                Debug.Log("Clicked on no tile");
-            }
-        }
-    }
-
     public void Update() {
 
         HandleKeyboardInputs();
-        HandleMouseInputs();
 
     }
 }

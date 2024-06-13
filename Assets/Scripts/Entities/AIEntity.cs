@@ -44,25 +44,14 @@ public abstract class AIEntity : EntityInput {
             TurnController.Get().SubmitChosenAction(actDecided);
         }
     }
-
-    public override void OnAfterExecute(ActionEntity actExecuted) {
-        if(actExecuted.GetResult() == ActionEntity.ActionResult.NotExecuted) {
-            Debug.LogError("We think we've finished an execution, but actExecuted's result is NotExecuted");
-            return;
-        }
-
-        if(actExecuted.GetResult() == ActionEntity.ActionResult.ActionCompleted) {
-            OnCompletedAction();
-        } else {
-            //If we executed our action, but didn't have enough energy to complete it, then we can
-            //  send a finished turn signal to the turn controller, since we can't do anything more now
-            TurnController.Get().SubmitFinishTurn(ent);
-        }
-    }
-
+    
     public override void OnCompletedAction() {
         //Since we finished doing what we wanted to do, we can re-evaluate our desires
         UpdateDesires();
+    }
+    public override void OnDepletedEnergy() {
+        //If we used up all our energy, then we can just end our turn
+        TurnController.Get().SubmitFinishTurn(ent);
     }
 
 }

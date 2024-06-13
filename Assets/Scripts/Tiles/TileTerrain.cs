@@ -18,7 +18,6 @@ public class TileTerrain {
     public Entity ent;
     public Region region;
 
-
     public TileTerrain[] arAdj;
     public TileTerrain U {
         get { return arAdj[(int)Dir.U]; }

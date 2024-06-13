@@ -14,6 +14,9 @@ public class TurnController : Singleton<TurnController> {
     public int nRound;
     private bool bNewRoundFlag;
 
+    public Subject subOpenManualInput = new Subject();
+    public Subject subCloseManualInput = new Subject();
+
     public Entity ProgressToNextActingEntity() {
 
         iCurEntityTurn++;

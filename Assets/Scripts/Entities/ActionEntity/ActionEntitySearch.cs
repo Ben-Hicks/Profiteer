@@ -9,7 +9,7 @@ public class ActionEntitySearch : ActionEntity {
     }
 
     public override string GetPrintableString() {
-        return string.Format("{0} searching tile  {1}", ent, tileTarget.ent);
+        return string.Format("{0} investigating tile  {1}", ent, tileTarget.ent);
     }
 
     public override IEnumerator ActionEffect() {
@@ -18,7 +18,7 @@ public class ActionEntitySearch : ActionEntity {
 
         tileTarget.tileSearchables.PerformSearch(ent);
 
-        Debug.LogFormat("Finished attacking {0}", tileTarget.ent);
+        Debug.LogFormat("Finished searching {0}", tileTarget.ent);
 
         return null;
     }

@@ -62,11 +62,13 @@ public class Entity : MonoBehaviour {
 
     public void OnMouseEnter() {
         Debug.LogFormat("Entered Entity {0}", ToString());
+        MapInput.Get().StartEntityHover(this);
         InfoPanel.Get().SetInfo(ToString());
     }
 
     public void OnMouseExit() {
         Debug.LogFormat("Left Entity {0}", ToString());
+        MapInput.Get().StopEntityHover(this);
         InfoPanel.Get().ClearInfo();
     }
 

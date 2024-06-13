@@ -8,10 +8,6 @@ public class InfoPanel : Singleton<InfoPanel> {
 
     public Text txtInfo;
 
-    public Map map;
-
-    public Vector3 v3OldMousePos;
-    public Vector3Int v3CurTilePosHovering;
 
     public void SetInfo(string sInfo) {
         txtInfo.text = sInfo;
@@ -46,25 +42,37 @@ public class InfoPanel : Singleton<InfoPanel> {
         txtInfo.text = sInfo;
     }
 
+    public void SetInfo(Entity ent) {
+        if(ent == null) {
+            ClearInfo();
+            return;
+        }
+
+        string sInfo = string.Format("Entity: {0}", ent);
+
+        txtInfo.text = sInfo;
+    }
+
     public void ClearInfo() {
         txtInfo.text = "";
     }
 
     public override void Init() {
-        map = Map.Get();
+        MapInput.Get().subEntHoverChange.Subscribe(cbRefreshDisplay);
+        MapInput.Get().subTileHoverChange.Subscribe(cbRefreshDisplay);
     }
 
-    public void Update() {
-        if(v3OldMousePos != Input.mousePosition) {
-            Vector3 v3MouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    public void cbRefreshDisplay(Object obj, params object[] args) {
 
-            Vector3Int v3NewTilePosHovering = map.tilemapTerrain.WorldToCell(v3MouseWorldPos);
-            if(v3CurTilePosHovering != v3NewTilePosHovering) {
-                v3CurTilePosHovering = v3NewTilePosHovering;
-                SetInfo(map.GetTile(v3CurTilePosHovering.y, v3CurTilePosHovering.x));
-            }
-
-            v3OldMousePos = Input.mousePosition;
+        if(MapInput.Get().tileFocused != null) {
+            SetInfo(MapInput.Get().tileFocused);
+        }else if(MapInput.Get().entHovering != null) {
+            SetInfo(MapInput.Get().entHovering);
+        } else if (MapInput.Get().tileHovering != null) {
+            SetInfo(MapInput.Get().tileHovering);
+        } else {
+            ClearInfo();
         }
     }
+
 }
