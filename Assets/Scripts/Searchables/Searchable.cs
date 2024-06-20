@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Searchable {
+public class Searchable {
 
     public TileTerrain tile;
 

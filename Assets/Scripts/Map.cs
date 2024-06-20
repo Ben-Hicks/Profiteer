@@ -44,6 +44,7 @@ public class Map : Singleton<Map> {
 
     public Tilemap tilemapHighlighting;
 
+    public GameObject pfEntityHuman;
     public GameObject pfEntityHerbivore;
     public GameObject pfEntityPredator;
     
@@ -357,7 +358,8 @@ public class Map : Singleton<Map> {
 
     public void Update() {
 
-        HandleKeyboardInputs();
+        // Currently not doing any inputs for displaying certain layers of the map generation
+        //HandleKeyboardInputs();
 
     }
 }

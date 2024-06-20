@@ -9,6 +9,7 @@ public class EntityInfo : MonoBehaviour {
 
     public int nMaxEnergy;
     public int nCurEnergy;
+    public Subject subEnergyChange = new Subject();
 
     public int nMaxTurnsBeforeResting;
     public int nCurTurnBeforeResting;
@@ -30,10 +31,13 @@ public class EntityInfo : MonoBehaviour {
             return;
         }
         nCurEnergy -= nEnergyCost;
+        subEnergyChange.NotifyObs();
     }
 
     public void ReplenishEnergy() {
         nCurEnergy = nMaxEnergy;
+
+        subEnergyChange.NotifyObs();
     }
 
     public void InitEntityInfo() {

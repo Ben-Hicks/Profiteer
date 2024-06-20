@@ -26,6 +26,7 @@ public class TileInfo {
     public float[] arfBiomeScores;
 
     private DictTags dictFeatureValues;
+    public TileSearchables tileSearchables;
 
     public float fElevation {
         get { return arfPropertyValues[(int)TileInfoProperties.Elevation]; }
@@ -72,6 +73,7 @@ public class TileInfo {
         tile = _tile;
 
         dictFeatureValues = new DictTags();
+        tileSearchables = new TileSearchables(tile);
     }
 
     public void OnUpdate() {

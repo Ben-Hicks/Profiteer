@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MapInput : Singleton<MapInput> {
 
@@ -92,6 +93,8 @@ public class MapInput : Singleton<MapInput> {
         }
 
         tileFocused = null;
+
+        subRightClick.NotifyObs();
     }
 
     public void Update() {
@@ -107,16 +110,19 @@ public class MapInput : Singleton<MapInput> {
             v3OldMousePos = Input.mousePosition;
         }
 
-        if (Input.GetMouseButtonUp(0)) {
-            if(tileHovering != null) {
-                OnClickTile(tileHovering);
+        if (EventSystem.current.IsPointerOverGameObject() == false) {
+
+            if (Input.GetMouseButtonUp(0)) {
+                if (tileHovering != null) {
+                    OnClickTile(tileHovering);
+                }
             }
-        }
 
-        if (Input.GetMouseButtonUp(1)) {
-            subRightClick.NotifyObs();
-        }
+            if (Input.GetMouseButtonUp(1)) {
+                OnRightClickTile(tileHovering);
+            }
 
+        }
     }
 
 }

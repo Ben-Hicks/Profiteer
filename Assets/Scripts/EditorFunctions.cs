@@ -27,6 +27,8 @@ public class EditorFunctions : EditorWindow {
             AssignCityMultis();
         } else if (GUILayout.Button("Full Map Generation")) {
             AssignCityMultis();
+        } else if (GUILayout.Button("Spawn Random Human")) {
+            SpawnRandomHuman();
         } else if (GUILayout.Button("Spawn Random Herbavore")) {
             SpawnRandomHerbavore();
         } else if (GUILayout.Button("Spawn Random Predator")) {
@@ -127,6 +129,14 @@ public class EditorFunctions : EditorWindow {
         Map.Get().ClearMap();
 
         Debug.Log("Map Clear Complete");
+    }
+
+    private void SpawnRandomHuman() {
+        Debug.Log("Spawning Random Human");
+
+        Map.Get().SpawnRandomEntity(Map.Get().pfEntityHuman);
+
+        Debug.Log("Random Human Spawned");
     }
 
     private void SpawnRandomHerbavore() {

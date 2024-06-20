@@ -28,13 +28,14 @@ public static class EntityFactory {
         switch (entType) {
 
             case EntType.Player:
-                entInput = ent.gameObject.AddComponent<AIEntityWanderer>();
+                entInput = ent.gameObject.AddComponent<ManualInput>();
 
-                entInfo.sName = "Wanderer";
+                entInfo.sName = "Player";
 
                 entInfo.nMaxEnergy = 100;
                 entInfo.nMaxTurnsBeforeResting = 100;
                 entInfo.nSightRange = 5;
+                entInfo.nInvestigation = 10;
 
                 entInfo.dictTags = new DictTags(("Humanoid", true));
 
@@ -48,6 +49,7 @@ public static class EntityFactory {
                 entInfo.nMaxEnergy = 80;
                 entInfo.nMaxTurnsBeforeResting = 3;
                 entInfo.nSightRange = 15;
+                entInfo.nInvestigation = 9;
 
                 entInfo.dictTags = new DictTags(("Predator", true));
 
@@ -61,6 +63,7 @@ public static class EntityFactory {
                 entInfo.nMaxEnergy = 100;
                 entInfo.nMaxTurnsBeforeResting = 2;
                 entInfo.nSightRange = 3;
+                entInfo.nInvestigation = 5;
 
                 entInfo.dictTags = new DictTags(("Herbavore", true));
 

@@ -15,6 +15,9 @@ public class ActionBar : MonoBehaviour {
     public Button btnSpecial;
     public Dropdown dropdownSpecialOptions;
 
+    public GameObject panelEnergy;
+    public Text txtCurEnergy;
+    public Text txtMaxEnergy;
     
 
     public void SelectTile(TileTerrain _tileSelected) {
@@ -80,15 +83,32 @@ public class ActionBar : MonoBehaviour {
         TurnController.Get().SubmitFinishTurn(curManualInput.ent);
     }
 
+    public void cbUpdateEnergyDisplay(Object obj, params object[] args) {
+        if(curManualInput == null) {
+            panelEnergy.gameObject.SetActive(false);
+        } else {
+            panelEnergy.gameObject.SetActive(true);
+            txtCurEnergy.text = curManualInput.entinfo.nCurEnergy.ToString();
+            txtMaxEnergy.text = curManualInput.entinfo.nMaxEnergy.ToString();
+        }
+    }
+
     public void cbOpenManualInput(Object obj, object[] args) {
         curManualInput = (ManualInput)obj;
+
+        curManualInput.entinfo.subEnergyChange.Subscribe(cbUpdateEnergyDisplay);
+        cbUpdateEnergyDisplay(curManualInput);
     }
 
     public void cbCloseManualInput(Object obj, object[] args) {
         if(curManualInput != (ManualInput)obj) {
             Debug.LogErrorFormat("Tried to end manual input for {0}, but we're currently open for {1}", ((ManualInput)obj).ent, curManualInput.ent);
         }
+
+        curManualInput.entinfo.subEnergyChange.UnSubscribe(cbUpdateEnergyDisplay);
         curManualInput = null;
+
+        cbUpdateEnergyDisplay(null);
     }
 
     public void cbClickTile(Object obj, object[] args) {

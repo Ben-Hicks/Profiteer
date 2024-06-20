@@ -14,9 +14,13 @@ public class TileTerrain {
 
     public Tile tmtile;
     public TileInfo tileinfo;
-    public TileSearchables tileSearchables;
     public Entity ent;
     public Region region;
+
+    public TileSearchables tileSearchables {
+        get { return tileinfo.tileSearchables; }
+        set { tileinfo.tileSearchables = value; }
+    }
 
     public TileTerrain[] arAdj;
     public TileTerrain U {
