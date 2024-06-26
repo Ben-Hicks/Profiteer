@@ -96,7 +96,8 @@ public class ActionBar : MonoBehaviour {
     public void cbOpenManualInput(Object obj, object[] args) {
         curManualInput = (ManualInput)obj;
 
-        curManualInput.entinfo.subEnergyChange.Subscribe(cbUpdateEnergyDisplay);
+        curManualInput.entinfo.nCurEnergy.Subscribe(cbUpdateEnergyDisplay);
+        curManualInput.entinfo.nMaxEnergy.Subscribe(cbUpdateEnergyDisplay);
         cbUpdateEnergyDisplay(curManualInput);
     }
 
@@ -105,7 +106,8 @@ public class ActionBar : MonoBehaviour {
             Debug.LogErrorFormat("Tried to end manual input for {0}, but we're currently open for {1}", ((ManualInput)obj).ent, curManualInput.ent);
         }
 
-        curManualInput.entinfo.subEnergyChange.UnSubscribe(cbUpdateEnergyDisplay);
+        curManualInput.entinfo.nCurEnergy.UnSubscribe(cbUpdateEnergyDisplay);
+        curManualInput.entinfo.nMaxEnergy.UnSubscribe(cbUpdateEnergyDisplay);
         curManualInput = null;
 
         cbUpdateEnergyDisplay(null);

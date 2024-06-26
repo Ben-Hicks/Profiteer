@@ -52,7 +52,7 @@ public class TileSearchables {
 
         Debug.LogFormat("Searching for the hardest searchable in {0} that is under {1}", this, ent.entinfo.nInvestigation);
 
-        while(bestFound.Next != null &&  ent.entinfo.nInvestigation >= bestFound.Next.Value.nSearchDifficulty) {
+        while(bestFound.Next != null &&  ent.entinfo.nInvestigation.Get() >= bestFound.Next.Value.nSearchDifficulty) {
             bestFound = bestFound.Next; 
         }
 

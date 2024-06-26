@@ -32,12 +32,15 @@ public static class EntityFactory {
 
                 entInfo.sName = "Player";
 
-                entInfo.nMaxEnergy = 100;
-                entInfo.nMaxTurnsBeforeResting = 100;
-                entInfo.nSightRange = 5;
-                entInfo.nInvestigation = 10;
+                entInfo.SetLevelStats(1, 10);
+                entInfo.SetCombatStats(15);
+                entInfo.SetEnergyStats(100);
+                entInfo.SetCoreStats(5, 5, 5, 5, 5, 5);
+                entInfo.SetPerceptionStats(3, 10);
 
                 entInfo.dictTags = new DictTags(("Humanoid", true));
+
+                
 
                 break;
 
@@ -46,10 +49,11 @@ public static class EntityFactory {
 
                 entInfo.sName = "Wolf";
 
-                entInfo.nMaxEnergy = 80;
-                entInfo.nMaxTurnsBeforeResting = 3;
-                entInfo.nSightRange = 15;
-                entInfo.nInvestigation = 9;
+                entInfo.SetLevelStats(1, 10);
+                entInfo.SetCombatStats(8);
+                entInfo.SetEnergyStats(60);
+                entInfo.SetCoreStats(5, 5, 5, 5, 5, 5);
+                entInfo.SetPerceptionStats(4, 5);
 
                 entInfo.dictTags = new DictTags(("Predator", true));
 
@@ -60,10 +64,11 @@ public static class EntityFactory {
 
                 entInfo.sName = "Rabbit";
 
-                entInfo.nMaxEnergy = 100;
-                entInfo.nMaxTurnsBeforeResting = 2;
-                entInfo.nSightRange = 3;
-                entInfo.nInvestigation = 5;
+                entInfo.SetLevelStats(1, 10);
+                entInfo.SetCombatStats(4);
+                entInfo.SetEnergyStats(80);
+                entInfo.SetCoreStats(5, 5, 5, 5, 5, 5);
+                entInfo.SetPerceptionStats(5, 3);
 
                 entInfo.dictTags = new DictTags(("Herbavore", true));
 
@@ -77,6 +82,10 @@ public static class EntityFactory {
 
         SetInfoAndInput(ent, entInfo, entInput);
 
+        //As a last check, if we spawned our human, then we can let our stats know to reflect them
+        if (entType == EntType.Player) {
+            StatsPanel.Get().SetEntity(ent);
+        }
 
     }
 }

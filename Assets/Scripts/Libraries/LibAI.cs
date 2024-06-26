@@ -38,7 +38,7 @@ public static class LibAI {
 
         Debug.LogFormat("Closest tile we found is {0} at a dist of {1} and our sight range is {2}", tileClosest, TileTerrain.Dist(ent.tile, tileClosest), ent.entinfo.nSightRange);
 
-        if(tileClosest != null && TileTerrain.Dist(ent.tile, tileClosest) <= ent.entinfo.nSightRange) {
+        if(tileClosest != null && TileTerrain.Dist(ent.tile, tileClosest) <= ent.entinfo.nSightRange.Get()) {
             return tileClosest;
         } else {
             return null;

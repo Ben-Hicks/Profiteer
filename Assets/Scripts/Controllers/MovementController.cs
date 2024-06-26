@@ -82,7 +82,7 @@ public class MovementController : Singleton<MovementController>{
         Debug.LogFormat("Moving entity {0} from {1} toward {2}", ent, ent.tile, tileDestination);
 
 
-        (Pathing.PathResultType, List<TileTerrain>, int) path = Pathing.FindPath(ent.tile, tileDestination, ent.entinfo.nCurEnergy, nDestinationRange);
+        (Pathing.PathResultType, List<TileTerrain>, int) path = Pathing.FindPath(ent.tile, tileDestination, ent.entinfo.nCurEnergy.Get(), nDestinationRange);
 
 
         //Check if we could possibly get within the range we wanted
