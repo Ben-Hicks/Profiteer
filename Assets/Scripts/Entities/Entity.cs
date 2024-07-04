@@ -16,6 +16,8 @@ public class Entity : MonoBehaviour {
     public EntityInput entinput;
     public int id;
 
+    public Inventory inv;
+
     //temp
     public float fTimeSinceMove;
 
@@ -92,6 +94,10 @@ public class Entity : MonoBehaviour {
             }
         }
 
+    }
+
+    public Entity() {
+        inv = new Inventory(this);
     }
     
 }

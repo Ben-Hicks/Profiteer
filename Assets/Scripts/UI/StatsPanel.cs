@@ -8,8 +8,10 @@ public class StatsPanel : Singleton<StatsPanel> {
     public Text txtName;
     public GameObject goStatsContainer;
 
+    public List<StatEntry> lstStatEntry = new List<StatEntry>();
+
     public GameObject pfStatEntry;
-    public GameObject pfStatSeperator;
+    public GameObject pfSeperator;
 
     public Entity ent;
 
@@ -50,11 +52,12 @@ public class StatsPanel : Singleton<StatsPanel> {
 
         //Simulate an update to get an initial display;
         statentry.cbUpdateValueString(null);
-        
+
+        lstStatEntry.Add(statentry);
     }
 
     public void AddSeperator(string sLabel) {
-        GameObject goNewSeperator = Instantiate(pfStatSeperator, goStatsContainer.transform);
+        GameObject goNewSeperator = Instantiate(pfSeperator, goStatsContainer.transform);
 
         goNewSeperator.GetComponentInChildren<Text>().text = sLabel;
     }
@@ -98,9 +101,11 @@ public class StatsPanel : Singleton<StatsPanel> {
 }
 
     public void ClearStats() {
-        foreach (Transform transStatEntry in goStatsContainer.transform) {
-            Destroy(transStatEntry.gameObject);
+        for(int i=0; i<lstStatEntry.Count; i++) {
+            lstStatEntry[i].Destroy();
         }
+
+        lstStatEntry = new List<StatEntry>();
     }
 
     public override void Init() {

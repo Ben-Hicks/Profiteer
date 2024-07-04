@@ -28,6 +28,14 @@ public class StatEntry : MonoBehaviour {
         getvaluestring = _getvaluestring;
     }
 
+    public void Destroy() {
+        foreach (Subject sub in lstsubUpdateOnChange) {
+            sub.UnSubscribe(cbUpdateValueString);
+        }
+
+        GameObject.Destroy(this);
+    }
+
     public void SetSubUpdateOnChange(params Subject[] _subUpdateOnChange) {
         if (lstsubUpdateOnChange != null) {
             foreach(Subject sub in lstsubUpdateOnChange) {

@@ -4,40 +4,53 @@ using UnityEngine;
 
 public class Inventory {
 
-    private List<(ItemType, int)> lstItemCounts = new List<(ItemType, int)>();
+    public Entity entOwner;
 
-    public void AddItem(ItemType itemtype, int nAdded) {
-        for(int i=0; i<lstItemCounts.Count; i++) {
-            if(itemtype == lstItemCounts[i].Item1) {
-                lstItemCounts[i] = (itemtype, lstItemCounts[i].Item2 + nAdded);
+    public List<Item> lstItems = new List<Item>();
+    public Subject subInventoryNewItem = new Subject();
+    public Subject subInventoryItemFullyRemoved = new Subject();
+
+
+    public void AddItem(Item item) {
+        for (int i = 0; i < lstItems.Count; i++) {
+            if (item.itemtype == lstItems[i].itemtype) {
+                lstItems[i].nCount.Set(lstItems[i].nCount.Get() + item.nCount.Get());
                 return;
             }
         }
 
-        lstItemCounts.Add((itemtype, nAdded));
+        lstItems.Add(item);
+        subInventoryNewItem.NotifyObs(null, item.itemtype);
     }
 
-    public void RemoveItem(ItemType itemtype, int nToRemove) {
-        for(int i=0; i<lstItemCounts.Count; i++) {
-            if(itemtype == lstItemCounts[i].Item1) {
-                if(lstItemCounts[i].Item2 < nToRemove) {
-                    Debug.LogErrorFormat("Can't remove {0} {1} since we only have {2}", nToRemove, itemtype, lstItemCounts[i].Item2);
+    public void AddItems(params Item[] arItems) {
+        foreach(Item item in arItems) {
+            AddItem(item);
+        }
+    }
+
+    public void RemoveItem(Item itemToRemove) {
+        for(int i=0; i< lstItems.Count; i++) {
+            if(itemToRemove.itemtype == lstItems[i].itemtype) {
+                if(lstItems[i].nCount.Get() < itemToRemove.nCount.Get()) {
+                    Debug.LogErrorFormat("Can't remove {0} {1} since we only have {2}", itemToRemove.nCount.Get(), itemToRemove.itemtype, lstItems[i].nCount.Get());
                     return;
-                }else if(lstItemCounts[i].Item2 == nToRemove) {
-                    lstItemCounts.RemoveAt(i);
+                }else if(lstItems[i].nCount.Get() == itemToRemove.nCount.Get()) {
+                    lstItems.RemoveAt(i);
+                    subInventoryItemFullyRemoved.NotifyObs(null, itemToRemove);
                 } else {
-                    lstItemCounts[i] = (itemtype, lstItemCounts[i].Item2 - nToRemove);
+                    lstItems[i].nCount.Set(lstItems[i].nCount.Get() - itemToRemove.nCount.Get());
                 }
                 return;
             }
         }
-        Debug.LogErrorFormat("Can't remove {0} since we don't have any", itemtype);
+        Debug.LogErrorFormat("Can't remove {0} since we don't have any", itemToRemove.itemtype);
     }
 
     public int GetItemCount(ItemType itemtype) {
-        for(int i=0; i<lstItemCounts.Count; i++) {
-            if(itemtype == lstItemCounts[i].Item1) {
-                return lstItemCounts[i].Item2;
+        for(int i=0; i< lstItems.Count; i++) {
+            if(itemtype == lstItems[i].itemtype) {
+                return lstItems[i].nCount.Get();
             }
         }
         return 0;
@@ -45,5 +58,9 @@ public class Inventory {
 
     public bool CanAfford(ItemType itemtype, int nCost) {
         return GetItemCount(itemtype) >= nCost;
+    }
+
+    public Inventory(Entity _entOwner) {
+        entOwner = new Entity();
     }
 }

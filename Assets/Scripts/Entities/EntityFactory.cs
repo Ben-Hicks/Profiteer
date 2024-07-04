@@ -40,7 +40,8 @@ public static class EntityFactory {
 
                 entInfo.dictTags = new DictTags(("Humanoid", true));
 
-                
+                ent.inv.AddItems(
+                    );
 
                 break;
 
