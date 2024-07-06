@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class EquippableShortsword : Equippable {
 
-    private EquippableShortsword() { }
-
-    public static Item Create() {
-        return new EquippableShortsword() {
-            sName = "Shortsword",
-            itemtype = ItemType.Shortsword,
-            nBaseValue = 35
-        };
+    public EquippableShortsword(int _nCount) : base(_nCount) {
+        sName = "Shortsword";
+        itemtype = ItemType.Shortsword;
+        nBaseValue = 35;
     }
 
     public override void OnEquip(Entity ent) {

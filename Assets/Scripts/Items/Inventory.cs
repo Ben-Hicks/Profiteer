@@ -12,6 +12,7 @@ public class Inventory {
 
 
     public void AddItem(Item item) {
+        Debug.LogFormat("Adding {0}", item);
         for (int i = 0; i < lstItems.Count; i++) {
             if (item.itemtype == lstItems[i].itemtype) {
                 lstItems[i].nCount.Set(lstItems[i].nCount.Get() + item.nCount.Get());
@@ -61,6 +62,6 @@ public class Inventory {
     }
 
     public Inventory(Entity _entOwner) {
-        entOwner = new Entity();
+        entOwner = _entOwner;
     }
 }

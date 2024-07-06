@@ -41,7 +41,11 @@ public static class EntityFactory {
                 entInfo.dictTags = new DictTags(("Humanoid", true));
 
                 ent.inv.AddItems(
+                    new ItemCopperOre(3),
+                    new ItemWheat(20),
+                    new ItemBearSkin(6)
                     );
+                
 
                 break;
 
@@ -83,9 +87,10 @@ public static class EntityFactory {
 
         SetInfoAndInput(ent, entInfo, entInput);
 
-        //As a last check, if we spawned our human, then we can let our stats know to reflect them
+        //As a last check, if we spawned our human, then we can let our character panels know to reflect them
         if (entType == EntType.Player) {
             StatsPanel.Get().SetEntity(ent);
+            InventoryPanel.Get().SetInventory(ent.inv);
         }
 
     }

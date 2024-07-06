@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class ItemBearSkin : Item {
 
-    private ItemBearSkin() {}
-
-    public static Item Create() {
-        return new ItemBearSkin() {
-            sName = "Bear Skin",
-            itemtype = ItemType.Bearskin,
-            nBaseValue = 10
-        };
+    public ItemBearSkin(int _nCount) : base(_nCount) {
+        sName = "Bear Skin";
+        itemtype = ItemType.Bearskin;
+        nBaseValue = 10;
     }
+
 }
 

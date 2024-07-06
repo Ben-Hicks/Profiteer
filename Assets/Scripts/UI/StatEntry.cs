@@ -41,7 +41,6 @@ public class StatEntry : MonoBehaviour {
             foreach(Subject sub in lstsubUpdateOnChange) {
                 sub.UnSubscribe(cbUpdateValueString);
             }
-            return;
         }
 
         lstsubUpdateOnChange = new List<Subject>();

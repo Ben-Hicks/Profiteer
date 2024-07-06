@@ -30,8 +30,6 @@ public class Entity : MonoBehaviour {
 
     public void SetTile(TileTerrain _tile) {
 
-        Debug.LogFormat("Setting Entity {0} from {1} to {2}", id, tile, _tile);
-
         if(tile != null) {
             tile.ent = null;
         }

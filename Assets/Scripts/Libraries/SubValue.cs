@@ -30,7 +30,7 @@ public class SubValue<T> {
 
         subValChanged = new Subject();
 
-        Set(val);
+        Set(_val);
 
     }
 

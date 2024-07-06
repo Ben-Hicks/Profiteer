@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class ItemWheat : Item {
 
-    private ItemWheat() {}
-
-    public static Item Create() {
-        return new ItemWheat() {
-            sName = "Wheat",
-            itemtype = ItemType.Wheat,
-            nBaseValue = 2
-        };
+    public ItemWheat(int _nCount) : base(_nCount) {
+        sName = "Wheat";
+        itemtype = ItemType.Wheat;
+        nBaseValue = 2;
     }
+
 }
 

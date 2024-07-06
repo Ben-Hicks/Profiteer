@@ -40,7 +40,6 @@ public class InventoryEntry : MonoBehaviour {
             foreach (Subject sub in lstsubUpdateOnChange) {
                 sub.UnSubscribe(cbUpdateInventoryCountString);
             }
-            return;
         }
 
         lstsubUpdateOnChange = new List<Subject>();

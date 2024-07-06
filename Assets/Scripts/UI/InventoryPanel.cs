@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(HideablePanel))]
 public class InventoryPanel : Singleton<InventoryPanel> {
     
     public GameObject goInventoryContainer;
@@ -13,6 +14,8 @@ public class InventoryPanel : Singleton<InventoryPanel> {
     public GameObject pfSeperator;
 
     public Inventory inv;
+    
+    public HideablePanel hideable;
 
     public void SetInventory(Inventory _inv) {
         inv = _inv;
@@ -21,20 +24,13 @@ public class InventoryPanel : Singleton<InventoryPanel> {
 
         ForceAddAllInventoryEntry();
 
-        Show();
-    }
-
-    public void Hide() {
-        Debug.Log("Hiding");
-        GetComponent<CanvasRenderer>().SetAlpha(0f);
-    }
-
-    public void Show() {
-        Debug.Log("Showing");
-        GetComponent<CanvasRenderer>().SetAlpha(1f);
+        inv.subInventoryNewItem.Subscribe(cbAddNewInventoryEntry);
+        inv.subInventoryItemFullyRemoved.Subscribe(cbRemoveInventoryEntry);
     }
 
     public void AddNewInventoryEntry(Item item, params Subject[] subToUpdateOnChange) {
+        Debug.LogFormat("Adding {0}", item.ToString());
+
         GameObject goNewInventoryEntry = Instantiate(pfInventoryEntry, goInventoryContainer.transform);
 
         InventoryEntry inventry = goNewInventoryEntry.GetComponent<InventoryEntry>();
@@ -60,6 +56,8 @@ public class InventoryPanel : Singleton<InventoryPanel> {
     }
 
     public void RemoveInventoryEntry(ItemType itemtype) {
+
+        Debug.LogFormat("Removing {0}", itemtype);
         for(int i=0; i<lstInvEntry.Count; i++) {
             if(lstInvEntry[i].item.itemtype == itemtype) {
 
@@ -86,6 +84,8 @@ public class InventoryPanel : Singleton<InventoryPanel> {
 
     public void ForceAddAllInventoryEntry() {
 
+        Debug.LogFormat("Force adding {0} inventory items", inv.lstItems.Count);
+
         foreach (Item item in inv.lstItems) {
             AddNewInventoryEntry(item, item.nCount.subValChanged);
         }
@@ -101,7 +101,7 @@ public class InventoryPanel : Singleton<InventoryPanel> {
     }
 
     public override void Init() {
-        Hide();
+        hideable.Hide();
     }
 
 }
