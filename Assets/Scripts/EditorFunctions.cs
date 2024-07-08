@@ -11,7 +11,10 @@ public class EditorFunctions : EditorWindow {
     }
 
     private void OnGUI() {
-        if (GUILayout.Button("Create Map")) {
+        if (false) {
+
+        //Map stuff
+        /*} else if (GUILayout.Button("Create Map")) {
             CreateMap();
         } else if (GUILayout.Button("Populate Map")) {
             PopulateMap();
@@ -27,12 +30,6 @@ public class EditorFunctions : EditorWindow {
             AssignCityMultis();
         } else if (GUILayout.Button("Full Map Generation")) {
             AssignCityMultis();
-        } else if (GUILayout.Button("Spawn Random Human")) {
-            SpawnRandomHuman();
-        } else if (GUILayout.Button("Spawn Random Herbavore")) {
-            SpawnRandomHerbavore();
-        } else if (GUILayout.Button("Spawn Random Predator")) {
-            SpawnRandomPredator();
         } else if (GUILayout.Button("Update Random Seed")) {
             UpdateRandomSeed();
         } else if (GUILayout.Button("Print Biome Counts")) {
@@ -41,7 +38,20 @@ public class EditorFunctions : EditorWindow {
             PrintElevationCounts();
         } else if (GUILayout.Button("Print Forest Counts")) {
             PrintForestCounts();
+            */
+        //Entity Stuff
+        } else if (GUILayout.Button("Spawn Random Human")) {
+            SpawnRandomHuman();
+        } else if (GUILayout.Button("Spawn Random Herbavore")) {
+            SpawnRandomHerbavore();
+        } else if (GUILayout.Button("Spawn Random Predator")) {
+            SpawnRandomPredator();
+
+        // Notification Stuff
+        } else if (GUILayout.Button("Give 5 gold")) {
+            GiveGold();
         }
+
     }
 
     private void CreateMap() {
@@ -176,5 +186,20 @@ public class EditorFunctions : EditorWindow {
     private void PrintForestCounts() {
 
         MapGenerator.Get().PrintForestCounts();
+    }
+
+    private void GiveGold() {
+
+        NotificationController.Get().SpawnNotification(
+            "Do you want 5 gold ore?",
+            ("Yes", () => {
+                EntityController.Get().entPlayer.inv.AddItem(new ItemGoldOre(5));
+            }),
+            ("No", () => {
+                Debug.LogFormat("Guess you wanna be poor");
+            })
+        
+
+            );
     }
 }

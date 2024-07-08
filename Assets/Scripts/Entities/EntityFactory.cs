@@ -91,6 +91,7 @@ public static class EntityFactory {
         if (entType == EntType.Player) {
             StatsPanel.Get().SetEntity(ent);
             InventoryPanel.Get().SetInventory(ent.inv);
+            EntityController.Get().RegisterEntPlayer(ent);
         }
 
     }

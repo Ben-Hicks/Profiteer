@@ -21,7 +21,7 @@ public class Inventory {
         }
 
         lstItems.Add(item);
-        subInventoryNewItem.NotifyObs(null, item.itemtype);
+        subInventoryNewItem.NotifyObs(null, item);
     }
 
     public void AddItems(params Item[] arItems) {

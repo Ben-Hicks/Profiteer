@@ -88,8 +88,8 @@ public class ActionBar : MonoBehaviour {
             panelEnergy.gameObject.SetActive(false);
         } else {
             panelEnergy.gameObject.SetActive(true);
-            txtCurEnergy.text = curManualInput.entinfo.nCurEnergy.ToString();
-            txtMaxEnergy.text = curManualInput.entinfo.nMaxEnergy.ToString();
+            txtCurEnergy.text = curManualInput.entinfo.nCurEnergy.Get().ToString();
+            txtMaxEnergy.text = curManualInput.entinfo.nMaxEnergy.Get().ToString();
         }
     }
 
