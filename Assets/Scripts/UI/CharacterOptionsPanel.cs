@@ -9,8 +9,8 @@ public class CharacterOptionsPanel : MonoBehaviour {
 
 
     public void HideAll() {
-        statspanel.hideable.Hide();
-        inventorypanel.hideable.Hide();
+        statspanel.panelContent.Hide();
+        inventorypanel.panelContent.Hide();
     }
 
     public void ShowPanel(HideablePanel hideableToShow) {

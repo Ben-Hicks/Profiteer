@@ -99,7 +99,7 @@ public class MovementController : Singleton<MovementController>{
         }
 
         ent.entinfo.PayEnergy(path.Item3);
-        Debug.LogFormat("{0} paid {1} energy to move, so now they're at {2}", ent, path.Item3, ent.entinfo.nCurEnergy);
+        Debug.LogFormat("{0} paid {1} energy to move, so now they're at {2}", ent, path.Item3, ent.entinfo.nCurEnergy.Get());
 
         Path pathNew = new Path(path.Item2);
 

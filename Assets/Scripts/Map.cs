@@ -10,8 +10,7 @@ public class Map : Singleton<Map> {
 
     public int nMapHeight;
     public int nMapWidth;
-
-    public List<Entity> lstEntities;
+    
     public List<Region> lstAllRegions;
     public Dictionary<BiomeType, List<Region>> dictRegionsByBiome;
     public List<City> lstCities;
@@ -142,16 +141,9 @@ public class Map : Singleton<Map> {
         Entity entNew = goEntityNew.GetComponent<Entity>();
 
         entNew.InitOnTile(tile);
-
-        if(lstEntities == null) lstEntities = new List<Entity>();
-
-        entNew.SetId(lstEntities.Count);
-
+        
         EntityFactory.InitEntity(entNew, entNew.entType);
 
-        lstEntities.Add(entNew);
-
-        
     }
     
 
@@ -276,11 +268,11 @@ public class Map : Singleton<Map> {
 
     public void ClearMap() {
 
-        if (lstEntities != null) {
-            foreach (Entity ent in lstEntities) {
+        if (EntityController.Get().lstAllEntities != null) {
+            foreach (Entity ent in EntityController.Get().lstAllEntities) {
                 GameObject.DestroyImmediate(ent.gameObject);
             }
-            lstEntities = null;
+            EntityController.Get().lstAllEntities = null;
         }
 
         if (lstTiles != null) {

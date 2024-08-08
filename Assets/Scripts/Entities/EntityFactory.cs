@@ -45,7 +45,8 @@ public static class EntityFactory {
                     new ItemWheat(20),
                     new ItemBearSkin(6)
                     );
-                
+
+                ent.inv.AddAndEquipStartingEquipment(new WeaponShortsword(1), null, new ArmourPlatemail(1));
 
                 break;
 
@@ -61,6 +62,8 @@ public static class EntityFactory {
                 entInfo.SetPerceptionStats(4, 5);
 
                 entInfo.dictTags = new DictTags(("Predator", true));
+
+                ent.inv.AddAndEquipStartingEquipment(new WeaponWolfClaws(1), null, new ArmourWolfPelt(1));
 
                 break;
 
@@ -87,12 +90,7 @@ public static class EntityFactory {
 
         SetInfoAndInput(ent, entInfo, entInput);
 
-        //As a last check, if we spawned our human, then we can let our character panels know to reflect them
-        if (entType == EntType.Player) {
-            StatsPanel.Get().SetEntity(ent);
-            InventoryPanel.Get().SetInventory(ent.inv);
-            EntityController.Get().RegisterEntPlayer(ent);
-        }
+        EntityController.Get().RegisterEnt(ent);
 
     }
 }

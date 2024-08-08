@@ -14,7 +14,11 @@ public static class LibAI {
         List<TileTerrain> lstCandidates = new List<TileTerrain>();
 
         //For now, we're just looping over all Entities - this could be further refined if we eventually have too many entities to make this practical
-        foreach(Entity e in Map.Get().lstEntities) {
+        foreach(Entity e in EntityController.Get().lstAllEntities) {
+
+            //Skip over this entity if it's the one making the request
+            if (e == ent) continue;
+
             bool bHasAllTags = true;
             foreach(string sTag in lstTagsRequired) {
                 bool bDummy = false;

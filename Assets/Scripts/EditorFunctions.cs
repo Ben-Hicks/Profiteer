@@ -13,33 +13,33 @@ public class EditorFunctions : EditorWindow {
     private void OnGUI() {
         if (false) {
 
-        //Map stuff
-        /*} else if (GUILayout.Button("Create Map")) {
-            CreateMap();
-        } else if (GUILayout.Button("Populate Map")) {
-            PopulateMap();
-        } else if (GUILayout.Button("Create Water")) {
-            CreateWater();
-        } else if (GUILayout.Button("Assign Biomes")) {
-            AssignBiomes();
-        } else if (GUILayout.Button("Assign Elevation Multis")) {
-            AssignElevationMultis();
-        } else if (GUILayout.Button("Assign Forest Multis")) {
-            AssignForestMultis();
-        } else if (GUILayout.Button("Assign City Multis")) {
-            AssignCityMultis();
-        } else if (GUILayout.Button("Full Map Generation")) {
-            AssignCityMultis();
-        } else if (GUILayout.Button("Update Random Seed")) {
-            UpdateRandomSeed();
-        } else if (GUILayout.Button("Print Biome Counts")) {
-            PrintBiomeCounts();
-        } else if (GUILayout.Button("Print Elevation Counts")) {
-            PrintElevationCounts();
-        } else if (GUILayout.Button("Print Forest Counts")) {
-            PrintForestCounts();
-            */
-        //Entity Stuff
+            //Map stuff
+            /*} else if (GUILayout.Button("Create Map")) {
+                CreateMap();
+            } else if (GUILayout.Button("Populate Map")) {
+                PopulateMap();
+            } else if (GUILayout.Button("Create Water")) {
+                CreateWater();
+            } else if (GUILayout.Button("Assign Biomes")) {
+                AssignBiomes();
+            } else if (GUILayout.Button("Assign Elevation Multis")) {
+                AssignElevationMultis();
+            } else if (GUILayout.Button("Assign Forest Multis")) {
+                AssignForestMultis();
+            } else if (GUILayout.Button("Assign City Multis")) {
+                AssignCityMultis();
+            } else if (GUILayout.Button("Full Map Generation")) {
+                AssignCityMultis();
+            } else if (GUILayout.Button("Update Random Seed")) {
+                UpdateRandomSeed();
+            } else if (GUILayout.Button("Print Biome Counts")) {
+                PrintBiomeCounts();
+            } else if (GUILayout.Button("Print Elevation Counts")) {
+                PrintElevationCounts();
+            } else if (GUILayout.Button("Print Forest Counts")) {
+                PrintForestCounts();
+                */
+            //Entity Stuff
         } else if (GUILayout.Button("Spawn Random Human")) {
             SpawnRandomHuman();
         } else if (GUILayout.Button("Spawn Random Herbavore")) {
@@ -47,9 +47,14 @@ public class EditorFunctions : EditorWindow {
         } else if (GUILayout.Button("Spawn Random Predator")) {
             SpawnRandomPredator();
 
-        // Notification Stuff
+            // Notification Stuff
         } else if (GUILayout.Button("Give 5 gold")) {
             GiveGold();
+
+
+            //Test combat
+        } else if (GUILayout.Button("Start Test Combat")) {
+            CreateTestCombat();
         }
 
     }
@@ -202,4 +207,23 @@ public class EditorFunctions : EditorWindow {
 
             );
     }
+
+    private void CreateTestCombat() {
+
+        if(EntityController.Get().entPlayer == null) {
+            SpawnRandomHuman();
+        }
+
+        if(EntityController.Get().lstEnemyEntities == null || EntityController.Get().lstEnemyEntities.Count == 0) {
+            SpawnRandomPredator();
+        }
+
+        CombatFactory.Get().CreateCombat(new List<Entity>() { EntityController.Get().entPlayer },
+            new List<Entity>() { EntityController.Get().lstEnemyEntities[0] });
+
+
+    }
+
 }
+
+

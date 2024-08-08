@@ -7,7 +7,11 @@ public enum ItemType {
     CopperOre, IronOre, GoldOre,
     Bearskin,
 
+    WolfsClaws, WolfPelt,
+
     Shortsword,
+
+    Platemail,
 
     HealingPotion,
 

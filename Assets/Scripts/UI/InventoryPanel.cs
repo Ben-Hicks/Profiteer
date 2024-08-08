@@ -15,7 +15,7 @@ public class InventoryPanel : Singleton<InventoryPanel> {
 
     public Inventory inv;
     
-    public HideablePanel hideable;
+    public HideablePanel panelContent;
 
     public void SetInventory(Inventory _inv) {
         inv = _inv;
@@ -101,7 +101,7 @@ public class InventoryPanel : Singleton<InventoryPanel> {
     }
 
     public override void Init() {
-        hideable.Hide();
+        panelContent.Hide();
     }
 
 }

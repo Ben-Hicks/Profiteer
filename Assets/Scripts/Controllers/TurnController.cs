@@ -6,7 +6,7 @@ public class TurnController : Singleton<TurnController> {
 
     private int iCurEntityTurn;
     public Entity entCurActing {
-        get { return Map.Get().lstEntities[iCurEntityTurn]; }
+        get { return EntityController.Get().lstAllEntities[iCurEntityTurn]; }
     }
     private ActionEntity actToExecute;
     private bool bFinishedTurn;
@@ -21,7 +21,7 @@ public class TurnController : Singleton<TurnController> {
 
         iCurEntityTurn++;
 
-        while (iCurEntityTurn < Map.Get().lstEntities.Count) {
+        while (iCurEntityTurn < EntityController.Get().lstAllEntities.Count) {
 
             if (entCurActing.entinfo.bAlive) return entCurActing;
             iCurEntityTurn++;
@@ -33,8 +33,8 @@ public class TurnController : Singleton<TurnController> {
     }
 
     public void SubmitChosenAction(ActionEntity act) {
-        if(act.ent != Map.Get().lstEntities[iCurEntityTurn]) {
-            Debug.LogErrorFormat("Recieved an action input from {0}, but we're expecting {1} to act next", act.ent, Map.Get().lstEntities[iCurEntityTurn]);
+        if(act.ent != EntityController.Get().lstAllEntities[iCurEntityTurn]) {
+            Debug.LogErrorFormat("Recieved an action input from {0}, but we're expecting {1} to act next", act.ent, EntityController.Get().lstAllEntities[iCurEntityTurn]);
             return;
         }
 
@@ -42,8 +42,8 @@ public class TurnController : Singleton<TurnController> {
     }
 
     public void SubmitFinishTurn(Entity ent) {
-        if (ent != Map.Get().lstEntities[iCurEntityTurn]) {
-            Debug.LogErrorFormat("Recieved an action input from {0}, but we're expecting {1} to act next", ent, Map.Get().lstEntities[iCurEntityTurn]);
+        if (ent != EntityController.Get().lstAllEntities[iCurEntityTurn]) {
+            Debug.LogErrorFormat("Recieved an action input from {0}, but we're expecting {1} to act next", ent, EntityController.Get().lstAllEntities[iCurEntityTurn]);
             return;
         }
 
@@ -60,7 +60,7 @@ public class TurnController : Singleton<TurnController> {
 
         while (true) {
 
-            if (Map.Get().lstEntities == null || Map.Get().lstEntities.Count == 0) {
+            if (EntityController.Get().lstAllEntities == null || EntityController.Get().lstAllEntities.Count == 0) {
                 Debug.Log("We have no entities, so no need do any turn loop right now");
                 yield return new WaitForSeconds(5);
                 continue;

@@ -53,6 +53,15 @@ public class InfoPanel : Singleton<InfoPanel> {
         txtInfo.text = sInfo;
     }
 
+    public void SetInfo(Ability abil) {
+        if(abil == null) {
+            ClearInfo();
+            return;
+        }
+
+        string sInfo = string.Format("Ability: {0}\nDesc: {1}", abil.sName, abil.GetDescription());
+    }
+
     public void ClearInfo() {
         txtInfo.text = "";
     }

@@ -12,6 +12,9 @@ public class Inventory {
 
 
     public void AddItem(Item item) {
+
+        if (item == null) return;
+
         Debug.LogFormat("Adding {0}", item);
         for (int i = 0; i < lstItems.Count; i++) {
             if (item.itemtype == lstItems[i].itemtype) {
@@ -46,6 +49,15 @@ public class Inventory {
             }
         }
         Debug.LogErrorFormat("Can't remove {0} since we don't have any", itemToRemove.itemtype);
+    }
+
+    public void AddAndEquipStartingEquipment(EquippableWeapon equippableLeft, EquippableWeapon equippableRight, EquippableArmour equippableArmour) {
+
+        AddItems(equippableLeft, equippableRight, equippableArmour);
+
+        entOwner.equip.EquipLeft(equippableLeft);
+        entOwner.equip.EquipRight(equippableRight);
+        entOwner.equip.EquipArmour(equippableArmour);
     }
 
     public int GetItemCount(ItemType itemtype) {

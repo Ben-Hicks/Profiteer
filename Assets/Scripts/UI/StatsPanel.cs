@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(HideablePanel))]
 public class StatsPanel : Singleton<StatsPanel> {
 
     public Text txtName;
@@ -16,7 +15,7 @@ public class StatsPanel : Singleton<StatsPanel> {
 
     public Entity ent;
 
-    public HideablePanel hideable;
+    public HideablePanel panelContent;
 
     public void SetEntity(Entity _ent) {
         ent = _ent;
@@ -25,7 +24,7 @@ public class StatsPanel : Singleton<StatsPanel> {
 
         CreateStats();
 
-        hideable.Show();
+        panelContent.Show();
     }
 
     public void AddStat(string sLabel, StatEntry.GetValueString getvaluestring, params Subject[] subToUpdateOnChange) {
@@ -101,7 +100,7 @@ public class StatsPanel : Singleton<StatsPanel> {
     }
 
     public override void Init() {
-        hideable.Hide();
+        panelContent.Hide();
         txtName.text = "NAME";
     }
     
